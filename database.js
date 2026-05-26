@@ -142,20 +142,60 @@ async function searchProducts(searchTerm) {
 }
 
 /**
+ * Save or update the group a customer belongs to
+ */
+async function saveCustomerGroup(customerId, groupId, groupName = null) {
+  await pool.query(
+    `INSERT INTO customer_groups (customer_id, group_id, group_name, is_active)
+     VALUES ($1, $2, $3, true)
+     ON CONFLICT (customer_id, group_id)
+     DO UPDATE SET is_active = true, group_name = COALESCE(EXCLUDED.group_name, customer_groups.group_name)`,
+    [customerId, groupId, groupName]
+  );
+}
+
+/**
+ * Get all active groups a customer is registered in
+ */
+async function getCustomerGroups(customerId) {
+  const result = await pool.query(
+    `SELECT * FROM customer_groups
+     WHERE customer_id = $1 AND is_active = true
+     ORDER BY created_at DESC`,
+    [customerId]
+  );
+  return result.rows;
+}
+
+/**
+ * Get the most recently registered group_id for a customer
+ */
+async function getPrimaryGroupId(customerId) {
+  const result = await pool.query(
+    `SELECT group_id FROM customer_groups
+     WHERE customer_id = $1 AND is_active = true
+     ORDER BY created_at DESC
+     LIMIT 1`,
+    [customerId]
+  );
+  return result.rows[0]?.group_id || null;
+}
+
+/**
  * Create new order
  */
-async function createOrder(customerId, items) {
+async function createOrder(customerId, items, groupId = null) {
   const client = await pool.connect();
-  
+
   try {
     await client.query('BEGIN');
-    
+
     // Create order
     const orderResult = await client.query(
-      `INSERT INTO orders (customer_id, status, created_at, updated_at) 
-       VALUES ($1, 'completed', NOW(), NOW()) 
+      `INSERT INTO orders (customer_id, status, group_id, created_at, updated_at)
+       VALUES ($1, 'completed', $2, NOW(), NOW())
        RETURNING *`,
-      [customerId]
+      [customerId, groupId]
     );
     const order = orderResult.rows[0];
     
@@ -195,6 +235,89 @@ async function updateOrderStatus(orderId, status) {
 }
 
 /**
+ * Upsert group profile (customer code + optional overview group)
+ */
+async function upsertGroupProfile(groupId, customerCode, overviewGroupId = null) {
+  await pool.query(
+    `INSERT INTO group_profiles (group_id, customer_code, overview_group_id, updated_at)
+     VALUES ($1, $2, $3, NOW())
+     ON CONFLICT (group_id)
+     DO UPDATE SET
+       customer_code = COALESCE(EXCLUDED.customer_code, group_profiles.customer_code),
+       overview_group_id = COALESCE(EXCLUDED.overview_group_id, group_profiles.overview_group_id),
+       updated_at = NOW()`,
+    [groupId, customerCode, overviewGroupId]
+  );
+}
+
+/**
+ * Get group profile (customer code + overview group)
+ */
+async function getGroupProfile(groupId) {
+  const result = await pool.query(
+    'SELECT * FROM group_profiles WHERE group_id = $1',
+    [groupId]
+  );
+  return result.rows[0] || null;
+}
+
+/**
+ * Get all active customer-group registrations (for admin UI)
+ */
+async function getRegistrations() {
+  const result = await pool.query(`
+    SELECT c.id AS customer_id, c.phone, cg.group_id, cg.group_name, cg.created_at
+    FROM customer_groups cg
+    JOIN customers c ON c.id = cg.customer_id
+    WHERE cg.is_active = true
+    ORDER BY cg.created_at DESC
+  `);
+  return result.rows;
+}
+
+/**
+ * Deregister a customer from a group
+ */
+async function deregisterCustomer(customerId, groupId) {
+  await pool.query(
+    `UPDATE customer_groups SET is_active = false WHERE customer_id = $1 AND group_id = $2`,
+    [customerId, groupId]
+  );
+}
+
+/**
+ * Get all group profiles
+ */
+async function getAllGroupProfiles() {
+  const result = await pool.query('SELECT * FROM group_profiles ORDER BY created_at DESC');
+  return result.rows;
+}
+
+/**
+ * Delete a group profile
+ */
+async function deleteGroupProfile(groupId) {
+  await pool.query('DELETE FROM group_profiles WHERE group_id = $1', [groupId]);
+}
+
+/**
+ * Get recent orders with items (for admin UI)
+ */
+async function getRecentOrders(limit = 50) {
+  const result = await pool.query(`
+    SELECT o.id, o.created_at, o.group_id, c.phone,
+           json_agg(json_build_object('name', oi.product_name, 'qty', oi.quantity) ORDER BY oi.id) AS items
+    FROM orders o
+    JOIN customers c ON c.id = o.customer_id
+    JOIN order_items oi ON oi.order_id = o.id
+    GROUP BY o.id, c.phone
+    ORDER BY o.created_at DESC
+    LIMIT $1
+  `, [limit]);
+  return result.rows;
+}
+
+/**
  * Close database connection
  */
 async function close() {
@@ -215,5 +338,15 @@ module.exports = {
   searchProducts,
   createOrder,
   updateOrderStatus,
+  saveCustomerGroup,
+  getCustomerGroups,
+  getPrimaryGroupId,
+  upsertGroupProfile,
+  getGroupProfile,
+  getRegistrations,
+  deregisterCustomer,
+  getAllGroupProfiles,
+  deleteGroupProfile,
+  getRecentOrders,
   close
 };

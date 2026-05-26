@@ -27,3 +27,6 @@ Thumbs.db
 # Temporary files
 tmp/
 temp/
+
+# Baileys WhatsApp auth (contains session credentials)
+baileys-auth/

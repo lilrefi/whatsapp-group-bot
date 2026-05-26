@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Refi Bot Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #f0f2f5; }
+    .topbar { background: #25D366; }
+    .topbar .navbar-brand { color: #fff; font-weight: 700; font-size: 1.1rem; }
+    .topbar .btn-logout { color: #fff; border-color: rgba(255,255,255,0.5); }
+    .topbar .btn-logout:hover { background: rgba(255,255,255,0.15); }
+    .nav-tabs .nav-link { color: #555; }
+    .nav-tabs .nav-link.active { font-weight: 600; color: #25D366; border-bottom-color: #25D366; }
+    .card { border: none; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .table th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: .04em; color: #888; font-weight: 600; }
+    .table td { vertical-align: middle; font-size: 0.9rem; }
+    code { background: #eef; border-radius: 4px; padding: 1px 5px; font-size: 0.82em; color: #333; }
+    .badge-ready { background: #25D366; }
+    #loginWrap { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); z-index: 9999; }
+    #loginBox { background: #fff; border-radius: 12px; padding: 2rem; width: 340px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+    #loginBox h5 { font-weight: 700; }
+    #mainWrap { display: none; }
+    .copy-btn { cursor: pointer; }
+    .empty-row td { color: #aaa; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<!-- Login screen -->
+<div id="loginWrap">
+  <div id="loginBox">
+    <h5 class="mb-1">🤖 Refi Bot Admin</h5>
+    <p class="text-muted small mb-3">Enter your admin password to continue.</p>
+    <div id="loginErr" class="alert alert-danger py-2 small d-none"></div>
+    <div class="mb-3">
+      <input type="password" id="pwInput" class="form-control" placeholder="Password">
+    </div>
+    <button class="btn w-100 text-white fw-semibold" style="background:#25D366" onclick="login()">Login</button>
+  </div>
+</div>
+
+<!-- Main app -->
+<div id="mainWrap">
+  <nav class="navbar topbar px-3 py-2 mb-4">
+    <span class="navbar-brand">🤖 Refi Bot Admin</span>
+    <button class="btn btn-sm btn-logout" onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container-fluid px-4">
+    <ul class="nav nav-tabs mb-4" id="tabs">
+      <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#t-reg">👥 Registrations</a></li>
+      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#t-profiles">📋 Group Profiles</a></li>
+      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#t-orders">📦 Orders</a></li>
+      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#t-baileys">📱 Baileys Groups</a></li>
+    </ul>
+
+    <div class="tab-content">
+
+      <!-- ── Registrations ─────────────────────────────────────────────────── -->
+      <div class="tab-pane fade show active" id="t-reg">
+        <div class="row g-3 mb-4">
+          <div class="col-lg-5">
+            <div class="card p-3">
+              <h6 class="fw-semibold mb-3">Register Customer to Group</h6>
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Customer Phone</label>
+                <input id="r-phone" type="text" class="form-control form-control-sm" placeholder="e.g. 60123456789">
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Group ID</label>
+                <input id="r-group" type="text" class="form-control form-control-sm" placeholder="e.g. 120363xxxx@g.us">
+                <div class="form-text">Tip: copy from the Baileys Groups tab.</div>
+              </div>
+              <button class="btn btn-sm text-white fw-semibold" style="background:#25D366" onclick="addRegistration()">Register</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body p-0">
+            <table class="table table-hover mb-0 rounded-3 overflow-hidden">
+              <thead class="table-light">
+                <tr>
+                  <th class="ps-3">Phone</th>
+                  <th>Group ID</th>
+                  <th>Since</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="reg-tbody"><tr class="empty-row"><td colspan="4" class="text-center py-3">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Group Profiles ────────────────────────────────────────────────── -->
+      <div class="tab-pane fade" id="t-profiles">
+        <div class="row g-3 mb-4">
+          <div class="col-lg-6">
+            <div class="card p-3">
+              <h6 class="fw-semibold mb-3">Add / Update Group Profile</h6>
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Group ID</label>
+                <input id="gp-group" type="text" class="form-control form-control-sm" placeholder="e.g. 120363xxxx@g.us">
+              </div>
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Customer Code <span class="text-muted fw-normal">(for smart product matching)</span></label>
+                <input id="gp-code" type="text" class="form-control form-control-sm" placeholder="e.g. 002">
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Boss / Overview Group ID <span class="text-muted fw-normal">(optional)</span></label>
+                <input id="gp-overview" type="text" class="form-control form-control-sm" placeholder="e.g. 120363yyyy@g.us">
+              </div>
+              <button class="btn btn-sm text-white fw-semibold" style="background:#25D366" onclick="saveProfile()">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="ps-3">Group ID</th>
+                  <th>Code</th>
+                  <th>Overview Group</th>
+                  <th>Updated</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="gp-tbody"><tr class="empty-row"><td colspan="5" class="text-center py-3">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Orders ────────────────────────────────────────────────────────── -->
+      <div class="tab-pane fade" id="t-orders">
+        <div class="card">
+          <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="ps-3" style="width:70px">Order #</th>
+                  <th style="width:140px">Customer</th>
+                  <th style="width:160px">Group</th>
+                  <th>Items</th>
+                  <th style="width:140px">Date</th>
+                </tr>
+              </thead>
+              <tbody id="ord-tbody"><tr class="empty-row"><td colspan="5" class="text-center py-3">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Baileys Groups ─────────────────────────────────────────────────── -->
+      <div class="tab-pane fade" id="t-baileys">
+        <div id="b-status" class="alert mb-3"></div>
+        <div class="card">
+          <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="ps-3">Group Name</th>
+                  <th>Group ID</th>
+                  <th style="width:110px">Participants</th>
+                  <th style="width:110px"></th>
+                </tr>
+              </thead>
+              <tbody id="b-tbody"><tr class="empty-row"><td colspan="4" class="text-center py-3">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-content -->
+  </div><!-- /container -->
+</div><!-- /mainWrap -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let TOKEN = localStorage.getItem('refi_admin_token');
+
+  // ── Auth ──────────────────────────────────────────────────────────────────
+
+  function showLogin() {
+    document.getElementById('loginWrap').style.display = 'flex';
+    document.getElementById('mainWrap').style.display = 'none';
+  }
+  function showApp() {
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('mainWrap').style.display = 'block';
+    loadAll();
+  }
+
+  document.getElementById('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+  async function login() {
+    const pw = document.getElementById('pwInput').value;
+    const res = await fetch('/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      TOKEN = data.token;
+      localStorage.setItem('refi_admin_token', TOKEN);
+      showApp();
+    } else {
+      const err = document.getElementById('loginErr');
+      err.textContent = 'Wrong password. Try again.';
+      err.classList.remove('d-none');
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('refi_admin_token');
+    TOKEN = null;
+    showLogin();
+  }
+
+  // ── API helper ────────────────────────────────────────────────────────────
+
+  async function api(method, path, body) {
+    const opts = { method, headers: { 'x-admin-token': TOKEN } };
+    if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+    const res = await fetch('/admin/api' + path, opts);
+    if (res.status === 401) { logout(); return null; }
+    return res.json();
+  }
+
+  function loadAll() {
+    loadRegistrations();
+  }
+
+  // Reload each tab when switched to
+  document.querySelectorAll('[data-bs-toggle="tab"]').forEach(el => {
+    el.addEventListener('shown.bs.tab', e => {
+      const tab = e.target.getAttribute('href');
+      if (tab === '#t-reg') loadRegistrations();
+      else if (tab === '#t-profiles') loadProfiles();
+      else if (tab === '#t-orders') loadOrders();
+      else if (tab === '#t-baileys') loadBaileys();
+    });
+  });
+
+  // ── Registrations ─────────────────────────────────────────────────────────
+
+  async function loadRegistrations() {
+    const data = await api('GET', '/registrations');
+    if (!data) return;
+    const tbody = document.getElementById('reg-tbody');
+    if (data.length === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="4" class="text-center py-4">No registrations yet. Add one above.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(r => `
+      <tr>
+        <td class="ps-3">${r.phone}</td>
+        <td><code>${r.group_id}</code></td>
+        <td class="text-muted">${fmtDate(r.created_at)}</td>
+        <td class="text-end pe-3">
+          <button class="btn btn-outline-danger btn-sm"
+            onclick="removeRegistration('${r.customer_id}','${encodeURIComponent(r.group_id)}','${r.phone}')">
+            Remove
+          </button>
+        </td>
+      </tr>`).join('');
+  }
+
+  async function addRegistration() {
+    const phone = document.getElementById('r-phone').value.trim();
+    const group_id = document.getElementById('r-group').value.trim();
+    if (!phone || !group_id) return alert('Both phone and group ID are required.');
+    const res = await api('POST', '/registrations', { phone, group_id });
+    if (!res) return;
+    document.getElementById('r-phone').value = '';
+    document.getElementById('r-group').value = '';
+    loadRegistrations();
+  }
+
+  async function removeRegistration(customerId, groupIdEncoded, phone) {
+    if (!confirm(`Remove ${phone} from this group?`)) return;
+    await api('DELETE', `/registrations/${customerId}/${groupIdEncoded}`);
+    loadRegistrations();
+  }
+
+  // ── Group Profiles ────────────────────────────────────────────────────────
+
+  async function loadProfiles() {
+    const data = await api('GET', '/group-profiles');
+    if (!data) return;
+    const tbody = document.getElementById('gp-tbody');
+    if (data.length === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="5" class="text-center py-4">No group profiles yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(p => `
+      <tr>
+        <td class="ps-3"><code>${p.group_id}</code></td>
+        <td>${p.customer_code || '<span class="text-muted">—</span>'}</td>
+        <td>${p.overview_group_id ? `<code>${p.overview_group_id}</code>` : '<span class="text-muted">—</span>'}</td>
+        <td class="text-muted">${fmtDate(p.updated_at)}</td>
+        <td class="text-end pe-3">
+          <button class="btn btn-outline-secondary btn-sm me-1"
+            onclick="editProfile('${esc(p.group_id)}','${esc(p.customer_code||'')}','${esc(p.overview_group_id||'')}')">
+            Edit
+          </button>
+          <button class="btn btn-outline-danger btn-sm"
+            onclick="deleteProfile('${encodeURIComponent(p.group_id)}')">
+            Delete
+          </button>
+        </td>
+      </tr>`).join('');
+  }
+
+  function editProfile(groupId, code, overview) {
+    document.getElementById('gp-group').value = groupId;
+    document.getElementById('gp-code').value = code;
+    document.getElementById('gp-overview').value = overview;
+    document.querySelector('[href="#t-profiles"]').click();
+    document.getElementById('gp-group').focus();
+  }
+
+  async function saveProfile() {
+    const group_id = document.getElementById('gp-group').value.trim();
+    const customer_code = document.getElementById('gp-code').value.trim();
+    const overview_group_id = document.getElementById('gp-overview').value.trim();
+    if (!group_id) return alert('Group ID is required.');
+    await api('POST', '/group-profiles', { group_id, customer_code, overview_group_id });
+    document.getElementById('gp-group').value = '';
+    document.getElementById('gp-code').value = '';
+    document.getElementById('gp-overview').value = '';
+    loadProfiles();
+  }
+
+  async function deleteProfile(groupIdEncoded) {
+    if (!confirm('Delete this group profile?')) return;
+    await api('DELETE', `/group-profiles/${groupIdEncoded}`);
+    loadProfiles();
+  }
+
+  // ── Orders ────────────────────────────────────────────────────────────────
+
+  async function loadOrders() {
+    const data = await api('GET', '/orders');
+    if (!data) return;
+    const tbody = document.getElementById('ord-tbody');
+    if (data.length === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="5" class="text-center py-4">No orders yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(o => `
+      <tr>
+        <td class="ps-3 fw-semibold">#${o.id}</td>
+        <td>${o.phone}</td>
+        <td class="text-muted small">${o.group_id ? o.group_id.replace('@g.us','…') : '—'}</td>
+        <td class="small">${o.items.map(i => `${i.name} ×${i.qty}`).join(', ')}</td>
+        <td class="text-muted small">${fmtDateTime(o.created_at)}</td>
+      </tr>`).join('');
+  }
+
+  // ── Baileys Groups ────────────────────────────────────────────────────────
+
+  async function loadBaileys() {
+    const data = await api('GET', '/baileys-groups');
+    if (!data) return;
+    const statusEl = document.getElementById('b-status');
+    statusEl.className = `alert mb-3 ${data.ready ? 'alert-success' : 'alert-warning'}`;
+    statusEl.innerHTML = data.ready
+      ? '✅ <strong>Baileys is connected.</strong> Copy a Group ID to use it in Registrations or Group Profiles.'
+      : '⚠️ <strong>Baileys is not connected.</strong> Restart the server and scan the QR code.';
+
+    const tbody = document.getElementById('b-tbody');
+    if (data.groups.length === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="4" class="text-center py-4">No groups found — Baileys may not be connected yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.groups.map(g => `
+      <tr>
+        <td class="ps-3 fw-semibold">${esc(g.name)}</td>
+        <td><code>${g.id}</code></td>
+        <td>${g.participants} members</td>
+        <td class="text-end pe-3">
+          <button class="btn btn-outline-secondary btn-sm copy-btn" onclick="copyText('${g.id}', this)">Copy ID</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  async function copyText(text, btn) {
+    await navigator.clipboard.writeText(text);
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('btn-success');
+    btn.classList.remove('btn-outline-secondary');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('btn-success'); btn.classList.add('btn-outline-secondary'); }, 1500);
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  function fmtDate(d) { return d ? new Date(d).toLocaleDateString() : '—'; }
+  function fmtDateTime(d) { return d ? new Date(d).toLocaleString() : '—'; }
+  function esc(s) { return (s||'').replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+
+  if (TOKEN) { showApp(); } else { showLogin(); }
+</script>
+</body>
+</html>
