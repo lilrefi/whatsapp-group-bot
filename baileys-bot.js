@@ -4,6 +4,7 @@ const { Boom } = require('@hapi/boom');
 const pino = require('pino');
 const qrcode = require('qrcode-terminal');
 const path = require('path');
+const { handleGroupMessage, getPendingSessions, adminConfirm, adminCancel, adminUpdateItems } = require('./groupOrderHandler');
 
 let sock = null;
 let isReady = false;
@@ -53,7 +54,6 @@ async function connectBaileys() {
       console.log('✅ Baileys WhatsApp connected and ready!');
       isReady = true;
 
-      // Print all groups so admin can find the group ID
       sock.groupFetchAllParticipating().then(groups => {
         groupCache = groups;
         const ids = Object.keys(groups);
@@ -64,16 +64,21 @@ async function connectBaileys() {
     }
   });
 
-  // Log incoming group messages so admin can see group IDs
   sock.ev.on('messages.upsert', ({ messages }) => {
     for (const msg of messages) {
+      const groupId = msg.key.remoteJid;
+      const isGroup = groupId && groupId.endsWith('@g.us');
+
       if (!msg.message || msg.key.fromMe) continue;
-      const chatId = msg.key.remoteJid;
-      if (chatId.endsWith('@g.us')) {
-        const sender = msg.key.participant || '';
-        const text = msg.message?.conversation || msg.message?.extendedTextMessage?.text || '';
-        console.log(`📩 Baileys group msg | group: ${chatId} | from: ${sender} | text: ${text}`);
-      }
+      if (!isGroup) continue;
+
+      const senderPhone = (msg.key.participant || '').replace('@s.whatsapp.net', '');
+      const text = msg.message?.conversation || msg.message?.extendedTextMessage?.text || '';
+      if (!text.trim()) continue;
+
+      console.log(`📩 Group msg | ${groupId} | ${senderPhone} | ${text.substring(0, 80)}`);
+      handleGroupMessage(sock, groupId, senderPhone, text)
+        .catch(e => console.error('❌ handleGroupMessage error:', e.message));
     }
   });
 }
@@ -85,12 +90,23 @@ async function postToGroup(groupId, message) {
   }
   try {
     await sock.sendMessage(groupId, { text: message });
-    console.log(`✅ Baileys: posted order to group ${groupId}`);
+    console.log(`✅ Baileys: posted to group ${groupId}`);
     return true;
   } catch (error) {
     console.error('❌ Baileys error posting to group:', error.message);
     return false;
   }
+}
+
+// Admin wrappers — these need access to sock so they live here
+async function adminConfirmGroup(groupId) {
+  if (!sock || !isReady) return { success: false, error: 'Baileys not connected' };
+  return adminConfirm(sock, groupId);
+}
+
+async function adminCancelGroup(groupId) {
+  if (!sock || !isReady) return { success: false, error: 'Baileys not connected' };
+  return adminCancel(sock, groupId);
 }
 
 function isBaileysReady() {
@@ -105,4 +121,13 @@ function getBaileysGroups() {
   }));
 }
 
-module.exports = { connectBaileys, postToGroup, isBaileysReady, getBaileysGroups };
+module.exports = {
+  connectBaileys,
+  postToGroup,
+  isBaileysReady,
+  getBaileysGroups,
+  getPendingSessions,
+  adminConfirmGroup,
+  adminCancelGroup,
+  adminUpdateItems
+};

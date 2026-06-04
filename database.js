@@ -131,9 +131,9 @@ async function getProductById(id) {
  */
 async function searchProducts(searchTerm) {
   const result = await pool.query(
-    `SELECT * FROM products 
-     WHERE is_active = true 
-     AND LOWER(name) LIKE $1
+    `SELECT * FROM products
+     WHERE is_active = true
+     AND (LOWER(name) LIKE $1 OR name_zh LIKE $1)
      ORDER BY name
      LIMIT 20`,
     [`%${searchTerm.toLowerCase()}%`]
@@ -318,6 +318,109 @@ async function getRecentOrders(limit = 50) {
 }
 
 /**
+ * Create a group order with optional flagged items
+ */
+async function createGroupOrder(customerId, groupId, items, status = 'confirmed') {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const orderResult = await client.query(
+      `INSERT INTO orders (customer_id, status, group_id, created_at, updated_at)
+       VALUES ($1, $2, $3, NOW(), NOW()) RETURNING *`,
+      [customerId, status, groupId]
+    );
+    const order = orderResult.rows[0];
+    for (const item of items) {
+      await client.query(
+        `INSERT INTO order_items (order_id, product_id, quantity, product_name, unit_size, flagged, confidence_note, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())`,
+        [order.id, item.product_id, item.quantity, item.product.name,
+         item.product.unit_size || null, item.flagged || false, item.confidence_note || null]
+      );
+    }
+    await client.query('COMMIT');
+    const itemsResult = await client.query(
+      'SELECT * FROM order_items WHERE order_id = $1 ORDER BY id', [order.id]
+    );
+    return { order, items: itemsResult.rows };
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+/**
+ * Get recent orders with full item detail for staff view
+ */
+async function getStaffOrders(limit = 100) {
+  const result = await pool.query(`
+    SELECT o.id, o.created_at, o.group_id, o.status, c.phone,
+           json_agg(json_build_object(
+             'item_id', oi.id,
+             'product_id', oi.product_id,
+             'name', oi.product_name,
+             'sku', p.sku,
+             'qty', oi.quantity,
+             'unit_size', oi.unit_size,
+             'flagged', oi.flagged,
+             'confidence_note', oi.confidence_note
+           ) ORDER BY oi.id) AS items
+    FROM orders o
+    JOIN customers c ON c.id = o.customer_id
+    JOIN order_items oi ON oi.order_id = o.id
+    LEFT JOIN products p ON p.id = oi.product_id
+    GROUP BY o.id, c.phone
+    ORDER BY o.created_at DESC
+    LIMIT $1
+  `, [limit]);
+  return result.rows;
+}
+
+async function addItemToOrder(orderId, productId, productName, unitSize, quantity) {
+  const result = await pool.query(
+    `INSERT INTO order_items (order_id, product_id, quantity, product_name, unit_size, created_at)
+     VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING *`,
+    [orderId, productId, quantity, productName, unitSize || null]
+  );
+  return result.rows[0];
+}
+
+/**
+ * Update quantity of a single order item
+ */
+async function updateOrderItemQty(itemId, quantity) {
+  await pool.query('UPDATE order_items SET quantity = $1 WHERE id = $2', [quantity, itemId]);
+}
+
+/**
+ * Remove a single order item
+ */
+async function removeOrderItem(itemId) {
+  await pool.query('DELETE FROM order_items WHERE id = $1', [itemId]);
+}
+
+/**
+ * Cancel a placed order
+ */
+async function cancelOrderById(orderId) {
+  await pool.query(
+    `UPDATE orders SET status = 'cancelled', updated_at = NOW() WHERE id = $1`, [orderId]
+  );
+}
+
+/**
+ * Set Chinese name/keywords for a product
+ */
+async function updateProductZh(productId, nameZh) {
+  await pool.query(
+    'UPDATE products SET name_zh = $1 WHERE id = $2',
+    [nameZh || null, productId]
+  );
+}
+
+/**
  * Close database connection
  */
 async function close() {
@@ -348,5 +451,12 @@ module.exports = {
   getAllGroupProfiles,
   deleteGroupProfile,
   getRecentOrders,
+  createGroupOrder,
+  getStaffOrders,
+  updateOrderItemQty,
+  removeOrderItem,
+  cancelOrderById,
+  addItemToOrder,
+  updateProductZh,
   close
 };

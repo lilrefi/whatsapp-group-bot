@@ -13,130 +13,164 @@ npm start            # Production start
 npm run setup-db     # Creates tables + loads 268 products from schema_product.sql
 npm run migrate      # Adds customer_groups table + group_id column to orders
 npm run migrate-code # Adds group_profiles table (customer code + overview group)
+npm run migrate-zh   # Adds name_zh column to products (Chinese keyword search)
 ```
 
 ## Environment Variables
 
-| Variable | Source |
+| Variable | Purpose |
 |---|---|
-| `PHONE_NUMBER_ID` | Meta → WhatsApp → Getting Started |
-| `WHATSAPP_ACCESS_TOKEN` | Meta System Users token (permanent) |
-| `WEBHOOK_VERIFY_TOKEN` | Self-chosen string; must match Meta webhook config |
 | `DATABASE_URL` | Neon PostgreSQL connection string |
-| `WEBHOOK_URL` | Public HTTPS URL (ngrok in dev) |
-| `ADMIN_PASSWORD` | Password for the web admin dashboard at `/admin` |
+| `BOT_API_KEY` | Shared secret — must match the value set in db_revamp (Next.js dashboard). All API requests must include `x-api-key: <BOT_API_KEY>` header. |
+| `BOT_API_PORT` | Port for the REST API server (default: 3001) |
+| `PORT` | Port for any legacy health-check Express app (default: 3000, currently unused) |
+| `ORDER_BUFFER_MINUTES` | Minutes before auto-placing unconfirmed order (default: 10, timer currently disabled) |
 
 ## Architecture
 
-### System overview
+This project is a **pure backend**: Baileys WhatsApp bot + REST API. There is no frontend here.
 
-Dual-mode WhatsApp ordering bot for a food supplier:
+The frontend/staff dashboard lives in the **db_revamp** (Next.js) project, which calls this project's REST API.
 
-- **Meta Cloud API** — handles all DM (1-to-1) conversations. Customers order via DM with interactive buttons/lists. Meta cannot join WhatsApp groups.
-- **Baileys** (`baileys-bot.js`) — unofficial WhatsApp library running on a separate phone number. Sits inside each restaurant's WhatsApp group and posts order notifications there when an order is confirmed.
-- **PostgreSQL on Neon** — stores customers, products, orders, group registrations.
-- **Web admin dashboard** (`/admin`) — Bootstrap UI for managing all group registrations, group profiles, and viewing orders.
+### Components
+
+- **Baileys** (`baileys-bot.js`) — the only WhatsApp connection. Sits in restaurant WhatsApp groups, receives order messages, sends confirmation messages.
+- **Group order handler** (`groupOrderHandler.js`) — core logic: parse free-text orders, smart-match products, manage per-group in-memory sessions, finalize orders to DB.
+- **REST API** (`api.js`) — Express server on `BOT_API_PORT`. The db_revamp dashboard calls these endpoints to read pending orders and trigger confirm/cancel.
+- **PostgreSQL on Neon** (`database.js`) — stores customers, products, orders, group registrations.
 
 ### File map
 
 | File | Role |
 |---|---|
-| `server.js` | Express server, webhook handler, all message/session logic |
-| `whatsapp.js` | Meta Cloud API send helpers (text, button, list, group messages) |
+| `server.js` | Entry point: starts API server + Baileys connection |
+| `api.js` | REST API Express server (all `/api/*` endpoints) |
+| `baileys-bot.js` | Baileys WhatsApp connection, message listener, exports admin wrappers |
+| `groupOrderHandler.js` | Core order logic: parse, match, sessions, finalize |
 | `database.js` | All DB queries via `pg` pool |
-| `orders.js` | Order creation and repeat-order logic |
-| `products.js` | Product search and category helpers |
-| `baileys-bot.js` | Baileys WhatsApp connection, `postToGroup()`, `getBaileysGroups()` |
 | `profileLookup.js` | Loads customer JSON profiles from `customer_profiles/`, picks best product match by purchase history |
-| `admin-router.js` | Express router for `/admin` — auth middleware + CRUD API endpoints |
-| `public/admin.html` | Bootstrap 5 single-page admin dashboard |
 | `run-sql.js` | Helper to run `.sql` files against the DB (used by npm scripts) |
 | `nodemon.json` | Ignores `baileys-auth/` and `customer_profiles/` to prevent restart loops |
 
 ### Request flow
 
 ```
-Meta webhook POST /webhook
-  → res.sendStatus(200) IMMEDIATELY (prevents Meta retries)
-  → handleMessage() async
-      → admin commands (/adminregister, /adminlink, /setoverview)
-      → session state machine (customerSessions Map)
-      → handleFreeTextOrder() (NLP parsing + profile smart matching)
-  → db.* queries (database.js)
-  → sendTextMessage / sendButtonMessage / sendListMessage (whatsapp.js) for DMs
-  → postToGroup() (baileys-bot.js) for group notifications
+Baileys receives group message
+  → groupOrderHandler.handleGroupMessage()
+      → check group is linked in group_profiles (ignore if not)
+      → CANCEL → clear session, reply "❌ Order cancelled."
+      → disambiguation reply (pure integer) → handleDisambiguationReply()
+      → parseOrderLines() → searchProductsFuzzy() per line
+      → pickBestMatch() (uses customer profile JSON if available)
+      → ambiguous → askDisambiguation() (numbered list in group)
+      → resolved → merge into groupSessions Map (silent — no reply to group)
+
+db_revamp dashboard polls GET /api/pending-orders
+  → staff clicks Confirm → POST /api/confirm-order { groupId }
+      → adminConfirmGroup() → finalizeOrder() → DB write + group WhatsApp message
+  → staff clicks Cancel → POST /api/cancel-order { groupId }
+      → adminCancelGroup() → clear session + "❌ Order cancelled by admin." to group
 ```
 
-### Group notification flow
+## REST API
 
-When an order is confirmed via DM:
-1. `handleButtonConfirm()` or `text_order_confirm` YES handler fires
-2. Sends DM receipt to customer via Meta API
-3. Calls `postToGroup(session.originatingGroupId, groupMsg)` via Baileys
-4. Looks up `group_profiles` — if `overview_group_id` is set, also posts to the boss/overview group
+All endpoints require header: `x-api-key: <BOT_API_KEY>`
 
-`originatingGroupId` is set on the session during `handleStartCommand()` from `customer_groups` table. **If a customer has no group registered, this will be null and no group notification fires.**
+If `BOT_API_KEY` is not set in `.env`, the API runs open (dev mode).
 
-### Session state machine
+### GET /api/status
+Returns Baileys connection status.
+```json
+{ "connected": true, "phone": null }
+```
 
-`customerSessions` is an in-memory `Map<customerId, session>`. Sessions expire after 24 hours. **For production, replace with Redis.**
+### GET /api/pending-orders
+Returns all in-memory pending sessions.
+```json
+{
+  "orders": [
+    {
+      "groupId": "120363...",
+      "customerPhone": "601234567890",
+      "customerCode": "002",
+      "createdAt": "2026-06-01T10:00:00.000Z",
+      "awaitingDisambiguation": false,
+      "items": [
+        { "name": "Soya Sauce", "qty": 5, "unit": "750ML", "unitPrice": null, "flagged": false }
+      ],
+      "notFound": []
+    }
+  ]
+}
+```
 
-| `step` | Meaning |
-|---|---|
-| `main_menu` | Showing main menu buttons |
-| `category_select` | Browsing category list |
-| `product_select` | Browsing product list in a category |
-| `qty_input_text` | Waiting for user to type a quantity |
-| `cart_review` | Showing cart with Confirm/Add More/Clear buttons |
-| `confirming` | Order being confirmed |
-| `group_select` | Multi-group customer choosing which group to order for |
-| `text_order_confirm` | Free-text order parsed in group, waiting for YES/CANCEL |
-| `disambiguation` | Multiple products matched, waiting for user to pick one |
+### POST /api/confirm-order
+Body: `{ "groupId": "120363..." }`
+Confirms the pending order: saves to DB, sends WhatsApp confirmation to group.
+```json
+{ "success": true, "orderId": null }
+```
+Note: `orderId` is currently null — finalizeOrder does not surface the DB ID back through the call chain.
 
-### Free-text order parsing + smart matching
+### POST /api/cancel-order
+Body: `{ "groupId": "120363..." }`
+Cancels the pending order, sends "❌ Order cancelled by admin." to the group.
+```json
+{ "success": true }
+```
 
-`handleFreeTextOrder()` fires when no command matched and text contains a digit + ≥3 non-digit chars:
+### GET /api/groups
+Returns all rows from `group_profiles`.
+```json
+{ "groups": [{ "group_id": "120363...", "customer_code": "002", "overview_group_id": null, ... }] }
+```
 
-1. `parseOrderLines()` splits on newlines/commas/` and `, extracts quantity and search term per line
-2. `searchProductsFuzzy()` does LIKE search, falls back to word-by-word if no full match
-3. If 1 result → resolved immediately
-4. If multiple results → `pickBestMatch()` checks customer's JSON profile (`customer_profiles/3000_XXX.json`) for purchase history; picks highest `times_ordered` SKU
-5. If no profile match → `disambiguation` flow: asks user to pick which product they meant (buttons in DM, numbered list in group)
+### POST /api/groups
+Body: `{ "groupId": "120363...", "customerCode": "002" }`
+Creates or updates a group_profile row.
+```json
+{ "success": true, "group": { ... } }
+```
 
-### Database schema
+### DELETE /api/groups/:groupId
+Deletes the group_profile. GroupId must be URL-encoded if it contains special chars.
+```json
+{ "success": true }
+```
+
+## Order flow (group-only, text-only)
+
+1. Staff types order in restaurant WhatsApp group (e.g. "5 chicken, 3 fish cake")
+2. Baileys receives → `groupOrderHandler.handleGroupMessage()` fires
+3. Group must be linked in `group_profiles` — unlinked groups are silently ignored
+4. `parseOrderLines()` splits into lines → `searchProductsFuzzy()` per line
+5. Smart match: `pickBestMatch()` uses customer profile JSON if available
+6. If ambiguous (multiple matches, no history) → numbered list disambiguation in group
+7. Session stored silently — bot does not reply
+8. db_revamp dashboard shows the pending order
+9. Staff confirms → order saved to DB + WhatsApp confirmation sent to group
+10. Staff cancels → session cleared + "❌ Order cancelled by admin." sent
+
+## Session management
+
+`groupSessions` Map in `groupOrderHandler.js` (in-memory, keyed by groupId):
+- One active session per group at a time
+- New order messages while session is active → items MERGED (quantities replaced for duplicate products)
+- Session cleared on confirm / cancel / server restart
+
+## Database schema
 
 - `customers` — identified by phone number
-- `categories` / `products` — 268 products across 12 categories
-- `orders` + `order_items` — status always `'completed'` on creation; `group_id` records originating group
-- `customer_groups` — maps `customer_id → group_id`; one customer can have multiple groups
+- `categories` / `products` — 268 products across 12 categories; `name_zh` for Chinese keyword search
+- `orders` + `order_items` — `group_id` records originating group; `flagged` + `confidence_note` on items
+- `customer_groups` — maps `customer_id → group_id`
 - `group_profiles` — maps `group_id → customer_code + overview_group_id`
-
-### Admin setup flow (per new restaurant)
-
-1. Create WhatsApp group
-2. Add Baileys phone number to the group manually in WhatsApp
-3. In admin dashboard (`/admin`) → Registrations tab: register each ordering staff member's phone to the group
-4. (Optional) Group Profiles tab: link group to a customer profile code for smart matching
-5. (Optional) Group Profiles tab: set an overview/boss group to receive copies of all orders
-
-### Admin WhatsApp commands (DM the bot)
-
-These still work as an alternative to the dashboard:
-- `/adminregister [phone] [group_id]` — register a customer to a group
-- `/adminlink [group_id] [code]` — link group to customer profile JSON
-- `/setoverview [group_id] [boss_group_id]` — set overview group
-
-### WhatsApp API limits
-
-- Button messages: max 3 buttons, title max 20 chars
-- List messages: max 10 rows total, title max 24 chars, description max 72 chars
-- Interactive messages (buttons/lists) **not supported in group chats** — always use `sendGroupMessage` for groups
 
 ## Known issues / decisions
 
 - **Baileys auth**: credentials stored in `baileys-auth/` (gitignored). If deleted, must re-scan QR on next start.
 - **In-memory sessions**: server restart clears all active sessions. Users mid-order will need to restart. Replace with Redis for production.
-- **Meta webhook retries**: fixed by sending `res.sendStatus(200)` before processing. Previously caused phantom messages hours later when the server was restarting.
-- **Duplicate button webhooks**: Meta sometimes delivers button taps twice. `handleButtonConfirm` silently returns if session is already gone. `btn_view_cart` also guards against stale replays.
-- **`originatingGroupId` null bug**: if a customer orders without being registered to a group, `session.originatingGroupId` is null and no group notification fires. Fix: register them via the admin dashboard.
 - **Baileys on Windows terminal**: `printQRInTerminal: true` doesn't render correctly in PowerShell. Uses `qrcode-terminal` package with `qrcode.generate(qr, { small: true })` instead.
+- **Unlinked groups ignored**: bot returns early if `group_profiles` has no entry for the group — personal groups are safe.
+- **orderId not returned on confirm**: `finalizeOrder()` in groupOrderHandler.js does not bubble the DB order ID back to `adminConfirm`. The confirm API returns `orderId: null` for now.
+- **unitPrice always null**: product price is not stored in the in-memory session, only name/qty/unit. The db_revamp should look up prices from its own product catalog if needed.

@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/105",
+  "customer_name": "CASH AND CARRY",
+  "order_history": [
+    {
+      "item_code": "S713",
+      "description": "MAGGI TOMATO SAUCE 美极蕃茄酱 3.3KG/TIN",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    }
+  ]
+}

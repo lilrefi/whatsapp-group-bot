@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/091",
+  "customer_name": ">SENTECK VEGETARIAN FOODSTUFS AND SNACKS",
+  "order_history": [
+    {
+      "item_code": "BMRS-CAN",
+      "description": "MUSHROOM SLICED(BIG)  1X2840G  蘑菇片/大罐",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "BN06",
+      "description": "淡*豆皮50*片/包 UNSALTED BEAN CURD SKIN",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

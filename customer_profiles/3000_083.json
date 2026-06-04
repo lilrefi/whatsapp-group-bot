@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/083",
+  "customer_name": "CUSTOMER NO:",
+  "order_history": [
+    {
+      "item_code": "00001303",
+      "description": "BN606",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 8.0
+    }
+  ]
+}

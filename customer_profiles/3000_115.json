@@ -1,0 +1,27 @@
+{
+  "customer_code": "3000/115",
+  "customer_name": "#SONG SHENG TRADING(8B)松盛",
+  "order_history": [
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 95.0
+    },
+    {
+      "item_code": "BN01",
+      "description": "*1KG BEAN CURD STICK - 豆支",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "BN40-片",
+      "description": "片/PCS-咸豆皮-SALTED BEAN CURD SKIN",
+      "unit": "SHEET",
+      "times_ordered": 1,
+      "total_qty": 50.0
+    }
+  ]
+}

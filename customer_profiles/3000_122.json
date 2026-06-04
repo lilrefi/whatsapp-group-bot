@@ -1,0 +1,41 @@
+{
+  "customer_code": "3000/122",
+  "customer_name": "^51- MALAYSIA CHONG YOKE KEE 松玉记",
+  "order_history": [
+    {
+      "item_code": "YR-PCS",
+      "description": "",
+      "unit": "BOX",
+      "times_ordered": 9,
+      "total_qty": 49.0
+    },
+    {
+      "item_code": "QQ12",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "L003(GREEN CAP)",
+      "description": "LIGHT SOYA SAUCE(GREEN)-生抽(青盖) 5L",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "FZ-606",
+      "description": "PRAWN ROLL  虾枣 1KG",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "TID(C)箱",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/166",
+  "customer_name": "#CHENG FATT FROZEN FOOD(AG)",
+  "order_history": [
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 7,
+      "total_qty": 41.0
+    }
+  ]
+}

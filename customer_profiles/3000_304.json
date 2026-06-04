@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/304",
+  "customer_name": "511-HONG YU PTE LTD 红宇小厨",
+  "order_history": [
+    {
+      "item_code": "N69",
+      "description": "36 CRISPY NOODLE 煮炒炸生面 70GX36PKT/CTN",
+      "unit": "CTN",
+      "times_ordered": 9,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    }
+  ]
+}

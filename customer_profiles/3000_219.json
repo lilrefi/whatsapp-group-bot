@@ -1,0 +1,90 @@
+{
+  "customer_code": "3000/219",
+  "customer_name": ">XING ZHOU 星洲煮炒 MARSILING MALL",
+  "order_history": [
+    {
+      "item_code": "OIL-5L",
+      "description": "5 LITER-COOKING OIL -食油",
+      "unit": "BOT",
+      "times_ordered": 26,
+      "total_qty": 94.0
+    },
+    {
+      "item_code": "N84",
+      "description": "THICK NOODLE (YELLOW)1KG 大粗麺",
+      "unit": "PKT",
+      "times_ordered": 20,
+      "total_qty": 79.0
+    },
+    {
+      "item_code": "R8",
+      "description": "",
+      "unit": "BAG",
+      "times_ordered": 16,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 9,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "FZ8",
+      "description": "炸芋头圈(佛钵)=DEEP FRIED YAM RING 250GM",
+      "unit": "PCS",
+      "times_ordered": 5,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "FL14",
+      "description": "POTATO STARCH    2KG  风车粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "OYS-SH",
+      "description": "SH OYSTER SAUCE 5L/BOT 蚝油",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "R204",
+      "description": "ROYAL UMBRELLA RICE(PREMIUM) 安培娜泰国香米(袋) 25KG",
+      "unit": "BAG",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "NEST-PKT",
+      "description": "1KG/包 NESTUM CEREAL  麦片",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

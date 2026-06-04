@@ -1,0 +1,34 @@
+{
+  "customer_code": "3000/034",
+  "customer_name": "(NEIL)YE YAK KOREAN FOOD(RESERVED PTE LTD)",
+  "order_history": [
+    {
+      "item_code": "MCMLS-110",
+      "description": "9-STAR LIGHT SOY SAUCE   4KG/BOT 豉油/桶",
+      "unit": "BOT",
+      "times_ordered": 9,
+      "total_qty": 53.0
+    },
+    {
+      "item_code": "OYS-LKK",
+      "description": "PANDA BRAND OYSTER SAUCE-2.2KG  熊猫牌鲜味蚝油",
+      "unit": "TIN",
+      "times_ordered": 8,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 5,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "PV7(PKT)",
+      "description": "KNORR CHICKEN FLAVORED SEASONING/袋 1KG",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

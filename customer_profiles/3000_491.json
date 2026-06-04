@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/491",
+  "customer_name": "<8A THAI HAPPY HOTPOT",
+  "order_history": [
+    {
+      "item_code": "BN05",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

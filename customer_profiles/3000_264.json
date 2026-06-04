@@ -1,0 +1,34 @@
+{
+  "customer_code": "3000/264",
+  "customer_name": ">126_IL PICCOLO PIZZERIA",
+  "order_history": [
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 5,
+      "total_qty": 13.0
+    },
+    {
+      "item_code": "PLT-TIN",
+      "description": "PLANTA  牛油",
+      "unit": "TIN",
+      "times_ordered": 5,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "C15-1K",
+      "description": "CRUSHED CHILLI - PATTU 1KG/PKT/包",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "M514-PKT(包)",
+      "description": "BLACK PEPPER(COARSE)  500G (粗)黑胡椒",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    }
+  ]
+}

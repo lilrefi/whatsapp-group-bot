@@ -1,0 +1,55 @@
+{
+  "customer_code": "3000/344",
+  "customer_name": ">TRANSCITY FROZEN FOODS SUPPLIER PTE LTD",
+  "order_history": [
+    {
+      "item_code": "C08",
+      "description": "GREEN CHILLI W/VINEGAR 调味青椒包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 53,
+      "total_qty": 340.0
+    },
+    {
+      "item_code": "BN07",
+      "description": "炸豆支碎 =CRUSH FRIED BEAN CURD  1KG",
+      "unit": "PKT",
+      "times_ordered": 46,
+      "total_qty": 115.0
+    },
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 17,
+      "total_qty": 26.0
+    },
+    {
+      "item_code": "BOX_KA_L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "CTN",
+      "times_ordered": 10,
+      "total_qty": 52.0
+    },
+    {
+      "item_code": "BN01",
+      "description": "*1KG BEAN CURD STICK - 豆支",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "AA413",
+      "description": "MARMITE YEAST EXTRACT 410GM 妈蜜发酵精华/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "BOX_CARN",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    }
+  ]
+}

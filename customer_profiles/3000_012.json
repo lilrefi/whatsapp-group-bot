@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/012",
+  "customer_name": ">16 DING FENG 鼎豐 SEAFOOD",
+  "order_history": [
+    {
+      "item_code": "MWBLC-PKT",
+      "description": "SEAFOOD BELACHAN PASTE  1X1KG  海鲜峇拉煎酱/包",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 50.0
+    }
+  ]
+}

@@ -8,7 +8,9 @@
     "dev": "nodemon server.js",
     "setup-db": "node run-sql.js schema_product.sql",
     "migrate": "node run-sql.js migration_groups.sql",
-    "migrate-code": "node run-sql.js migration_customer_code.sql"
+    "migrate-code": "node run-sql.js migration_customer_code.sql",
+    "migrate-status": "node run-sql.js migration_order_status.sql",
+    "migrate-zh": "node run-sql.js migration_name_zh.sql"
   },
   "keywords": [
     "whatsapp",

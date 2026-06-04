@@ -1,0 +1,41 @@
+{
+  "customer_code": "3000/064",
+  "customer_name": ">(455)PENANG HERITAGE(DRINK STALL)",
+  "order_history": [
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "GK01",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "GK02",
+      "description": "箱_CTN_椰糖 2P COCONUT SUGAR (20X500GM)",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "PV30",
+      "description": "GULA KELAPA- MELAKA (10KG-CTN) 椰糖",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

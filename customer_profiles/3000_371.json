@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/371",
+  "customer_name": "<257 DUCK RICE STALL",
+  "order_history": [
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 14,
+      "total_qty": 170.0
+    }
+  ]
+}

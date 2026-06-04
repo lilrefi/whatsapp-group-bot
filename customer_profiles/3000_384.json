@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/384",
+  "customer_name": "^HONG KONG ROSE CHICKEN NOODLE(BT.TIMAH)",
+  "order_history": [
+    {
+      "item_code": "MCMDS-110",
+      "description": "GOLDEN DARK SOY SAUCE--金黄生晒  BOT/桶",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "C08",
+      "description": "GREEN CHILLI W/VINEGAR 调味青椒包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

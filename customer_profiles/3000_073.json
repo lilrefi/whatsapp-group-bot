@@ -1,0 +1,27 @@
+{
+  "customer_code": "3000/073",
+  "customer_name": ">GREEN BLISS HABITAT",
+  "order_history": [
+    {
+      "item_code": "R204",
+      "description": "ROYAL UMBRELLA RICE(PREMIUM) 安培娜泰国香米(袋) 25KG",
+      "unit": "BAG",
+      "times_ordered": 12,
+      "total_qty": 25.0
+    },
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "OLVG-CAN",
+      "description": "OLIVE VEGETABLE  450G/CAN  橄榄菜",
+      "unit": "CAN",
+      "times_ordered": 2,
+      "total_qty": 3.0
+    }
+  ]
+}

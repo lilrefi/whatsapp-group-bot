@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/057",
+  "customer_name": "485 PAU & SNACK(485)",
+  "order_history": [
+    {
+      "item_code": "OIL 83",
+      "description": "SH SEASAME OIL (WHITE CAP) 蔴油(白盖) 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

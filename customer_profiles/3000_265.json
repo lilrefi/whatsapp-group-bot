@@ -1,0 +1,41 @@
+{
+  "customer_code": "3000/265",
+  "customer_name": "#######SHENG TRADING(8B)松盛",
+  "order_history": [
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 60.0
+    },
+    {
+      "item_code": "BN01",
+      "description": "*1KG BEAN CURD STICK - 豆支",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "BN06",
+      "description": "淡*豆皮50*片/包 UNSALTED BEAN CURD SKIN",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "BN12",
+      "description": "",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "KA-M",
+      "description": "KARA COCONUT MILK(M)  500ML/PKT/包 中椰浆",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 18.0
+    }
+  ]
+}

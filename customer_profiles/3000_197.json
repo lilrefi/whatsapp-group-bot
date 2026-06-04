@@ -1,0 +1,181 @@
+{
+  "customer_code": "3000/197",
+  "customer_name": "(805)MAN LI SEAFOOD 萬里海鲜",
+  "order_history": [
+    {
+      "item_code": "MWBLC-PKT",
+      "description": "SEAFOOD BELACHAN PASTE  1X1KG  海鲜峇拉煎酱/包",
+      "unit": "PKT",
+      "times_ordered": 23,
+      "total_qty": 68.0
+    },
+    {
+      "item_code": "MCMLS-410",
+      "description": "4 STAR P/LIGHT SOY SAUCE  3.6KG/BOT  4星优质原生抽/桶",
+      "unit": "BOT",
+      "times_ordered": 22,
+      "total_qty": 45.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 20,
+      "total_qty": 38.0
+    },
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 16,
+      "total_qty": 44.0
+    },
+    {
+      "item_code": "L005",
+      "description": "LIGHT SAUCE  (WHITE CAP) 5L/BOT 生抽(桶)",
+      "unit": "BOT",
+      "times_ordered": 11,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "MWCFP-PKT",
+      "description": "(MW) CURRY FISH PASTE 1X1KG  鱼咖喱料/包",
+      "unit": "PKT",
+      "times_ordered": 11,
+      "total_qty": 70.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "TSCP/包",
+      "description": "TUNGSAN CHILLI PASTE  3KG/PKT  唐山正辣椒酱",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "C14",
+      "description": "HOT BEAN PASTE(6KG) 豆板酱(桶)6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "BK-SRFL",
+      "description": "BLUE KEY S/RAISING FLOUR  1KG/BOX 自发面粉/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "BMRS-CAN",
+      "description": "MUSHROOM SLICED(BIG)  1X2840G  蘑菇片/大罐",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "CARN-CAN",
+      "description": "CARNATION MILK (THAI) 405GM 三花淡奶精(泰)/罐",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "FSHRS-BOT",
+      "description": "227G/罐 SHRIMP SAUCE(SHIP) 幼滑虾酱",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M18",
+      "description": "AJINOMOTO(AJINEX)味精 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "M521",
+      "description": "HUA TIAO CHIEW(GT CHEF)  640ML/BOT  花雕酒(大厨)/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "N41",
+      "description": "VERMICELLI  250G/PKT  冬粉/包",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "N67",
+      "description": "3KGPKT/包 BEE HOON 米粉(干)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PV29",
+      "description": "CHU ZHEN FISH GRAVY  750GM  厨珍壹等鱼露",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "S719",
+      "description": "PLUM PASTE 酸梅膏 6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "SHP-CAN",
+      "description": "KK SHRIMP PASTE  1X227G  虾膏",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

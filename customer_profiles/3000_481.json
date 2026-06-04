@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/481",
+  "customer_name": "TAN SUM JOO PROVISION SHOP",
+  "order_history": [
+    {
+      "item_code": "BN01",
+      "description": "*1KG BEAN CURD STICK - 豆支",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 35.0
+    }
+  ]
+}

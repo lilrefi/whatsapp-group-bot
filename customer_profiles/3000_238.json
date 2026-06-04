@@ -1,0 +1,27 @@
+{
+  "customer_code": "3000/238",
+  "customer_name": ">(5)LE XUAN HONG KONG TIM SUM PTE LTD",
+  "order_history": [
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 12,
+      "total_qty": 120.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 12,
+      "total_qty": 13.0
+    },
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 7.0
+    }
+  ]
+}

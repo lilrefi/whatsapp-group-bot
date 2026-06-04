@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/098",
+  "customer_name": "^(325) RONG KEE BAO DIAN",
+  "order_history": [
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "PV18(BOT)",
+      "description": "MAGGI SEASONING (800ML)美极鲜味汁",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 12.0
+    }
+  ]
+}
