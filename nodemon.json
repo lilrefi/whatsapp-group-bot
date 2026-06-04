@@ -1,0 +1,5 @@
+{
+  "ignore": ["baileys-auth/*", "customer_profiles/*"],
+  "watch": ["."],
+  "ext": "js,mjs,cjs,json"
+}

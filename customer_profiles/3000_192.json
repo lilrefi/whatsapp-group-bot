@@ -1,0 +1,97 @@
+{
+  "customer_code": "3000/192",
+  "customer_name": "(15)HUP SIONG RESTAURANT",
+  "order_history": [
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 31.0
+    },
+    {
+      "item_code": "N67",
+      "description": "3KGPKT/包 BEE HOON 米粉(干)",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 38.0
+    },
+    {
+      "item_code": "C03",
+      "description": "THAILAND SWEET CHILLI SAUCE 980G/BOT 泰式甜辣椒(瓶)",
+      "unit": "BOT",
+      "times_ordered": 5,
+      "total_qty": 84.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 5,
+      "total_qty": 42.0
+    },
+    {
+      "item_code": "NEST-PKT",
+      "description": "1KG/包 NESTUM CEREAL  麦片",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 30.0
+    },
+    {
+      "item_code": "PLT-TIN",
+      "description": "PLANTA  牛油",
+      "unit": "TIN",
+      "times_ordered": 4,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "CARN-CAN",
+      "description": "CARNATION MILK (THAI) 405GM 三花淡奶精(泰)/罐",
+      "unit": "CAN",
+      "times_ordered": 3,
+      "total_qty": 144.0
+    },
+    {
+      "item_code": "N68",
+      "description": "10KG/CTN/箱 HONG KONG NOODLE 香港面",
+      "unit": "CTN",
+      "times_ordered": 2,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "BF01(PKT)",
+      "description": "BLACK FUNGUS(SMALL) 1KG/PKT   小云耳",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OIL 18",
+      "description": "",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "OYS21",
+      "description": "OYSTER FLD SAUCE (RED CAP) 蚝油",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "SFS-2L",
+      "description": "SWEET FLOUR SAUCE(CHH)  1X2L  甜酱",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

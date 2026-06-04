@@ -1,0 +1,83 @@
+{
+  "customer_code": "3000/053",
+  "customer_name": "^632- FU KANG TING VEGETARIAN 富康庭素食轩",
+  "order_history": [
+    {
+      "item_code": "AA415",
+      "description": "CAI PU (SWEET) 1X3KG  菜脯(甜)/包",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 28.0
+    },
+    {
+      "item_code": "BMRS-CAN",
+      "description": "MUSHROOM SLICED(BIG)  1X2840G  蘑菇片/大罐",
+      "unit": "CAN",
+      "times_ordered": 7,
+      "total_qty": 38.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 84.0
+    },
+    {
+      "item_code": "M532",
+      "description": "SALT  盐(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "M59(PKT)",
+      "description": "VE-SIN MSG   1KG/PKT  味精/包",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "FL14",
+      "description": "POTATO STARCH    2KG  风车粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "M512",
+      "description": "ROCK SUGAR  冰糖(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "OLVG-CAN",
+      "description": "OLIVE VEGETABLE  450G/CAN  橄榄菜",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

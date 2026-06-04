@@ -43,7 +43,7 @@ async function handleRepeatOrder(customerId) {
 /**
  * Confirm and create order (US-3.1, US-3.2)
  */
-async function confirmOrder(customerId, items) {
+async function confirmOrder(customerId, items, groupId = null) {
   try {
     if (!items || items.length === 0) {
       return {
@@ -51,7 +51,7 @@ async function confirmOrder(customerId, items) {
         message: 'No items in order'
       };
     }
-    
+
     // Verify all products still exist and active
     for (const item of items) {
       const product = await db.getProductById(item.product_id);
@@ -62,9 +62,9 @@ async function confirmOrder(customerId, items) {
         };
       }
     }
-    
+
     // Create order
-    const order = await db.createOrder(customerId, items);
+    const order = await db.createOrder(customerId, items, groupId);
     
     // Get full order items
     const orderItems = await db.getOrderItems(order.id);

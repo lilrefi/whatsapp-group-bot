@@ -6,7 +6,11 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "setup-db": "psql $DATABASE_URL -f schema.sql"
+    "setup-db": "node run-sql.js schema_product.sql",
+    "migrate": "node run-sql.js migration_groups.sql",
+    "migrate-code": "node run-sql.js migration_customer_code.sql",
+    "migrate-status": "node run-sql.js migration_order_status.sql",
+    "migrate-zh": "node run-sql.js migration_name_zh.sql"
   },
   "keywords": [
     "whatsapp",
@@ -18,11 +22,15 @@
   "author": "Refi Daffa",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "body-parser": "^1.20.2",
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.7.18",
     "axios": "^1.6.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "pg": "^8.11.3",
-    "dotenv": "^16.3.1"
+    "pino": "^10.3.1",
+    "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

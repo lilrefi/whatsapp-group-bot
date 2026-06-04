@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/063",
+  "customer_name": ">324- YOU LE TIAN SEAFOOD PTE LTD",
+  "order_history": [
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 12,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 35.0
+    }
+  ]
+}

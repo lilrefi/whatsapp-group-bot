@@ -1,0 +1,153 @@
+{
+  "customer_code": "3000/439",
+  "customer_name": "SINGYI F&B PTE LTD",
+  "order_history": [
+    {
+      "item_code": "M508",
+      "description": "BAG-25KG FINE SUGAR 白糖(袋)",
+      "unit": "BAG",
+      "times_ordered": 37,
+      "total_qty": 155.0
+    },
+    {
+      "item_code": "PV22",
+      "description": "SODIUM BICARBONATE 100G BOT",
+      "unit": "CAN",
+      "times_ordered": 34,
+      "total_qty": 1092.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 32,
+      "total_qty": 155.0
+    },
+    {
+      "item_code": "WCN(C)箱",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 31,
+      "total_qty": 37.0
+    },
+    {
+      "item_code": "OIL 82",
+      "description": "SESAME OIL G1 (RED CAP)5L  头车蔴油",
+      "unit": "BOT",
+      "times_ordered": 28,
+      "total_qty": 57.0
+    },
+    {
+      "item_code": "BN06",
+      "description": "淡*豆皮50*片/包 UNSALTED BEAN CURD SKIN",
+      "unit": "BAG",
+      "times_ordered": 26,
+      "total_qty": 39.0
+    },
+    {
+      "item_code": "VE-SIN25",
+      "description": "VE-SIN MSG   25KG/BAG  味精粒/袋",
+      "unit": "BAG",
+      "times_ordered": 16,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 14,
+      "total_qty": 97.0
+    },
+    {
+      "item_code": "QQ11",
+      "description": "JIA SHAI  5KG  加晒",
+      "unit": "BOT",
+      "times_ordered": 11,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "BA-TMR",
+      "description": "BABA'S TURMERIC POWDER  1KG/PKT  黄姜粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "BA10",
+      "description": "BABA'S MEAT CURRY PWD  1KG/PKT  肉咖喱粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 84.0
+    },
+    {
+      "item_code": "BA12",
+      "description": "BABA'S CHILLI POWDER  1KG/PKT  辣椒粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "MCMLS-110",
+      "description": "9-STAR LIGHT SOY SAUCE   4KG/BOT 豉油/桶",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "LKK5(BOT)",
+      "description": "TIPAROS FISH SAUCE  700CC/BOT  鱼味露(瓶)",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "C01(PKT)",
+      "description": "CINNAMON SKIN  桂皮(包) 250GM",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "C07",
+      "description": "DRIED CHILLI 1KG/PKT 辣椒干(包)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "DF802(PKT)",
+      "description": "STAR ANISEED 八角 250GM/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "DMS01",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "OYS-LKK",
+      "description": "PANDA BRAND OYSTER SAUCE-2.2KG  熊猫牌鲜味蚝油",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

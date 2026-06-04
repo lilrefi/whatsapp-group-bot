@@ -1,0 +1,167 @@
+{
+  "customer_code": "3000/231",
+  "customer_name": ">455-PENANG HERITAGE (NASI LEMAK STALL) 椰浆饭",
+  "order_history": [
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 36,
+      "total_qty": 672.0
+    },
+    {
+      "item_code": "C09",
+      "description": "SAMBAL CHILLI 叁峇辣椒(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 31,
+      "total_qty": 44.0
+    },
+    {
+      "item_code": "CA48",
+      "description": "MALING PORK LUNCHEON MEAT 397GX24 猪午餐肉 CTN-/箱",
+      "unit": "CTN",
+      "times_ordered": 30,
+      "total_qty": 31.0
+    },
+    {
+      "item_code": "DSS01(PKT)",
+      "description": "SHRIMP SKIN  1X500G  虾苗/扣",
+      "unit": "PKT",
+      "times_ordered": 27,
+      "total_qty": 52.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 20,
+      "total_qty": 195.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 20,
+      "total_qty": 200.0
+    },
+    {
+      "item_code": "BA10",
+      "description": "BABA'S MEAT CURRY PWD  1KG/PKT  肉咖喱粉",
+      "unit": "PKT",
+      "times_ordered": 14,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "BA12",
+      "description": "BABA'S CHILLI POWDER  1KG/PKT  辣椒粉",
+      "unit": "PKT",
+      "times_ordered": 13,
+      "total_qty": 13.0
+    },
+    {
+      "item_code": "P-NUT(M)",
+      "description": "1KG/PKT/包 RAW PEANUT 花生",
+      "unit": "PKT",
+      "times_ordered": 12,
+      "total_qty": 49.0
+    },
+    {
+      "item_code": "BP-CAN",
+      "description": "BRAISED PEANUTS  1X850G  香焖花生/罐",
+      "unit": "CAN",
+      "times_ordered": 8,
+      "total_qty": 40.0
+    },
+    {
+      "item_code": "M532",
+      "description": "SALT  盐(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "AA422",
+      "description": "ASSAM SKIN 500GM  亚叁皮/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "FL10(PKT)",
+      "description": "500G/包 FIVE SPICES POWDER 五香粉",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "PV30",
+      "description": "GULA KELAPA- MELAKA (10KG-CTN) 椰糖",
+      "unit": "CTN",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "PV7(PKT)",
+      "description": "KNORR CHICKEN FLAVORED SEASONING/袋 1KG",
+      "unit": "BAG",
+      "times_ordered": 6,
+      "total_qty": 30.0
+    },
+    {
+      "item_code": "CRBP-CAN",
+      "description": "CAN - CRESCENT BAKING POWDER  1X6LBS  发粉/罐",
+      "unit": "CAN",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "PV10",
+      "description": "BOX- TABLE SALT  500G  盒盐/盒",
+      "unit": "BOX",
+      "times_ordered": 3,
+      "total_qty": 36.0
+    },
+    {
+      "item_code": "BA14(PKT)",
+      "description": "BABA FISH CURRY PWD  1KG/PKT  鱼咖喱粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "DS02(PKT)",
+      "description": "PEARL SHRIMP  1X1KG  珍珠虾米",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "L005",
+      "description": "LIGHT SAUCE  (WHITE CAP) 5L/BOT 生抽(桶)",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OYS-LKK",
+      "description": "PANDA BRAND OYSTER SAUCE-2.2KG  熊猫牌鲜味蚝油",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

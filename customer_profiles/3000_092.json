@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/092",
+  "customer_name": "[292 ECON VEGTABLES & FRUITS PTE LTD",
+  "order_history": [
+    {
+      "item_code": "YM4",
+      "description": "",
+      "unit": "CUP",
+      "times_ordered": 1,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "YS30",
+      "description": "PCS - POSTERS",
+      "unit": "PCS",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

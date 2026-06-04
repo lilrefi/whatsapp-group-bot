@@ -1,0 +1,125 @@
+{
+  "customer_code": "3000/225",
+  "customer_name": "<361_CHEF THAM KITCHEN PTE LTD",
+  "order_history": [
+    {
+      "item_code": "L003(GREEN CAP)",
+      "description": "LIGHT SOYA SAUCE(GREEN)-生抽(青盖) 5L",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "FL07(CAN)",
+      "description": "450G/罐 ROYAL BAKING POWDER  发粉",
+      "unit": "CAN",
+      "times_ordered": 3,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "C14",
+      "description": "HOT BEAN PASTE(6KG) 豆板酱(桶)6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "FL08(BAG)",
+      "description": "300G/袋 CUSTARD POWDER  蛋黄粉",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M18",
+      "description": "AJINOMOTO(AJINEX)味精 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "MCMLS-410",
+      "description": "4 STAR P/LIGHT SOY SAUCE  3.6KG/BOT  4星优质原生抽/桶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "N41",
+      "description": "VERMICELLI  250G/PKT  冬粉/包",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OIL 83",
+      "description": "SH SEASAME OIL (WHITE CAP) 蔴油(白盖) 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PV14",
+      "description": "YELLOW SOYA BEAN 1KG/PKT  黄豆(包)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "S719",
+      "description": "PLUM PASTE 酸梅膏 6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

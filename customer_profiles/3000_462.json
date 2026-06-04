@@ -1,0 +1,111 @@
+{
+  "customer_code": "3000/462",
+  "customer_name": "724 KITCHEN #01-11 小厨",
+  "order_history": [
+    {
+      "item_code": "BF01(PKT)",
+      "description": "BLACK FUNGUS(SMALL) 1KG/PKT   小云耳",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "FL03(PKT)",
+      "description": "PLAIN FLOUR  1KG/PKT  面粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "PV10",
+      "description": "BOX- TABLE SALT  500G  盒盐/盒",
+      "unit": "BOX",
+      "times_ordered": 4,
+      "total_qty": 48.0
+    },
+    {
+      "item_code": "PV7(PKT)",
+      "description": "KNORR CHICKEN FLAVORED SEASONING/袋 1KG",
+      "unit": "BAG",
+      "times_ordered": 4,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "N69",
+      "description": "36 CRISPY NOODLE 煮炒炸生面 70GX36PKT/CTN",
+      "unit": "CTN",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "OYS-SH",
+      "description": "SH OYSTER SAUCE 5L/BOT 蚝油",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "WMPS-05",
+      "description": "WINDMILL POTATO STARCH   5KG 风车超级生粉",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "L005",
+      "description": "LIGHT SAUCE  (WHITE CAP) 5L/BOT 生抽(桶)",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "BSB(XG)",
+      "description": "300G/BOX/盒 SANG KEE BLACK SOY BEAN(XG) 仙姑豆豉王",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "FL14",
+      "description": "POTATO STARCH    2KG  风车粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "PV25",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

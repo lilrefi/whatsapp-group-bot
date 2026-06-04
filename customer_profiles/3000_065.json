@@ -1,0 +1,27 @@
+{
+  "customer_code": "3000/065",
+  "customer_name": ">35 SING SWEE KEE",
+  "order_history": [
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 29.0
+    },
+    {
+      "item_code": "MWBLC-PKT",
+      "description": "SEAFOOD BELACHAN PASTE  1X1KG  海鲜峇拉煎酱/包",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 68.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

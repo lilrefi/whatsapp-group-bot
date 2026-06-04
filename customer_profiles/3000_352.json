@@ -1,0 +1,41 @@
+{
+  "customer_code": "3000/352",
+  "customer_name": "^(20)CHOON WAH AUTO TRADING P/L",
+  "order_history": [
+    {
+      "item_code": "M528(BOT)",
+      "description": "RICE COOKING WINE 白米酒(大厨)/瓶 640ML/BOT",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "BB-PKT",
+      "description": "BLACK BEAN  1KG/PKT  黑豆/包",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "C01(PKT)",
+      "description": "CINNAMON SKIN  桂皮(包) 250GM",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PKL-罐",
+      "description": "PICKLED LETTUCE  1X182G  香菜心",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "PMBP-CAN",
+      "description": "PORK MINCED W/BEAN PASTE  1X185G 香菇肉酱罐",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 10.0
+    }
+  ]
+}

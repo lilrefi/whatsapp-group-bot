@@ -1,0 +1,41 @@
+{
+  "customer_code": "3000/373",
+  "customer_name": "#FEI HUANG MEE HOON KUAY MFG P/L(AG)",
+  "order_history": [
+    {
+      "item_code": "N43",
+      "description": "CHAI KEE PO CHAI MEE(CTN)/箱  220GX30/CTN",
+      "unit": "CTN",
+      "times_ordered": 16,
+      "total_qty": 1466.0
+    },
+    {
+      "item_code": "M508",
+      "description": "BAG-25KG FINE SUGAR 白糖(袋)",
+      "unit": "BAG",
+      "times_ordered": 15,
+      "total_qty": 105.0
+    },
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 14,
+      "total_qty": 3600.0
+    },
+    {
+      "item_code": "N61",
+      "description": "HONG KONG YEE FU MEE 香港伊府面/箱  4KG/CTN",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "N68",
+      "description": "10KG/CTN/箱 HONG KONG NOODLE 香港面",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    }
+  ]
+}

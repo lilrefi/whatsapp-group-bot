@@ -1,0 +1,55 @@
+{
+  "customer_code": "3000/108",
+  "customer_name": ">RU YI XUAN VEGETARIAN",
+  "order_history": [
+    {
+      "item_code": "BK-SRFL",
+      "description": "BLUE KEY S/RAISING FLOUR  1KG/BOX 自发面粉/盒",
+      "unit": "BOX",
+      "times_ordered": 2,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "CA55(CAN)",
+      "description": "",
+      "unit": "CAN",
+      "times_ordered": 2,
+      "total_qty": 36.0
+    },
+    {
+      "item_code": "MAGVG-BOT",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "OLVG-CAN",
+      "description": "OLIVE VEGETABLE  450G/CAN  橄榄菜",
+      "unit": "CAN",
+      "times_ordered": 2,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "BP-CAN",
+      "description": "BRAISED PEANUTS  1X850G  香焖花生/罐",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "C08",
+      "description": "GREEN CHILLI W/VINEGAR 调味青椒包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "CA45(CAN)",
+      "description": "MUSHROOM SLICED(SMALL) 蘑菇片(小罐) 425G/CAN",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 24.0
+    }
+  ]
+}
