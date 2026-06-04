@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('./database');
 const {
   isBaileysReady,
+  getBaileysGroups,
   getPendingSessions,
   adminConfirmGroup,
   adminCancelGroup
@@ -23,6 +24,14 @@ function startApiServer() {
   // GET /api/status
   app.get('/api/status', auth, (req, res) => {
     res.json({ connected: isBaileysReady(), phone: null });
+  });
+
+  // GET /api/baileys-groups — all WA groups the bot account is currently in
+  app.get('/api/baileys-groups', auth, (req, res) => {
+    res.json({
+      connected: isBaileysReady(),
+      groups: getBaileysGroups()
+    });
   });
 
   // GET /api/pending-orders
