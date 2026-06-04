@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/266",
+  "customer_name": "10 LUA KEE BAN MIAN 板面",
+  "order_history": [
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 50.0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/339",
+  "customer_name": "WHOAMPO DRIVE MVR STALL 84641633",
+  "order_history": [
+    {
+      "item_code": "R8",
+      "description": "",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    }
+  ]
+}

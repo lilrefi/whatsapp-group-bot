@@ -1,0 +1,370 @@
+{
+  "customer_code": "3000/089",
+  "customer_name": "(DEEN 80)DELIGHT GOURMET 80 LLP",
+  "order_history": [
+    {
+      "item_code": "BA10",
+      "description": "BABA'S MEAT CURRY PWD  1KG/PKT  肉咖喱粉",
+      "unit": "PKT",
+      "times_ordered": 34,
+      "total_qty": 94.0
+    },
+    {
+      "item_code": "BA12",
+      "description": "BABA'S CHILLI POWDER  1KG/PKT  辣椒粉",
+      "unit": "PKT",
+      "times_ordered": 30,
+      "total_qty": 32.0
+    },
+    {
+      "item_code": "WFFF-25KG",
+      "description": "BAG(袋)WHEAT FLOUR (SWORDFISH) 面粉 25KG/BAG",
+      "unit": "BAG",
+      "times_ordered": 27,
+      "total_qty": 65.0
+    },
+    {
+      "item_code": "BA14(PKT)",
+      "description": "BABA FISH CURRY PWD  1KG/PKT  鱼咖喱粉",
+      "unit": "PKT",
+      "times_ordered": 26,
+      "total_qty": 29.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 23,
+      "total_qty": 91.0
+    },
+    {
+      "item_code": "M532",
+      "description": "SALT  盐(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 22,
+      "total_qty": 47.0
+    },
+    {
+      "item_code": "GHFL-1K",
+      "description": "BESAN (CHICK PEA) YELLOW DHALL FLOUR 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 20,
+      "total_qty": 105.0
+    },
+    {
+      "item_code": "PORICE-25",
+      "description": "BAG(袋)PONNI RICE STEAM BOILED  25KG/BAG",
+      "unit": "BAG",
+      "times_ordered": 20,
+      "total_qty": 21.0
+    },
+    {
+      "item_code": "FL06(PKT)",
+      "description": "600G/包 RICE FLOUR  粘米粉",
+      "unit": "PKT",
+      "times_ordered": 18,
+      "total_qty": 66.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 18,
+      "total_qty": 30.0
+    },
+    {
+      "item_code": "BA-TMR",
+      "description": "BABA'S TURMERIC POWDER  1KG/PKT  黄姜粉",
+      "unit": "PKT",
+      "times_ordered": 17,
+      "total_qty": 17.0
+    },
+    {
+      "item_code": "PAP-01",
+      "description": "",
+      "unit": "PC",
+      "times_ordered": 17,
+      "total_qty": 170.0
+    },
+    {
+      "item_code": "C01(PKT)",
+      "description": "CINNAMON SKIN  桂皮(包) 250GM",
+      "unit": "PKT",
+      "times_ordered": 16,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "CS-NUT",
+      "description": "500/PKT/包 CASHEW NUT 腰豆",
+      "unit": "PKT",
+      "times_ordered": 15,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "DF802(PKT)",
+      "description": "STAR ANISEED 八角 250GM/PKT",
+      "unit": "PKT",
+      "times_ordered": 15,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 15,
+      "total_qty": 17.0
+    },
+    {
+      "item_code": "S716",
+      "description": "TOMATO FLAVOURED SAUCE  茄汁 4LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 15,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "M59(PKT)",
+      "description": "VE-SIN MSG   1KG/PKT  味精/包",
+      "unit": "PKT",
+      "times_ordered": 14,
+      "total_qty": 27.0
+    },
+    {
+      "item_code": "PLT-TIN",
+      "description": "PLANTA  牛油",
+      "unit": "TIN",
+      "times_ordered": 13,
+      "total_qty": 63.0
+    },
+    {
+      "item_code": "IBM-02",
+      "description": "A4 DRIED IKAN BILIS MEAT 1X1KG 江鱼(肉)",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "DOS-3K",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 35.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "FGH-PKT",
+      "description": "PATTU_FRIED GRAM DHALL  1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 17.0
+    },
+    {
+      "item_code": "FL12(TUB)",
+      "description": "TUB(罐)ORANGE RED 284 柑红粉 450G/TUB",
+      "unit": "TUB",
+      "times_ordered": 7,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "GPN-PWD",
+      "description": "2KG/PKT/包 GROUNDED PEANUT POWDER 花生碎",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "C15-1K",
+      "description": "CRUSHED CHILLI - PATTU 1KG/PKT/包",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "L005",
+      "description": "LIGHT SAUCE  (WHITE CAP) 5L/BOT 生抽(桶)",
+      "unit": "BOT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "SAF-YST",
+      "description": "INSTANT YEAST 500G/PKT 即发酵母",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "CUM-1K",
+      "description": "############CUMIN POWDER(PATTU)  1KG",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "M18",
+      "description": "AJINOMOTO(AJINEX)味精 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "C12",
+      "description": "SWEET CHILLI SAUCE 甜辣椒酱(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "KDT-1K",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "PV19",
+      "description": "AFRICA TOORDALL (PATTU) 5KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "ALMD-NUT",
+      "description": "ALMOND NUT  1X1KG  杏仁坚果",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "C07",
+      "description": "DRIED CHILLI 1KG/PKT 辣椒干(包)",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "CHO-SYRUP",
+      "description": "BOT(瓶)(BOT-680G) HERSHEY'S CHOCOLATE SYRUP 朱古力精",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "DF803(PKT)",
+      "description": "1KG/包 CANDLENUT-BUAH KERAS 峇角力肉",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "MUS-PKT",
+      "description": "MUSTARD SEED(BIJI SAWI)/包 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "PV7(PKT)",
+      "description": "KNORR CHICKEN FLAVORED SEASONING/袋 1KG",
+      "unit": "BAG",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "YS11",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "BA11",
+      "description": "BABA CORIANDER POWDER  250G",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "BA15",
+      "description": "BABA CUMIN POWDER 250G",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "BA18",
+      "description": "BABA BRIYANI SPICE 250GM",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "GCLQ-BOT",
+      "description": "BOT(罐)GREEN COLOUR LIQUID 青色素  500ML",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "OR-VAN-16",
+      "description": "",
+      "unit": "TIN",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "BA13",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "BLC01(PCS)",
+      "description": "BELACHAN  1X500G  峇拉煎/片",
+      "unit": "PCS",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "CA45(CAN)",
+      "description": "MUSHROOM SLICED(SMALL) 蘑菇片(小罐) 425G/CAN",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "DSS01(PKT)",
+      "description": "SHRIMP SKIN  1X500G  虾苗/扣",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OYS-SH",
+      "description": "SH OYSTER SAUCE 5L/BOT 蚝油",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YS10",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    }
+  ]
+}

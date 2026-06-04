@@ -1,0 +1,118 @@
+{
+  "customer_code": "3000/400",
+  "customer_name": "XIANG MAN YUAN CATERING (BISHAN)",
+  "order_history": [
+    {
+      "item_code": "QQ12",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 10,
+      "total_qty": 22.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 9,
+      "total_qty": 31.0
+    },
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 7,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 108.0
+    },
+    {
+      "item_code": "L003(GREEN CAP)",
+      "description": "LIGHT SOYA SAUCE(GREEN)-生抽(青盖) 5L",
+      "unit": "BOT",
+      "times_ordered": 5,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "S719",
+      "description": "PLUM PASTE 酸梅膏 6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 5,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "N68",
+      "description": "10KG/CTN/箱 HONG KONG NOODLE 香港面",
+      "unit": "CTN",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 30.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "MCMLS-410",
+      "description": "4 STAR P/LIGHT SOY SAUCE  3.6KG/BOT  4星优质原生抽/桶",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "BK-SRFL",
+      "description": "BLUE KEY S/RAISING FLOUR  1KG/BOX 自发面粉/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "FL06(PKT)",
+      "description": "600G/包 RICE FLOUR  粘米粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "QQ18",
+      "description": "香老抽(红)/RED FRAGRANT DARK SOYA SAUCE 5KG",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "S713",
+      "description": "MAGGI TOMATO SAUCE 美极蕃茄酱 3.3KG/TIN",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "W001",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

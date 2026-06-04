@@ -1,0 +1,41 @@
+{
+  "customer_code": "3000/013",
+  "customer_name": "^(W'LANDS)LONG LAI CATERING 隆莱饮食集团",
+  "order_history": [
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 3,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "N61",
+      "description": "HONG KONG YEE FU MEE 香港伊府面/箱  4KG/CTN",
+      "unit": "CTN",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "R204",
+      "description": "ROYAL UMBRELLA RICE(PREMIUM) 安培娜泰国香米(袋) 25KG",
+      "unit": "BAG",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "CA51(CAN)",
+      "description": "STRAW MUSHROOM SLICED  草菇片(罐) 425G/CAN",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    }
+  ]
+}

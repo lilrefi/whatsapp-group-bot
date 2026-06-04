@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/129",
+  "customer_name": "#LEE FOOD PTE LTD",
+  "order_history": [
+    {
+      "item_code": "BN40-片",
+      "description": "片/PCS-咸豆皮-SALTED BEAN CURD SKIN",
+      "unit": "SHEET",
+      "times_ordered": 1,
+      "total_qty": 150.0
+    }
+  ]
+}

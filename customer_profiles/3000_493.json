@@ -1,0 +1,167 @@
+{
+  "customer_code": "3000/493",
+  "customer_name": ">112- WONDERFUL 萬得富",
+  "order_history": [
+    {
+      "item_code": "YS14",
+      "description": "WHITE PEPPER POWDER(SACHET) 胡椒粉/包",
+      "unit": "PCS",
+      "times_ordered": 7,
+      "total_qty": 550.0
+    },
+    {
+      "item_code": "YS15",
+      "description": "CINNAMON POWDER(SACHET) 桂末粉/包",
+      "unit": "PCS",
+      "times_ordered": 7,
+      "total_qty": 550.0
+    },
+    {
+      "item_code": "YS01",
+      "description": "TUB(桶) MELON STRIP   1X2KG   瓜英絲",
+      "unit": "TUB",
+      "times_ordered": 6,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "YS02",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 6,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "YS03",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 6,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "YS04",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 6,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "YS05",
+      "description": "TUB(桶) WHTIE SOUR GINGER SLICE  1X2KG  白姜絲",
+      "unit": "TUB",
+      "times_ordered": 6,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "YS06",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 6,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "YS07",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "YS08",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "YS18",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 750.0
+    },
+    {
+      "item_code": "YS17",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 5,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "MWCFP-PKT",
+      "description": "(MW) CURRY FISH PASTE 1X1KG  鱼咖喱料/包",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 50.0
+    },
+    {
+      "item_code": "YS10",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "YS11",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "YS30",
+      "description": "PCS - POSTERS",
+      "unit": "PCS",
+      "times_ordered": 3,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "YS21",
+      "description": "",
+      "unit": "PCS",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "DG-508",
+      "description": "ASSAM CHILLI SAUCE   1X1KG  亚参辣酱",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "M504(BOT)",
+      "description": "TANGERINE SAUCE 金桔油(瓶) 350GM/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "M522(BOT)",
+      "description": "RICE VINEGAR 白米醋/瓶 600ML/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "S714",
+      "description": "LEMON PASTE  6KG/BOT  柠檬酱",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "S718",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YS12",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 100.0
+    }
+  ]
+}

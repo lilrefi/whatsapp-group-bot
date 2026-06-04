@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/106",
+  "customer_name": "^(15)MEI HAO 99 CATERING",
+  "order_history": [
+    {
+      "item_code": "N68",
+      "description": "10KG/CTN/箱 HONG KONG NOODLE 香港面",
+      "unit": "CTN",
+      "times_ordered": 10,
+      "total_qty": 30.0
+    }
+  ]
+}

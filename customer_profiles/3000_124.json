@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/124",
+  "customer_name": "^(522)MADAM 81834371",
+  "order_history": [
+    {
+      "item_code": "R8",
+      "description": "",
+      "unit": "BAG",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    }
+  ]
+}

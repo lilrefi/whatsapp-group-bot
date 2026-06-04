@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/261",
+  "customer_name": "<105 PRAWN NOODLE STALL 90665091",
+  "order_history": [
+    {
+      "item_code": "DG-512",
+      "description": "BELACHAN CHILLI(DIPPING)  1X1KG  峇拉煎辣椒(外用)",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 63.0
+    }
+  ]
+}

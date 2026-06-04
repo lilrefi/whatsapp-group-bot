@@ -1,0 +1,132 @@
+{
+  "customer_code": "3000/226",
+  "customer_name": "^443-FU KANG VEGETARIAN FOOD 富康素食轩",
+  "order_history": [
+    {
+      "item_code": "BF01(PKT)",
+      "description": "BLACK FUNGUS(SMALL) 1KG/PKT   小云耳",
+      "unit": "PKT",
+      "times_ordered": 16,
+      "total_qty": 26.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 16,
+      "total_qty": 264.0
+    },
+    {
+      "item_code": "M59(PKT)",
+      "description": "VE-SIN MSG   1KG/PKT  味精/包",
+      "unit": "PKT",
+      "times_ordered": 16,
+      "total_qty": 220.0
+    },
+    {
+      "item_code": "TMPF/包",
+      "description": "TEMPURA FLOUR  1KG/PKT  炸脆粉",
+      "unit": "PKT",
+      "times_ordered": 16,
+      "total_qty": 126.0
+    },
+    {
+      "item_code": "BMRS-CAN",
+      "description": "MUSHROOM SLICED(BIG)  1X2840G  蘑菇片/大罐",
+      "unit": "CAN",
+      "times_ordered": 15,
+      "total_qty": 68.0
+    },
+    {
+      "item_code": "PV14",
+      "description": "YELLOW SOYA BEAN 1KG/PKT  黄豆(包)",
+      "unit": "PKT",
+      "times_ordered": 13,
+      "total_qty": 21.0
+    },
+    {
+      "item_code": "FL03(PKT)",
+      "description": "PLAIN FLOUR  1KG/PKT  面粉",
+      "unit": "PKT",
+      "times_ordered": 12,
+      "total_qty": 85.0
+    },
+    {
+      "item_code": "BN01",
+      "description": "*1KG BEAN CURD STICK - 豆支",
+      "unit": "PKT",
+      "times_ordered": 10,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "N69",
+      "description": "36 CRISPY NOODLE 煮炒炸生面 70GX36PKT/CTN",
+      "unit": "CTN",
+      "times_ordered": 10,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "M512",
+      "description": "ROCK SUGAR  冰糖(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "AA415",
+      "description": "CAI PU (SWEET) 1X3KG  菜脯(甜)/包",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 27.0
+    },
+    {
+      "item_code": "DF800(PKT)",
+      "description": "PKT(包)RED DATES S/LESS 无核鸡心枣 500GM/PKT",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 13.0
+    },
+    {
+      "item_code": "OLVG-CAN",
+      "description": "OLIVE VEGETABLE  450G/CAN  橄榄菜",
+      "unit": "CAN",
+      "times_ordered": 4,
+      "total_qty": 96.0
+    },
+    {
+      "item_code": "CM04",
+      "description": "DANG GUI SLICED  250G  当归片/包",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "AA404",
+      "description": "BOXTHON FRUIT/GOU QI ZI  1X500G  枸杞子/包",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "C01(PKT)",
+      "description": "CINNAMON SKIN  桂皮(包) 250GM",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "FL10(PKT)",
+      "description": "500G/包 FIVE SPICES POWDER 五香粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

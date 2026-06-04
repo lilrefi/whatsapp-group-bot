@@ -1,0 +1,188 @@
+{
+  "customer_code": "3000/035",
+  "customer_name": ">555 XIN FENG SEAFOOD PTE LTD",
+  "order_history": [
+    {
+      "item_code": "OIL 83",
+      "description": "SH SEASAME OIL (WHITE CAP) 蔴油(白盖) 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 26,
+      "total_qty": 40.0
+    },
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 25,
+      "total_qty": 40.0
+    },
+    {
+      "item_code": "L003(GREEN CAP)",
+      "description": "LIGHT SOYA SAUCE(GREEN)-生抽(青盖) 5L",
+      "unit": "BOT",
+      "times_ordered": 21,
+      "total_qty": 28.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 21,
+      "total_qty": 29.0
+    },
+    {
+      "item_code": "CARN-CAN",
+      "description": "CARNATION MILK (THAI) 405GM 三花淡奶精(泰)/罐",
+      "unit": "CAN",
+      "times_ordered": 18,
+      "total_qty": 210.0
+    },
+    {
+      "item_code": "L005",
+      "description": "LIGHT SAUCE  (WHITE CAP) 5L/BOT 生抽(桶)",
+      "unit": "BOT",
+      "times_ordered": 16,
+      "total_qty": 19.0
+    },
+    {
+      "item_code": "S709",
+      "description": "MAGGI CHILLI SAUCE 美极辣椒酱 3.3KG/TIN",
+      "unit": "TIN",
+      "times_ordered": 15,
+      "total_qty": 17.0
+    },
+    {
+      "item_code": "PLT-TIN",
+      "description": "PLANTA  牛油",
+      "unit": "TIN",
+      "times_ordered": 14,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "MWCFP-PKT",
+      "description": "(MW) CURRY FISH PASTE 1X1KG  鱼咖喱料/包",
+      "unit": "PKT",
+      "times_ordered": 13,
+      "total_qty": 70.0
+    },
+    {
+      "item_code": "S713",
+      "description": "MAGGI TOMATO SAUCE 美极蕃茄酱 3.3KG/TIN",
+      "unit": "TIN",
+      "times_ordered": 10,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 9,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "MWBLC-PKT",
+      "description": "SEAFOOD BELACHAN PASTE  1X1KG  海鲜峇拉煎酱/包",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 45.0
+    },
+    {
+      "item_code": "MWXO/包",
+      "description": "SEAFOOD XO PASTE  1X1KG  海鲜XO酱料",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "PV18(BOT)",
+      "description": "MAGGI SEASONING (800ML)美极鲜味汁",
+      "unit": "BOT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "AA400",
+      "description": "WHITE BEANCURD PRESERVED 300G/BOT 大石腐乳(罐)",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "BLMR-CAN",
+      "description": "",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "C14",
+      "description": "HOT BEAN PASTE(6KG) 豆板酱(桶)6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "M528(BOT)",
+      "description": "RICE COOKING WINE 白米酒(大厨)/瓶 640ML/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "PV10",
+      "description": "BOX- TABLE SALT  500G  盒盐/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "PV29",
+      "description": "CHU ZHEN FISH GRAVY  750GM  厨珍壹等鱼露",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "S719",
+      "description": "PLUM PASTE 酸梅膏 6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "WMPS-05",
+      "description": "WINDMILL POTATO STARCH   5KG 风车超级生粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

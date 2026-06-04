@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/082",
+  "customer_name": "^#AH LONG(AG)90576888",
+  "order_history": [
+    {
+      "item_code": "FL15",
+      "description": "RED MEDAL 风生粉 25KG POTATO STARCH",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/010",
+  "customer_name": ">211 PENANG HERITAGE DRINK STALL",
+  "order_history": [
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    }
+  ]
+}

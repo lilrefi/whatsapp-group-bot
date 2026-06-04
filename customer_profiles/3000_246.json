@@ -1,0 +1,55 @@
+{
+  "customer_code": "3000/246",
+  "customer_name": "<MAY FISH SOUP",
+  "order_history": [
+    {
+      "item_code": "N42",
+      "description": "TAI SUN MEE SUA 太山面线/包 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 14,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 10,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "BN01",
+      "description": "*1KG BEAN CURD STICK - 豆支",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "AA403",
+      "description": "THAI LIME JUICE   1LT/BOT  酸柑水/瓶",
+      "unit": "BOT",
+      "times_ordered": 5,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "FSHRS-BOT",
+      "description": "227G/罐 SHRIMP SAUCE(SHIP) 幼滑虾酱",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "N75",
+      "description": "TAI SUN BROWN RICE BEE HOON",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "TOM-BOT",
+      "description": "900G/罐 POR KWAN TOM YAM  冬炎酸辣香酱料",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "customer_code": "3000/026",
+  "customer_name": "<728 DRINK STALL",
+  "order_history": [
+    {
+      "item_code": "LGN-CAN",
+      "description": "",
+      "unit": "CAN",
+      "times_ordered": 2,
+      "total_qty": 72.0
+    },
+    {
+      "item_code": "LYC_CTN",
+      "description": "NARCISSUS LYCHEES IN SYRUP 567GM",
+      "unit": "CTN",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "CEFC-CAN",
+      "description": "(F/CREAM)CARNATION EVAP  1X390G  咖喱鱼头全脂淡奶",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "DWLQ/桶",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "KCT-DS5",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "L005",
+      "description": "LIGHT SAUCE  (WHITE CAP) 5L/BOT 生抽(桶)",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "MC01",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PV10",
+      "description": "BOX- TABLE SALT  500G  盒盐/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "W004",
+      "description": "F&N CORDIAL ROSE 2L",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    }
+  ]
+}

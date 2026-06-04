@@ -1,0 +1,48 @@
+{
+  "customer_code": "3000/037",
+  "customer_name": "131 DAVID CHEW 90011953",
+  "order_history": [
+    {
+      "item_code": "BN606",
+      "description": "100GM DRIED BEAN CURD 小条腐竹",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "C01(PKT)",
+      "description": "CINNAMON SKIN  桂皮(包) 250GM",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "CM04",
+      "description": "DANG GUI SLICED  250G  当归片/包",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "FL13(PKT)",
+      "description": "50G/包 SANTAN COCONUT MILK POWDER 椰粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "R204",
+      "description": "ROYAL UMBRELLA RICE(PREMIUM) 安培娜泰国香米(袋) 25KG",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

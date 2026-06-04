@@ -1,0 +1,97 @@
+{
+  "customer_code": "3000/186",
+  "customer_name": ">211-PENANG HERITAGE (NASI LEMAK STALL) 椰浆饭",
+  "order_history": [
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 22,
+      "total_qty": 264.0
+    },
+    {
+      "item_code": "BP-CAN",
+      "description": "BRAISED PEANUTS  1X850G  香焖花生/罐",
+      "unit": "CAN",
+      "times_ordered": 15,
+      "total_qty": 43.0
+    },
+    {
+      "item_code": "KA-M",
+      "description": "KARA COCONUT MILK(M)  500ML/PKT/包 中椰浆",
+      "unit": "PKT",
+      "times_ordered": 12,
+      "total_qty": 209.0
+    },
+    {
+      "item_code": "M18",
+      "description": "AJINOMOTO(AJINEX)味精 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 11,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "M532",
+      "description": "SALT  盐(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 11,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "C22",
+      "description": "YELLOW CAP- GRIND SOYA BEANS-620G/BOT 黄盖磨豉",
+      "unit": "BOT",
+      "times_ordered": 9,
+      "total_qty": 104.0
+    },
+    {
+      "item_code": "C09",
+      "description": "SAMBAL CHILLI 叁峇辣椒(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "CA48",
+      "description": "MALING PORK LUNCHEON MEAT 397GX24 猪午餐肉 CTN-/箱",
+      "unit": "CTN",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "PV7(PKT)",
+      "description": "KNORR CHICKEN FLAVORED SEASONING/袋 1KG",
+      "unit": "BAG",
+      "times_ordered": 4,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "CRBP-CAN",
+      "description": "CAN - CRESCENT BAKING POWDER  1X6LBS  发粉/罐",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

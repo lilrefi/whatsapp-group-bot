@@ -1,0 +1,41 @@
+{
+  "customer_code": "3000/185",
+  "customer_name": "(80) EIGHT FOODS PRIVATE LIMITED",
+  "order_history": [
+    {
+      "item_code": "C08",
+      "description": "GREEN CHILLI W/VINEGAR 调味青椒包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 45.0
+    },
+    {
+      "item_code": "YR-PCS",
+      "description": "",
+      "unit": "BOX",
+      "times_ordered": 5,
+      "total_qty": 122.0
+    },
+    {
+      "item_code": "SFS-2L",
+      "description": "SWEET FLOUR SAUCE(CHH)  1X2L  甜酱",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "M527(BOT)",
+      "description": "GW BLACK VINEGAR 长城黑浙醋/瓶 635ML/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "Z100(PKT)",
+      "description": "SALTED FISH BITS  1X1KG 咸鱼(粒)/包",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    }
+  ]
+}

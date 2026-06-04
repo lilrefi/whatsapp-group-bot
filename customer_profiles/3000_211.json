@@ -1,0 +1,69 @@
+{
+  "customer_code": "3000/211",
+  "customer_name": ">285- ECONOMICAL MIXED VEG RICE.PORRIDGE",
+  "order_history": [
+    {
+      "item_code": "BK-SRFL",
+      "description": "BLUE KEY S/RAISING FLOUR  1KG/BOX 自发面粉/盒",
+      "unit": "BOX",
+      "times_ordered": 7,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "FL03(PKT)",
+      "description": "PLAIN FLOUR  1KG/PKT  面粉",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 168.0
+    },
+    {
+      "item_code": "FL14",
+      "description": "POTATO STARCH    2KG  风车粉",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 28.0
+    },
+    {
+      "item_code": "M521",
+      "description": "HUA TIAO CHIEW(GT CHEF)  640ML/BOT  花雕酒(大厨)/瓶",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "S716",
+      "description": "TOMATO FLAVOURED SAUCE  茄汁 4LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "PV29",
+      "description": "CHU ZHEN FISH GRAVY  750GM  厨珍壹等鱼露",
+      "unit": "BOT",
+      "times_ordered": 5,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "BN01",
+      "description": "*1KG BEAN CURD STICK - 豆支",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/428",
+  "customer_name": ">80 ROASTED DELIGHT 燒臘",
+  "order_history": [
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 26.0
+    }
+  ]
+}

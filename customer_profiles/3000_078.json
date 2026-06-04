@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/078",
+  "customer_name": "CRYSTAL PALACE RESTAURANT PTE LTD",
+  "order_history": [
+    {
+      "item_code": "TS-10",
+      "description": "YAM PASTE  1KG/PKT  芋泥(包)",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 200.0
+    }
+  ]
+}

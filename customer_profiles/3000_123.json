@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/123",
+  "customer_name": "#YI QIANG(IMPORT & EXPORT)TRADING P/L(AG)",
+  "order_history": [
+    {
+      "item_code": "MWBLC-PKT",
+      "description": "SEAFOOD BELACHAN PASTE  1X1KG  海鲜峇拉煎酱/包",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 100.0
+    }
+  ]
+}

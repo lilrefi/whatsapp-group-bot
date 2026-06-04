@@ -1,0 +1,181 @@
+{
+  "customer_code": "3000/250",
+  "customer_name": "^(127)SHI ZHEN FISH SOUP 時珍魚湯",
+  "order_history": [
+    {
+      "item_code": "R8",
+      "description": "",
+      "unit": "BAG",
+      "times_ordered": 8,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 35.0
+    },
+    {
+      "item_code": "BN07",
+      "description": "炸豆支碎 =CRUSH FRIED BEAN CURD  1KG",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 13.0
+    },
+    {
+      "item_code": "L005",
+      "description": "LIGHT SAUCE  (WHITE CAP) 5L/BOT 生抽(桶)",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "M512",
+      "description": "ROCK SUGAR  冰糖(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "PV29",
+      "description": "CHU ZHEN FISH GRAVY  750GM  厨珍壹等鱼露",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 36.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "N42",
+      "description": "TAI SUN MEE SUA 太山面线/包 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "PV14",
+      "description": "YELLOW SOYA BEAN 1KG/PKT  黄豆(包)",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "TOM-BOT",
+      "description": "900G/罐 POR KWAN TOM YAM  冬炎酸辣香酱料",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "BA10",
+      "description": "BABA'S MEAT CURRY PWD  1KG/PKT  肉咖喱粉",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "BN08",
+      "description": "#########10片/包#咸豆皮-SALTED BEAN CURD SKIN",
+      "unit": "SET",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "BN40-片",
+      "description": "片/PCS-咸豆皮-SALTED BEAN CURD SKIN",
+      "unit": "SHEET",
+      "times_ordered": 1,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "DF800(PKT)",
+      "description": "PKT(包)RED DATES S/LESS 无核鸡心枣 500GM/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "M18",
+      "description": "AJINOMOTO(AJINEX)味精 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "M504(BOT)",
+      "description": "TANGERINE SAUCE 金桔油(瓶) 350GM/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "M521",
+      "description": "HUA TIAO CHIEW(GT CHEF)  640ML/BOT  花雕酒(大厨)/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "MAG-CSP",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "PV10",
+      "description": "BOX- TABLE SALT  500G  盒盐/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PV11",
+      "description": "2KG/TUB/罐 SALTED PLUM 咸水梅",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "XI606",
+      "description": "BREAD CRUMB (WHITE)  1KG/PKT  面包糠(白)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

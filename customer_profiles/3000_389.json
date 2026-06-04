@@ -1,0 +1,62 @@
+{
+  "customer_code": "3000/389",
+  "customer_name": ">LONG JI ZICHAR(OUTRAM RD)",
+  "order_history": [
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 17,
+      "total_qty": 270.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 17,
+      "total_qty": 156.0
+    },
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 17,
+      "total_qty": 105.0
+    },
+    {
+      "item_code": "FL08(BAG)",
+      "description": "300G/袋 CUSTARD POWDER  蛋黄粉",
+      "unit": "BAG",
+      "times_ordered": 11,
+      "total_qty": 250.0
+    },
+    {
+      "item_code": "MCMDS-110",
+      "description": "GOLDEN DARK SOY SAUCE--金黄生晒  BOT/桶",
+      "unit": "BOT",
+      "times_ordered": 8,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "BN40-片",
+      "description": "片/PCS-咸豆皮-SALTED BEAN CURD SKIN",
+      "unit": "SHEET",
+      "times_ordered": 4,
+      "total_qty": 200.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YM4",
+      "description": "",
+      "unit": "CUP",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

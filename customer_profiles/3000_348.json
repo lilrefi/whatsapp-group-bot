@@ -1,0 +1,27 @@
+{
+  "customer_code": "3000/348",
+  "customer_name": "^OLS HOLDING PTE LTD(UEN:201823516H)",
+  "order_history": [
+    {
+      "item_code": "M521",
+      "description": "HUA TIAO CHIEW(GT CHEF)  640ML/BOT  花雕酒(大厨)/瓶",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 264.0
+    },
+    {
+      "item_code": "C08",
+      "description": "GREEN CHILLI W/VINEGAR 调味青椒包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}
