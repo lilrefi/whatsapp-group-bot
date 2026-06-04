@@ -1,0 +1,34 @@
+{
+  "customer_code": "3000/104",
+  "customer_name": "(YS)LYE HENG FOOD SUPPLIES PTE LTD(15)",
+  "order_history": [
+    {
+      "item_code": "YS01",
+      "description": "TUB(桶) MELON STRIP   1X2KG   瓜英絲",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "YS02",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "YS03",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "YS07",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

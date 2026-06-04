@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/149",
+  "customer_name": ">HUP SENG HNG RESTAURANT",
+  "order_history": [
+    {
+      "item_code": "BN50",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 5,
+      "total_qty": 5.0
+    }
+  ]
+}

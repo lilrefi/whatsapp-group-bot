@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/363",
+  "customer_name": "#WRT SUPPLIES HOLDINGS PTE LTD",
+  "order_history": [
+    {
+      "item_code": "MWXO/包",
+      "description": "SEAFOOD XO PASTE  1X1KG  海鲜XO酱料",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 360.0
+    }
+  ]
+}

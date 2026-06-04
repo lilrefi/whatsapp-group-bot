@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/027",
+  "customer_name": "THE EC PREMIUM FOOD PTE LTD",
+  "order_history": [
+    {
+      "item_code": "BK-SRFL",
+      "description": "BLUE KEY S/RAISING FLOUR  1KG/BOX 自发面粉/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 60.0
+    }
+  ]
+}

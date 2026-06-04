@@ -1,0 +1,34 @@
+{
+  "customer_code": "3000/201",
+  "customer_name": "GA-HOCK SEAFOOD(794)",
+  "order_history": [
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 7,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "N68",
+      "description": "10KG/CTN/箱 HONG KONG NOODLE 香港面",
+      "unit": "CTN",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "Z100(PKT)",
+      "description": "SALTED FISH BITS  1X1KG 咸鱼(粒)/包",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "YS17",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 5.0
+    }
+  ]
+}

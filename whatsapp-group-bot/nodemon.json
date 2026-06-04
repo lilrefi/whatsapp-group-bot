@@ -1,0 +1,5 @@
+{
+  "ignore": ["baileys-auth/*", "customer_profiles/*", "venv/*", "stt/__pycache__/*", "*.pyc"],
+  "watch": ["."],
+  "ext": "js,mjs,cjs,json,py"
+}

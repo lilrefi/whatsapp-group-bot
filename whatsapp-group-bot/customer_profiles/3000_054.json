@@ -1,0 +1,34 @@
+{
+  "customer_code": "3000/054",
+  "customer_name": "90- MILLENNIUM HAINANESE CHICKEN RICE",
+  "order_history": [
+    {
+      "item_code": "R8",
+      "description": "",
+      "unit": "BAG",
+      "times_ordered": 23,
+      "total_qty": 91.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 5,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "OIL 18",
+      "description": "",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

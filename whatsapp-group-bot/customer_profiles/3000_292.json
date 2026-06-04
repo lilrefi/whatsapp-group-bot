@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/292",
+  "customer_name": "#VISMARK FOOD INDUSTRIES PTE LTD(CASH)",
+  "order_history": [
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 120.0
+    }
+  ]
+}

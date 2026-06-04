@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/276",
+  "customer_name": "^#DANIEL SEAH (AG)",
+  "order_history": [
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 32,
+      "total_qty": 169.0
+    },
+    {
+      "item_code": "N68",
+      "description": "10KG/CTN/箱 HONG KONG NOODLE 香港面",
+      "unit": "CTN",
+      "times_ordered": 30,
+      "total_qty": 131.0
+    }
+  ]
+}

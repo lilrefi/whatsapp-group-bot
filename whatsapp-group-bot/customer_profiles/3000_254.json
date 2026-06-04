@@ -1,0 +1,97 @@
+{
+  "customer_code": "3000/254",
+  "customer_name": ">(455)BIN DAO CHA SHI P/L 煮炒",
+  "order_history": [
+    {
+      "item_code": "AA415",
+      "description": "CAI PU (SWEET) 1X3KG  菜脯(甜)/包",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "AA422",
+      "description": "ASSAM SKIN 500GM  亚叁皮/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "M538(BOT)",
+      "description": "BULLDOG BLACK RICE VINEGAR(P)  1X750ML",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 46.0
+    },
+    {
+      "item_code": "CA52(CAN)",
+      "description": "MACKEREL IN TOMATO SUACE 1X425G  马鲛鱼(罐)",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YS01",
+      "description": "TUB(桶) MELON STRIP   1X2KG   瓜英絲",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YS02",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YS03",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YS04",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YS06",
+      "description": "",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YS14",
+      "description": "WHITE PEPPER POWDER(SACHET) 胡椒粉/包",
+      "unit": "PCS",
+      "times_ordered": 1,
+      "total_qty": 100.0
+    },
+    {
+      "item_code": "YS15",
+      "description": "CINNAMON POWDER(SACHET) 桂末粉/包",
+      "unit": "PCS",
+      "times_ordered": 1,
+      "total_qty": 100.0
+    },
+    {
+      "item_code": "YS18",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 100.0
+    }
+  ]
+}

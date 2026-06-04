@@ -1,0 +1,48 @@
+{
+  "customer_code": "3000/066",
+  "customer_name": "^50 CAI LAI BAN MIAN 面粉粿 82243922",
+  "order_history": [
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "N42",
+      "description": "TAI SUN MEE SUA 太山面线/包 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "N43",
+      "description": "CHAI KEE PO CHAI MEE(CTN)/箱  220GX30/CTN",
+      "unit": "CTN",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "HTW-GAL",
+      "description": "GAL--HUA TIAO WINE(GREAT CHEF) 3.75LT  花雕酒(大厨)",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M512",
+      "description": "ROCK SUGAR  冰糖(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "M525(BOT)",
+      "description": "CHIN KIANG VINEGAR(YELLOW LABEL) 550ML/BOT 香醋",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 12.0
+    }
+  ]
+}

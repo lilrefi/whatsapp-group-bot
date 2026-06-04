@@ -1,0 +1,321 @@
+{
+  "customer_code": "3000/191",
+  "customer_name": "XIANG MAN YUEN LIVE SEAFOOD(233)",
+  "order_history": [
+    {
+      "item_code": "C08",
+      "description": "GREEN CHILLI W/VINEGAR 调味青椒包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 34,
+      "total_qty": 125.0
+    },
+    {
+      "item_code": "L003(GREEN CAP)",
+      "description": "LIGHT SOYA SAUCE(GREEN)-生抽(青盖) 5L",
+      "unit": "BOT",
+      "times_ordered": 29,
+      "total_qty": 32.0
+    },
+    {
+      "item_code": "MCMLS-410",
+      "description": "4 STAR P/LIGHT SOY SAUCE  3.6KG/BOT  4星优质原生抽/桶",
+      "unit": "BOT",
+      "times_ordered": 25,
+      "total_qty": 31.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 23,
+      "total_qty": 36.0
+    },
+    {
+      "item_code": "PV7(PKT)",
+      "description": "KNORR CHICKEN FLAVORED SEASONING/袋 1KG",
+      "unit": "BAG",
+      "times_ordered": 23,
+      "total_qty": 32.0
+    },
+    {
+      "item_code": "S713",
+      "description": "MAGGI TOMATO SAUCE 美极蕃茄酱 3.3KG/TIN",
+      "unit": "TIN",
+      "times_ordered": 23,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "PLT-TIN",
+      "description": "PLANTA  牛油",
+      "unit": "TIN",
+      "times_ordered": 21,
+      "total_qty": 21.0
+    },
+    {
+      "item_code": "QQ12",
+      "description": "",
+      "unit": "BOT",
+      "times_ordered": 17,
+      "total_qty": 31.0
+    },
+    {
+      "item_code": "S709",
+      "description": "MAGGI CHILLI SAUCE 美极辣椒酱 3.3KG/TIN",
+      "unit": "TIN",
+      "times_ordered": 17,
+      "total_qty": 22.0
+    },
+    {
+      "item_code": "M521",
+      "description": "HUA TIAO CHIEW(GT CHEF)  640ML/BOT  花雕酒(大厨)/瓶",
+      "unit": "BOT",
+      "times_ordered": 16,
+      "total_qty": 192.0
+    },
+    {
+      "item_code": "CA43(CAN)",
+      "description": "PORK LEG W/MUSHROOMS  397G/CAN  香菇猪脚腿(罐)",
+      "unit": "CAN",
+      "times_ordered": 14,
+      "total_qty": 114.0
+    },
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "C14",
+      "description": "HOT BEAN PASTE(6KG) 豆板酱(桶)6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 8,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "CA45(CAN)",
+      "description": "MUSHROOM SLICED(SMALL) 蘑菇片(小罐) 425G/CAN",
+      "unit": "CAN",
+      "times_ordered": 7,
+      "total_qty": 127.0
+    },
+    {
+      "item_code": "CA51(CAN)",
+      "description": "STRAW MUSHROOM SLICED  草菇片(罐) 425G/CAN",
+      "unit": "CAN",
+      "times_ordered": 7,
+      "total_qty": 137.0
+    },
+    {
+      "item_code": "WMPS-25",
+      "description": "WINDMILL POTATO STARCH (25KG/BAG) 风车超级生粉",
+      "unit": "BAG",
+      "times_ordered": 7,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "OIL 83",
+      "description": "SH SEASAME OIL (WHITE CAP) 蔴油(白盖) 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "SQLM-BOT",
+      "description": "SUNQUICK LEMON  1X840ML  浓缩柠檬汁",
+      "unit": "BOT",
+      "times_ordered": 6,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "Z105",
+      "description": "500G/PKT/包 MERGUI DRIED FISH 咸鱼(午鱼)",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "QQ18",
+      "description": "香老抽(红)/RED FRAGRANT DARK SOYA SAUCE 5KG",
+      "unit": "BOT",
+      "times_ordered": 5,
+      "total_qty": 7.0
+    },
+    {
+      "item_code": "CARN-CAN",
+      "description": "CARNATION MILK (THAI) 405GM 三花淡奶精(泰)/罐",
+      "unit": "CAN",
+      "times_ordered": 4,
+      "total_qty": 48.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "PV10",
+      "description": "BOX- TABLE SALT  500G  盒盐/盒",
+      "unit": "BOX",
+      "times_ordered": 3,
+      "total_qty": 36.0
+    },
+    {
+      "item_code": "S719",
+      "description": "PLUM PASTE 酸梅膏 6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "FSHRS-BOT",
+      "description": "227G/罐 SHRIMP SAUCE(SHIP) 幼滑虾酱",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "LKK4(BOT)",
+      "description": "A1 SAUCE  240GM/BOT  A1酱(瓶)",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "M525(BOT)",
+      "description": "CHIN KIANG VINEGAR(YELLOW LABEL) 550ML/BOT 香醋",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "OYS-LKK",
+      "description": "PANDA BRAND OYSTER SAUCE-2.2KG  熊猫牌鲜味蚝油",
+      "unit": "TIN",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "BF01(PKT)",
+      "description": "BLACK FUNGUS(SMALL) 1KG/PKT   小云耳",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "BK-SRFL",
+      "description": "BLUE KEY S/RAISING FLOUR  1KG/BOX 自发面粉/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "FL08(BAG)",
+      "description": "300G/袋 CUSTARD POWDER  蛋黄粉",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "LKK2(BOT)",
+      "description": "LEA & PERRINS SAUCE L&P酱(瓶) 290ML/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "LKK3(BOT)",
+      "description": "HP SAUCE HP酱(瓶) 255GM/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "LKK5(BOT)",
+      "description": "TIPAROS FISH SAUCE  700CC/BOT  鱼味露(瓶)",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "M513",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M531(PKT)",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "N41",
+      "description": "VERMICELLI  250G/PKT  冬粉/包",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "N42",
+      "description": "TAI SUN MEE SUA 太山面线/包 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PV11",
+      "description": "2KG/TUB/罐 SALTED PLUM 咸水梅",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PV22",
+      "description": "SODIUM BICARBONATE 100G BOT",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "SIB-PKT",
+      "description": "PREMIUM BABY SILVER FISH 银鱼 1KG",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "SW-PC",
+      "description": "SEAWEED/DRIED LAVER    1X50G   紫菜(片)",
+      "unit": "PC",
+      "times_ordered": 1,
+      "total_qty": 20.0
+    }
+  ]
+}

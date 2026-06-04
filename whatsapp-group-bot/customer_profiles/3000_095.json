@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/095",
+  "customer_name": "XIN HAI FEAST",
+  "order_history": [
+    {
+      "item_code": "YR-PCS",
+      "description": "",
+      "unit": "BOX",
+      "times_ordered": 5,
+      "total_qty": 74.0
+    },
+    {
+      "item_code": "FZ8",
+      "description": "炸芋头圈(佛钵)=DEEP FRIED YAM RING 250GM",
+      "unit": "PCS",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    }
+  ]
+}

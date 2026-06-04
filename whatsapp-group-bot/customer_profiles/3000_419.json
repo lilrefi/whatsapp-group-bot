@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/419",
+  "customer_name": "(AMK)FEI SIONG FOOD MANAGEMENT PTE LTD",
+  "order_history": [
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 31,
+      "total_qty": 935.0
+    }
+  ]
+}

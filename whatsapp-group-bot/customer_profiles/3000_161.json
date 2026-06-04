@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/161",
+  "customer_name": "#YONG SHENG (NICOLE)",
+  "order_history": [
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 80.0
+    }
+  ]
+}
