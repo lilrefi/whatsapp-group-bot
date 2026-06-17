@@ -53,7 +53,8 @@ function startApiServer() {
             unitPrice: null,
             flagged: i.flagged
           })),
-          notFound: s.notFound
+          notFound: s.notFound,
+          rawAttachments: s.rawAttachments || []
         };
       }));
       res.json({ orders });

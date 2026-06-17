@@ -320,7 +320,7 @@ async function getRecentOrders(limit = 50) {
 /**
  * Create a group order with optional flagged items
  */
-async function createGroupOrder(customerId, groupId, items, status = 'confirmed') {
+async function createGroupOrder(customerId, groupId, items, status = 'confirmed', attachments = []) {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -336,6 +336,13 @@ async function createGroupOrder(customerId, groupId, items, status = 'confirmed'
          VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())`,
         [order.id, item.product_id, item.quantity, item.product.name,
          item.product.unit_size || null, item.flagged || false, item.confidence_note || null]
+      );
+    }
+    for (const att of attachments) {
+      await client.query(
+        `INSERT INTO order_attachments (order_id, type, url, text, transcript, created_at)
+         VALUES ($1, $2, $3, $4, $5, COALESCE($6, NOW()))`,
+        [order.id, att.type, att.url || null, att.text || null, att.transcript || null, att.timestamp || null]
       );
     }
     await client.query('COMMIT');
@@ -458,5 +465,34 @@ module.exports = {
   cancelOrderById,
   addItemToOrder,
   updateProductZh,
+  getCustomerByCode,
+  upsertOrderHistory,
   close
 };
+
+/**
+ * Find a customer by their customer_code field (PSOFT code like "3000/002")
+ */
+async function getCustomerByCode(customerCode) {
+  const result = await pool.query(
+    'SELECT * FROM customers WHERE customer_code = $1 LIMIT 1',
+    [customerCode]
+  );
+  return result.rows[0] || null;
+}
+
+/**
+ * Upsert a row in mgmt_customer_order_history.
+ * If (customer_id, item_code) already exists → increment times_ordered + total_qty.
+ * Otherwise insert a new row.
+ */
+async function upsertOrderHistory(customerId, sku, description, unit, qty) {
+  await pool.query(`
+    INSERT INTO mgmt_customer_order_history
+      (customer_id, item_code, description, unit, times_ordered, total_qty)
+    VALUES ($1, $2, $3, $4, 1, $5)
+    ON CONFLICT (customer_id, item_code) DO UPDATE
+      SET times_ordered = mgmt_customer_order_history.times_ordered + 1,
+          total_qty     = mgmt_customer_order_history.total_qty + $5
+  `, [customerId, sku, description || null, unit || null, qty]);
+}

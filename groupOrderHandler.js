@@ -2,7 +2,7 @@ const db = require('./database');
 const { loadProfile, pickBestMatch } = require('./profileLookup');
 
 // Per-group order sessions
-// groupId → { items, pendingDisambiguations, notFound, senderPhone, startedAt, timerId }
+// groupId → { items, pendingDisambiguations, notFound, pendingAttachments, senderPhone, startedAt, timerId }
 const groupSessions = new Map();
 
 function bufferMs() {
@@ -11,7 +11,7 @@ function bufferMs() {
 
 // ─── Entry point (called by baileys-bot for every group message) ──────────────
 
-async function handleGroupMessage(sock, groupId, senderPhone, text) {
+async function handleGroupMessage(sock, groupId, senderPhone, text, attachment = null) {
   const groupProfile = await db.getGroupProfile(groupId);
   if (!groupProfile) return; // ignore unlinked groups
 
@@ -33,12 +33,28 @@ async function handleGroupMessage(sock, groupId, senderPhone, text) {
     return;
   }
 
-  // Ignore messages that clearly aren't orders
-  if (!/\d/.test(text) || text.replace(/\d/g, '').trim().length < 2) return;
-  const lines = parseOrderLines(text);
-  if (lines.length === 0) return;
+  // Ignore messages that clearly aren't orders — but if an order is already
+  // being built, still capture the attachment (e.g. a photo sent without a
+  // caption, or a voice note that didn't transcribe into order text) so it
+  // ends up linked to the eventual order.
+  const isOrderLike = /\d/.test(text) && text.replace(/\d/g, '').trim().length >= 2;
+  const lines = isOrderLike ? parseOrderLines(text) : [];
 
-  await processOrderLines(sock, groupId, senderPhone, lines, session);
+  if (lines.length === 0) {
+    if (attachment && session) {
+      session.pendingAttachments.push(attachment);
+      groupSessions.set(groupId, session);
+      // Re-arm the buffer — incoming attachments count as activity, so the
+      // order shouldn't auto-place while the customer is still sending media.
+      if (session.items.length > 0 && session.pendingDisambiguations.length === 0) {
+        clearTimer(groupId);
+        startTimer(sock, groupId, senderPhone);
+      }
+    }
+    return;
+  }
+
+  await processOrderLines(sock, groupId, senderPhone, lines, session, attachment);
 }
 
 // ─── Order line parsing ───────────────────────────────────────────────────────
@@ -81,7 +97,7 @@ async function searchProductsFuzzy(searchTerm) {
 
 // ─── Core matching logic ──────────────────────────────────────────────────────
 
-async function processOrderLines(sock, groupId, senderPhone, lines, existingSession) {
+async function processOrderLines(sock, groupId, senderPhone, lines, existingSession, attachment) {
   const groupProfile = await db.getGroupProfile(groupId);
   const profile = (groupProfile && groupProfile.customer_code)
     ? loadProfile(groupProfile.customer_code)
@@ -102,15 +118,16 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
       if (best) {
         newResolved.push({ product_id: best.id, product: best, quantity: line.quantity, flagged: false });
       } else {
-        // Multiple matches, no history match → ask user to pick
-        newAmbiguous.push({ rawSegment: line.rawSegment, quantity: line.quantity, candidates: results.slice(0, 10) });
+        // No history match — auto-pick the first candidate and flag so the
+        // dashboard can highlight it for staff review.
+        newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, flagged: true, confidence_note: `auto-picked (${results.length} candidates, no order history)` });
       }
     }
   }
 
   if (newResolved.length === 0 && newAmbiguous.length === 0) return; // nothing parseable
 
-  const session = existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone };
+  const session = existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone, pendingAttachments: [] };
 
   // Merge resolved items (replace quantity for duplicates)
   for (const item of newResolved) {
@@ -124,16 +141,12 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
 
   session.notFound = [...session.notFound, ...newNotFound];
   session.pendingDisambiguations = [...session.pendingDisambiguations, ...newAmbiguous];
+  if (attachment) session.pendingAttachments.push(attachment);
 
   clearTimer(groupId);
   groupSessions.set(groupId, session);
 
-  if (session.pendingDisambiguations.length > 0) {
-    await askDisambiguation(sock, groupId, session.pendingDisambiguations[0]);
-    return;
-  }
-
-  await showOrderSummary(sock, groupId, session);
+  await finishOrderProgress(sock, groupId, senderPhone, session);
 }
 
 // ─── Disambiguation ───────────────────────────────────────────────────────────
@@ -156,14 +169,7 @@ async function handleDisambiguationReply(sock, groupId, senderPhone, num) {
     session.pendingDisambiguations.shift();
     groupSessions.set(groupId, session);
     await sock.sendMessage(groupId, { text: `⏭️ Skipped "${pending.rawSegment}".` });
-    if (session.pendingDisambiguations.length > 0) {
-      await askDisambiguation(sock, groupId, session.pendingDisambiguations[0]);
-      return;
-    }
-    if (session.items.length > 0) {
-      await showOrderSummary(sock, groupId, session);
-      startTimer(sock, groupId, senderPhone);
-    }
+    await finishOrderProgress(sock, groupId, senderPhone, session);
     return;
   }
   if (num < 1 || num > pending.candidates.length) {
@@ -181,18 +187,29 @@ async function handleDisambiguationReply(sock, groupId, senderPhone, num) {
   session.pendingDisambiguations.shift();
   groupSessions.set(groupId, session);
 
-  if (session.pendingDisambiguations.length > 0) {
-    await askDisambiguation(sock, groupId, session.pendingDisambiguations[0]);
-    return;
-  }
-
-  await showOrderSummary(sock, groupId, session);
+  await finishOrderProgress(sock, groupId, senderPhone, session);
 }
 
 // ─── Summary display ──────────────────────────────────────────────────────────
 
 async function showOrderSummary(sock, groupId, session) {
   // Silent — no reply until staff confirms
+}
+
+// Reached whenever the session settles into a stable state after processing a
+// message: either ask the next disambiguation question, or — once there's
+// nothing left to ask — (re)arm the buffer timer so the order auto-places
+// after ORDER_BUFFER_MINUTES of inactivity.
+async function finishOrderProgress(sock, groupId, senderPhone, session) {
+  if (session.pendingDisambiguations.length > 0) {
+    await askDisambiguation(sock, groupId, session.pendingDisambiguations[0]);
+    return;
+  }
+  await showOrderSummary(sock, groupId, session);
+  if (session.items.length > 0) {
+    clearTimer(groupId);
+    startTimer(sock, groupId, senderPhone);
+  }
 }
 
 // ─── Buffer timer ─────────────────────────────────────────────────────────────
@@ -228,10 +245,23 @@ async function finalizeOrder(sock, groupId, senderPhone, status) {
   groupSessions.delete(groupId);
 
   try {
-    let customer = await db.getCustomerByPhone(senderPhone);
-    if (!customer) customer = await db.createCustomer(senderPhone);
+    // ── Resolve customer by RESTAURANT (group_id → customer_code) ──
+    // This ensures orders from the same group always link to the same
+    // restaurant customer, regardless of which person sent the message.
+    const gp = await db.getGroupProfile(groupId);
+    let customer = null;
 
-    const { order } = await db.createGroupOrder(customer.id, groupId, session.items, status);
+    if (gp && gp.customer_code) {
+      customer = await db.getCustomerByCode(gp.customer_code);
+    }
+
+    // Fallback: find or create by sender phone
+    if (!customer) {
+      customer = await db.getCustomerByPhone(senderPhone);
+      if (!customer) customer = await db.createCustomer(senderPhone);
+    }
+
+    const { order } = await db.createGroupOrder(customer.id, groupId, session.items, status, session.pendingAttachments || []);
 
     const label = status === 'confirmed' ? '✅ Order confirmed by staff!' : '✅ Order placed!';
     let msg = `${label}\n\n*Items:*\n`;
@@ -241,12 +271,30 @@ async function finalizeOrder(sock, groupId, senderPhone, status) {
 
     await sock.sendMessage(groupId, { text: msg });
 
-    const gp = await db.getGroupProfile(groupId);
     if (gp && gp.overview_group_id) {
       await sock.sendMessage(gp.overview_group_id, { text: msg });
     }
 
-    console.log(`✅ Order #${order.id} [${status}] for group ${groupId}`);
+    // ── Update customer order history ──
+    // Increment times_ordered + total_qty for each matched product.
+    for (const item of session.items) {
+      if (!item.product_id || !item.product) continue;
+      const sku = item.product.sku;
+      if (!sku) continue;
+      try {
+        await db.upsertOrderHistory(
+          customer.id,
+          sku,
+          item.product.name,
+          item.product.unit_size || null,
+          item.quantity
+        );
+      } catch (histErr) {
+        console.warn(`⚠️  History upsert failed for SKU ${sku}:`, histErr.message);
+      }
+    }
+
+    console.log(`✅ Order #${order.id} [${status}] for group ${groupId} → customer ${customer.id}`);
   } catch (err) {
     console.error('❌ Error finalizing order:', err.message);
     await sock.sendMessage(groupId, { text: '❌ Error saving order. Please contact admin.' });
@@ -269,7 +317,14 @@ function getPendingSessions() {
       quantity: i.quantity,
       flagged: i.flagged
     })),
-    notFound: session.notFound
+    notFound: session.notFound,
+    rawAttachments: (session.pendingAttachments || []).map(a => ({
+      type: a.type,
+      url: a.url || null,
+      text: a.text || null,
+      transcript: a.transcript || null,
+      timestamp: a.timestamp ? a.timestamp.toISOString() : null,
+    }))
   }));
 }
 

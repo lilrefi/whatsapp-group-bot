@@ -14,6 +14,8 @@ npm run setup-db     # Creates tables + loads 268 products from schema_product.s
 npm run migrate      # Adds customer_groups table + group_id column to orders
 npm run migrate-code # Adds group_profiles table (customer code + overview group)
 npm run migrate-zh   # Adds name_zh column to products (Chinese keyword search)
+npm run migrate-status      # Adds flagged + confidence_note columns to order_items
+npm run migrate-attachments # Adds order_attachments table (photo/voice-note/text attachments)
 ```
 
 ## Environment Variables

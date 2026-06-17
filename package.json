@@ -10,7 +10,8 @@
     "migrate": "node run-sql.js migration_groups.sql",
     "migrate-code": "node run-sql.js migration_customer_code.sql",
     "migrate-status": "node run-sql.js migration_order_status.sql",
-    "migrate-zh": "node run-sql.js migration_name_zh.sql"
+    "migrate-zh": "node run-sql.js migration_name_zh.sql",
+    "migrate-attachments": "node run-sql.js migration_attachments.sql"
   },
   "keywords": [
     "whatsapp",
@@ -23,6 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "@hapi/boom": "^10.0.1",
+    "@vercel/blob": "^2.4.0",
     "@whiskeysockets/baileys": "^6.7.18",
     "axios": "^1.6.0",
     "body-parser": "^1.20.2",

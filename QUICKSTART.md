@@ -1,403 +1,230 @@
-# Quick Start - Group Chat Bot
+# Quick Start — Refi WhatsApp Group Order Bot
 
-Deploy WhatsApp group ordering bot in 1 hour.
+This is a **pure backend**: a Baileys WhatsApp connection + a REST API.
+There is no UI here — the staff dashboard lives in the separate **db_revamp**
+(Next.js) project, which talks to this bot's REST API.
 
-## What You're Building
-
-WhatsApp bot that works in **GROUP CHATS** where multiple customers can order simultaneously using text commands.
-
-**Example:**
-```
-[Group: Restaurant Suppliers]
-
-Customer A: /catalog
-Bot: 📦 Products...
-
-Customer A: /add 1 2
-Bot: ✅ Added to your cart
-
-Customer B: /search noodle
-Bot: 🔍 Found 5 products...
-
-Customer A: /confirm
-Bot: ✅ Order #123 confirmed for Customer A
-```
+For full architecture, file map, and API reference, see [`CLAUDE.md`](./CLAUDE.md).
+This doc only covers getting a local instance running and connecting it to
+the dashboard via ngrok.
 
 ---
 
-## Step 1: Meta Setup (20 min)
+## 1. Prerequisites
 
-### Create Business Account
-1. https://business.facebook.com
-2. Create account → Submit verification docs
-3. Wait 2-3 days (can test while pending)
-
-### Create App
-1. https://developers.facebook.com
-2. My Apps → Create App → Business
-3. Add WhatsApp product
-
-### Get Credentials
-
-Copy these 3 values:
-
-**1. Phone Number ID**
-- WhatsApp → Getting Started
-- Look for "From" dropdown
-- Copy the long number (e.g., `123456789012345`)
-
-**2. Access Token**
-- Temporary token shown on page (24h expiry)
-- Later: generate permanent token in Business Settings → System Users
-
-**3. Verify Token**
-- **You create this** - any random string
-- Example: `my_secret_verify_token_xyz123`
-- Remember it - you'll use it twice (env var + Meta webhook config)
+- **Node.js 18+** and npm
+- A **Neon PostgreSQL** database (or any Postgres) — connection string for `DATABASE_URL`
+- A WhatsApp account to act as the bot (you'll scan a QR code with it)
+- *(Optional)* **Python 3** — only needed if you want voice-note transcription (see [Step 5](#5-optional-voice-note-transcription))
+- **ngrok** — only needed if the db_revamp dashboard is hosted elsewhere and needs to reach this bot's API (see [Step 7](#7-expose-the-api-with-ngrok))
 
 ---
 
-## Step 2: Deploy (15 min)
-
-### Push to GitHub
+## 2. Install dependencies
 
 ```bash
-cd whatsapp-group-bot
-git init
-git add .
-git commit -m "WhatsApp group bot"
-
-# Create repo on GitHub, then:
-git remote add origin https://github.com/YOUR_USERNAME/whatsapp-group-bot.git
-git push -u origin main
+git clone <repo-url>
+cd Refi-whatsapp-group-bot
+npm install
 ```
 
-### Deploy on Railway
+---
 
-1. https://railway.app → New Project
-2. Deploy from GitHub repo
-3. Add PostgreSQL:
-   - New → Database → PostgreSQL
-4. Add Environment Variables:
-   - Click your app service → Variables tab
-   - Add these:
+## 3. Configure environment
 
-```
-PORT=3000
-NODE_ENV=production
-WEBHOOK_URL=https://your-app-name.up.railway.app
-PHONE_NUMBER_ID=<paste from Step 1>
-WHATSAPP_ACCESS_TOKEN=<paste from Step 1>
-WEBHOOK_VERIFY_TOKEN=<paste from Step 1>
-DATABASE_URL=<auto-filled by Railway>
-```
+Copy `.env.example` to `.env` and fill in the values:
 
-**Important:**
-- Copy your Railway URL from "Domains" section
-- Update `WEBHOOK_URL` with your actual Railway URL
-
-### Setup Database
-
-Railway terminal:
 ```bash
-npm run setup-db
+cp .env.example .env
 ```
 
-This creates tables and loads sample products.
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | Neon/Postgres connection string |
+| `BOT_API_KEY` | Shared secret — must match the value configured in db_revamp. Every API request needs header `x-api-key: <BOT_API_KEY>` |
+| `BOT_API_PORT` | Port for the REST API (default `3001`) |
+| `ORDER_BUFFER_MINUTES` | Minutes of inactivity before an unconfirmed order auto-places (default `10`) |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob token, used to store photo/voice-note attachments |
+
+If `BOT_API_KEY` is left blank, the API runs open (fine for local dev).
 
 ---
 
-## Step 3: Connect Webhook (10 min)
+## 4. Set up the database
 
-1. Meta dashboard → Your App → WhatsApp → Configuration
-2. Webhook → Edit:
+Run these once, in order, against the database in `DATABASE_URL`:
 
+```bash
+npm run setup-db     # creates tables + loads ~268 products from schema_product.sql
+npm run migrate      # adds customer_groups table + group_id column to orders
+npm run migrate-code # adds group_profiles table (customer code + overview group)
+npm run migrate-zh   # adds name_zh column to products (Chinese keyword search)
+npm run migrate-status # adds flagged + confidence_note columns to order_items
+npm run migrate-attachments # adds order_attachments table (photo/voice-note/text attachments)
 ```
-Callback URL: https://your-railway-url.up.railway.app/webhook
-Verify Token: my_secret_verify_token_xyz123
-```
-
-3. Click "Verify and Save" (should show green ✅)
-4. Subscribe to field: **messages** ✅
 
 ---
 
-## Step 4: Create Test Group (10 min)
+## 5. (Optional) Voice-note transcription
 
-### On WhatsApp:
+If the `stt/` folder with a Python venv is present, incoming voice notes are
+transcribed automatically via `faster-whisper`. If `stt/transcribe.py` is
+missing, the bot just skips transcription and stores the audio attachment
+without a transcript — no setup required to get the bot running.
 
-1. **Create new group**
-   - Name: "Test Orders" or whatever
-   - Add yourself
+To set it up yourself:
 
-2. **Add bot to group**
-   - Add the WhatsApp Business number to group
-   - Bot is now a member
-
-3. **Test in group**
-
-Send these messages in the group:
-
+```bash
+cd stt
+python -m venv venv
+# Windows
+venv\Scripts\pip install faster-whisper
+# macOS/Linux
+venv/bin/pip install faster-whisper
+cd ..
 ```
-/start
-```
-
-Expected response:
-```
-👋 Hello! Welcome to our ordering system.
-
-📋 Available Commands:
-/catalog - Browse all products
-/search [keyword] - Search products
-/cart - View your cart
-/help - Show all commands
-
-Or just type a product name to search!
-```
-
-### Test Full Flow:
-
-```
-You: /catalog
-Bot: [Shows all products by category]
-
-You: /add 1 2
-Bot: ✅ Added: Yee Fu Noodles x2
-     
-     📋 Your Cart:
-     1. Yee Fu Noodles x2
-     
-     ✅ Type /confirm to place order
-
-You: /confirm
-Bot: ✅ Order Confirmed!
-     
-     📦 Order #1
-     📅 [today's date]
-     
-     Items:
-     1. Yee Fu Noodles x2
-     
-     ✅ We will confirm your order...
-```
-
-### Test Multiple Customers:
-
-Add another person to group, have them:
-
-```
-Person B: /add 3 1
-Bot: ✅ Added to your cart
-     [Shows Person B's cart - separate from yours]
-
-Person B: /confirm
-Bot: ✅ Order #2 confirmed
-     [Person B's order - not affecting your cart]
-```
-
-**Key point:** Each person has separate cart even in same group.
 
 ---
 
-## Step 5: Test Private Chat (5 min)
+## 6. Run the bot
 
-1. From your personal WhatsApp, DM the business number directly
-2. Send: `/start`
-3. Bot responds same as in group
-4. All commands work identically
+```bash
+npm run dev    # nodemon, auto-reloads (ignores baileys-auth/ and customer_profiles/)
+# or
+npm start      # plain node
+```
 
-**Both group and private chat work!**
+On first run, a QR code prints in the terminal:
+
+```
+📱 Scan this QR code with your Baileys WhatsApp number:
+[QR code]
+```
+
+Scan it with **WhatsApp → Linked Devices → Link a Device** on the phone you
+want the bot to run as. Session credentials are saved to `baileys-auth/`
+(gitignored) — on subsequent runs it reconnects automatically without a QR.
+
+If you ever see `🔴 Baileys logged out`, delete the `baileys-auth/` folder
+and restart to re-scan.
 
 ---
 
-## Commands Reference
+## 7. Link a WhatsApp group
 
-### Must Know:
-- `/catalog` - See all products
-- `/add [id] [qty]` - Add to cart (e.g., `/add 5 2`)
-- `/confirm` - Place order
-- `/cart` - View cart
-- `/help` - Show commands
+The bot **ignores any group that isn't registered in `group_profiles`** —
+this keeps it safe in personal/unrelated groups.
 
-### Optional:
-- `/search noodle` - Search products
-- `/repeat` - Repeat last order (after you've made one)
-- `/clear` - Clear cart
-- `/start` - Show welcome
+1. Add the bot's WhatsApp account to the restaurant's order group.
+2. Find the group's ID — call the API (see below) or check the bot's console
+   logs, which print the group ID for every incoming group message.
+3. Register the group:
 
-### Shortcuts:
-- Type `noodle` - Auto-searches (no need for `/search`)
-- Type `hi` or `hello` - Same as `/start`
+```bash
+curl -X POST http://localhost:3001/api/groups \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: <BOT_API_KEY>" \
+  -d '{ "groupId": "120363xxxxxxxxxx@g.us", "customerCode": "002" }'
+```
+
+`customerCode` links the group to a customer profile under
+`customer_profiles/` (used for smart product matching). It can be left
+`null` if you don't have one yet.
+
+---
+
+## 8. Expose the API with ngrok
+
+The db_revamp dashboard (typically deployed on Vercel) needs to reach this
+bot's REST API. If you're running the bot locally, use ngrok to create a
+public HTTPS tunnel to `BOT_API_PORT` (default `3001`):
+
+```bash
+ngrok http 3001
+```
+
+ngrok prints a forwarding URL like:
+
+```
+Forwarding   https://abcd-1234.ngrok-free.app -> http://localhost:3001
+```
+
+In db_revamp's environment config, set the bot API base URL to that ngrok
+URL, and make sure every request sends `x-api-key: <BOT_API_KEY>` (same
+value as in this project's `.env`).
+
+Quick sanity check:
+
+```bash
+curl https://abcd-1234.ngrok-free.app/api/status \
+  -H "x-api-key: <BOT_API_KEY>"
+# → { "connected": true, "phone": null }
+```
+
+**Notes:**
+- On the free ngrok plan, the URL changes every time you restart the tunnel
+  — update db_revamp's config each time, or use a [reserved domain](https://ngrok.com/docs/http/reserved-domains/)
+  (`ngrok http --domain=your-reserved-domain.ngrok-free.app 3001`) for a
+  stable URL.
+- If the bot is deployed somewhere with a public IP/domain already (e.g. a
+  VPS), you don't need ngrok — just point db_revamp at that address directly.
+
+---
+
+## 9. Test the order flow
+
+In the linked WhatsApp group, send a free-text order, e.g.:
+
+```
+5 chicken, 3 fish cake
+```
+
+The bot parses it silently (no reply in the group) and adds it to an
+in-memory pending session. Check it landed:
+
+```bash
+curl http://localhost:3001/api/pending-orders -H "x-api-key: <BOT_API_KEY>"
+```
+
+You should see the parsed `items`, plus `rawAttachments` containing the
+exact text/photo/voice-note the customer sent.
+
+Then confirm or cancel it (as the dashboard would):
+
+```bash
+curl -X POST http://localhost:3001/api/confirm-order \
+  -H "Content-Type: application/json" -H "x-api-key: <BOT_API_KEY>" \
+  -d '{ "groupId": "120363xxxxxxxxxx@g.us" }'
+```
+
+This writes the order to the DB and sends a confirmation message to the
+WhatsApp group.
 
 ---
 
 ## Troubleshooting
 
-### Webhook verification failed
+**Bot doesn't respond / nothing in `/api/pending-orders`**
+- Is the group registered in `group_profiles`? (Step 7) — unregistered
+  groups are silently ignored by design.
+- Check the terminal running `npm run dev` for errors.
+- Confirm `npm run dev` is still connected: `GET /api/status` should return
+  `"connected": true`.
 
-**Error:** Red X when verifying webhook
+**`x-api-key` / 401 Unauthorized**
+- `BOT_API_KEY` in `.env` must match exactly what db_revamp sends, including
+  via the ngrok tunnel.
 
-**Fix:**
-1. Check `WEBHOOK_VERIFY_TOKEN` in Railway matches token in Meta
-2. Check Railway app is running (not crashed)
-3. Check Railway URL is correct (HTTPS, not HTTP)
-4. Try verify again
+**QR code won't scan / garbled in terminal**
+- Make the terminal window wider, or use a terminal with better Unicode
+  support. The bot already uses `qrcode-terminal` for compatibility — see
+  Known Issues in `CLAUDE.md`.
 
-### Bot doesn't respond in group
-
-**Check:**
-1. Is bot phone number added to group as member? (Should show in member list)
-2. Railway logs: `railway logs` - look for "Received text from..."
-3. Send `/start` and wait 5 seconds
-4. Check `WHATSAPP_ACCESS_TOKEN` is valid
-
-### Bot responds in group but not private chat
-
-This shouldn't happen - same code handles both.
-
-**Check:**
-1. Are you messaging the correct business number?
-2. Railway logs - is it receiving the message?
-
-### "/confirm" says "No pending order"
-
-**You forgot to add items first!**
-
-1. Send `/add 1 2` first
-2. Then `/confirm`
-
-Or:
-
-1. Send `/repeat` (if you have past order)
-2. Then `/confirm`
-
-### Database error
-
-**Check:**
-```bash
-railway run psql $DATABASE_URL -c "SELECT COUNT(*) FROM products;"
-```
-
-Should show number > 0
-
-If error:
-```bash
-railway run npm run setup-db
-```
+**Database errors on startup**
+- Make sure all migrations from Step 4 ran successfully against the same
+  `DATABASE_URL`.
 
 ---
 
-## Load Your Products
-
-### Option 1: Edit SQL File
-
-1. Edit `schema.sql`
-2. Replace sample products with yours
-3. Run:
-```bash
-railway run psql $DATABASE_URL -f schema.sql
-```
-
-### Option 2: Direct SQL
-
-Railway → PostgreSQL → Query:
-
-```sql
--- Add category
-INSERT INTO categories (name, description) VALUES 
-('Your Category', 'Description');
-
--- Add products (get category_id from above)
-INSERT INTO products (category_id, name, unit_size, is_active) VALUES
-(1, 'Your Product 1', '1KG', true),
-(1, 'Your Product 2', '500GM', true);
-```
-
----
-
-## Generate Permanent Access Token
-
-Your temp token expires in 24 hours. Generate permanent:
-
-1. Meta Business Settings → System Users
-2. Create new system user: "WhatsApp Bot"
-3. Add assets → Your app
-4. Generate token with permissions:
-   - `whatsapp_business_messaging`
-   - `whatsapp_business_management`
-5. **Copy token** (never expires)
-6. Update Railway variable: `WHATSAPP_ACCESS_TOKEN`
-
----
-
-## What's Working Now
-
-✅ Bot responds in groups  
-✅ Bot responds in private chats  
-✅ Multiple customers can order in same group  
-✅ Each customer has separate cart  
-✅ Product search works  
-✅ Order history saved  
-✅ Repeat order works  
-
----
-
-## Next Steps
-
-1. **Replace sample products** with your actual inventory
-2. **Test with real team members** in a group
-3. **Generate permanent access token** (temp expires 24h)
-4. **Wait for business verification** (needed for production)
-5. **Add bot to real customer groups**
-
----
-
-## Production Checklist
-
-Before going live:
-
-- [ ] Business verification approved
-- [ ] Permanent access token generated
-- [ ] Real products loaded in database
-- [ ] Tested in real group with 5+ people
-- [ ] Tested multiple simultaneous orders
-- [ ] Singapore phone number verified
-- [ ] Railway app not on free tier (for serious traffic)
-
----
-
-**Total Setup Time: ~1 hour**
-
-✅ Meta setup: 20 min  
-✅ Railway deploy: 15 min  
-✅ Webhook config: 10 min  
-✅ Group testing: 10 min  
-✅ Private testing: 5 min  
-
-**Bot is live and working!** 🚀
-
----
-
-## Common Questions
-
-**Q: Can customers use buttons?**  
-A: No. WhatsApp doesn't support buttons in groups. Text commands only.
-
-**Q: Are orders private?**  
-A: No. All group members see orders. This is by design (transparent ordering).
-
-**Q: Can I add bot to multiple groups?**  
-A: Yes! Same bot works in any group it's added to.
-
-**Q: How many customers per group?**  
-A: No limit. Each customer has separate cart.
-
-**Q: Does bot work in private chat too?**  
-A: Yes! Same commands work in DMs.
-
-**Q: Can I customize commands?**  
-A: Yes. Edit `server.js` and add your commands.
-
----
-
-Need help? Check `README.md` for full documentation.
+For the full request flow, database schema, and complete REST API
+reference, see [`CLAUDE.md`](./CLAUDE.md).
