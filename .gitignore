@@ -30,3 +30,6 @@ temp/
 
 # Baileys WhatsApp auth (contains session credentials)
 baileys-auth/
+
+# STT Python venv (machine-specific; transcribe.py is tracked separately)
+stt/venv/
