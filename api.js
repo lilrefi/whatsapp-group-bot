@@ -5,7 +5,8 @@ const {
   getBaileysGroups,
   getPendingSessions,
   adminConfirmGroup,
-  adminCancelGroup
+  adminCancelGroup,
+  postToGroup
 } = require('./baileys-bot');
 
 const API_PORT = parseInt(process.env.BOT_API_PORT) || 3001;
@@ -71,6 +72,19 @@ function startApiServer() {
       const result = await adminConfirmGroup(groupId, overrideItems, summary);
       if (!result.success) return res.status(400).json(result);
       res.json({ success: true, orderId: null });
+    } catch (e) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // POST /api/send-message
+  app.post('/api/send-message', auth, async (req, res) => {
+    try {
+      const { groupId, message } = req.body;
+      if (!groupId || !message) return res.status(400).json({ success: false, error: 'groupId and message required' });
+      const sent = await postToGroup(groupId, message);
+      if (!sent) return res.status(503).json({ success: false, error: 'Baileys not ready or send failed' });
+      res.json({ success: true });
     } catch (e) {
       res.status(500).json({ success: false, error: e.message });
     }
