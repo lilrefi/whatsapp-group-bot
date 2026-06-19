@@ -235,7 +235,7 @@ function clearTimer(groupId) {
 
 // ─── Finalize (write to DB + notify group) ────────────────────────────────────
 
-async function finalizeOrder(sock, groupId, senderPhone, status) {
+async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, overrideSummary) {
   const session = groupSessions.get(groupId);
   if (!session || session.items.length === 0) {
     groupSessions.delete(groupId);
@@ -261,13 +261,30 @@ async function finalizeOrder(sock, groupId, senderPhone, status) {
       if (!customer) customer = await db.createCustomer(senderPhone);
     }
 
-    const { order } = await db.createGroupOrder(customer.id, groupId, session.items, status, session.pendingAttachments || []);
+    // If the dashboard sent edited items, map them to the shape createGroupOrder expects.
+    // product_id/sku will be null so history update is skipped for these.
+    const itemsToSave = overrideItems
+      ? overrideItems.map(i => ({
+          product_id: null,
+          quantity: i.qty,
+          flagged: i.flagged || false,
+          confidence_note: i.confidence_note || null,
+          product: { name: i.name, unit_size: i.unit || null, sku: null }
+        }))
+      : session.items;
 
-    const label = status === 'confirmed' ? '✅ Order confirmed by staff!' : '✅ Order placed!';
-    let msg = `${label}\n\n*Items:*\n`;
-    session.items.forEach((item, i) => {
-      msg += `${i + 1}. ${item.product.name}${item.product.unit_size ? ` (${item.product.unit_size})` : ''} ×${item.quantity}\n`;
-    });
+    const { order } = await db.createGroupOrder(customer.id, groupId, itemsToSave, status, session.pendingAttachments || []);
+
+    let msg;
+    if (overrideSummary) {
+      msg = overrideSummary;
+    } else {
+      const label = status === 'confirmed' ? '✅ Order confirmed by staff!' : '✅ Order placed!';
+      msg = `${label}\n\n*Items:*\n`;
+      session.items.forEach((item, i) => {
+        msg += `${i + 1}. ${item.product.name}${item.product.unit_size ? ` (${item.product.unit_size})` : ''} ×${item.quantity}\n`;
+      });
+    }
 
     await sock.sendMessage(groupId, { text: msg });
 
@@ -277,6 +294,7 @@ async function finalizeOrder(sock, groupId, senderPhone, status) {
 
     // ── Update customer order history ──
     // Increment times_ordered + total_qty for each matched product.
+    // Skipped for override items (no product_id/sku available from dashboard).
     for (const item of session.items) {
       if (!item.product_id || !item.product) continue;
       const sku = item.product.sku;
@@ -328,10 +346,10 @@ function getPendingSessions() {
   }));
 }
 
-async function adminConfirm(sock, groupId) {
+async function adminConfirm(sock, groupId, overrideItems, summary) {
   const session = groupSessions.get(groupId);
   if (!session) return { success: false, error: 'No active order for this group' };
-  await finalizeOrder(sock, groupId, session.senderPhone || 'admin', 'confirmed');
+  await finalizeOrder(sock, groupId, session.senderPhone || 'admin', 'confirmed', overrideItems, summary);
   return { success: true };
 }
 

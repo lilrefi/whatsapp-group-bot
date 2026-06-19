@@ -261,9 +261,9 @@ async function postToGroup(groupId, message) {
   }
 }
 
-async function adminConfirmGroup(groupId) {
+async function adminConfirmGroup(groupId, overrideItems, summary) {
   if (!sock || !isReady) return { success: false, error: 'Baileys not connected' };
-  return adminConfirm(sock, groupId);
+  return adminConfirm(sock, groupId, overrideItems, summary);
 }
 
 async function adminCancelGroup(groupId) {

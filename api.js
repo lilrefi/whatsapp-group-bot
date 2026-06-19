@@ -66,9 +66,9 @@ function startApiServer() {
   // POST /api/confirm-order
   app.post('/api/confirm-order', auth, async (req, res) => {
     try {
-      const { groupId } = req.body;
+      const { groupId, overrideItems, summary } = req.body;
       if (!groupId) return res.status(400).json({ success: false, error: 'groupId required' });
-      const result = await adminConfirmGroup(groupId);
+      const result = await adminConfirmGroup(groupId, overrideItems, summary);
       if (!result.success) return res.status(400).json(result);
       res.json({ success: true, orderId: null });
     } catch (e) {
