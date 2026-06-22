@@ -133,7 +133,7 @@ async function searchProducts(searchTerm) {
   const result = await pool.query(
     `SELECT * FROM products
      WHERE is_active = true
-     AND (LOWER(name) LIKE $1 OR name_zh LIKE $1)
+     AND (LOWER(name) LIKE $1 OR chinese_name LIKE $1)
      ORDER BY name
      LIMIT 20`,
     [`%${searchTerm.toLowerCase()}%`]
@@ -422,7 +422,7 @@ async function cancelOrderById(orderId) {
  */
 async function updateProductZh(productId, nameZh) {
   await pool.query(
-    'UPDATE products SET name_zh = $1 WHERE id = $2',
+    'UPDATE products SET chinese_name = $1 WHERE id = $2',
     [nameZh || null, productId]
   );
 }

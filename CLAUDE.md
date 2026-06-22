@@ -13,7 +13,7 @@ npm start            # Production start
 npm run setup-db     # Creates tables + loads 268 products from schema_product.sql
 npm run migrate      # Adds customer_groups table + group_id column to orders
 npm run migrate-code # Adds group_profiles table (customer code + overview group)
-npm run migrate-zh   # Adds name_zh column to products (Chinese keyword search)
+npm run migrate-zh   # Adds name_zh column to products (legacy, unused — Chinese names live in chinese_name column)
 npm run migrate-status      # Adds flagged + confidence_note columns to order_items
 npm run migrate-attachments # Adds order_attachments table (photo/voice-note/text attachments)
 ```
@@ -163,7 +163,7 @@ Deletes the group_profile. GroupId must be URL-encoded if it contains special ch
 ## Database schema
 
 - `customers` — identified by phone number
-- `categories` / `products` — 268 products across 12 categories; `name_zh` for Chinese keyword search
+- `categories` / `products` — 268 products across 12 categories; `chinese_name` column for Chinese keyword search
 - `orders` + `order_items` — `group_id` records originating group; `flagged` + `confidence_note` on items
 - `customer_groups` — maps `customer_id → group_id`
 - `group_profiles` — maps `group_id → customer_code + overview_group_id`
