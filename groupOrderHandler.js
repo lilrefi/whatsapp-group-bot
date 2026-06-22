@@ -125,7 +125,7 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
     }
   }
 
-  if (newResolved.length === 0 && newAmbiguous.length === 0) return; // nothing parseable
+  if (newResolved.length === 0 && newAmbiguous.length === 0 && !existingSession) return;
 
   const session = existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone, pendingAttachments: [] };
 
