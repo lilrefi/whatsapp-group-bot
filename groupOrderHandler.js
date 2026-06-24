@@ -125,9 +125,14 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
     }
   }
 
-  if (newResolved.length === 0 && newAmbiguous.length === 0 && !existingSession) return;
+  // Re-read from the Map: a concurrent voice-note call may have written a session
+  // while we were awaiting DB lookups above. Prefer the live Map value so we
+  // merge into it rather than overwriting it with a stale snapshot.
+  const liveSession = groupSessions.get(groupId);
 
-  const session = existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone, pendingAttachments: [] };
+  if (newResolved.length === 0 && newAmbiguous.length === 0 && !liveSession && !existingSession) return;
+
+  const session = liveSession || existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone, pendingAttachments: [] };
 
   // Merge resolved items (replace quantity for duplicates)
   for (const item of newResolved) {

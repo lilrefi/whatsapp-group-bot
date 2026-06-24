@@ -49,22 +49,38 @@ async function transcribeAudio(audioBuffer, ext = 'ogg') {
     return null;
   }
 
-  try {
-    // Prefer a local project venv; fall back to system python
-    const isWin = process.platform === 'win32';
-    const localVenv = isWin
-      ? path.join(__dirname, 'stt', 'venv', 'Scripts', 'python.exe')
-      : path.join(__dirname, 'stt', 'venv', 'bin', 'python3');
-    const fallback = isWin ? 'python' : 'python3';
-    const pythonBin = fs.existsSync(localVenv) ? localVenv : fallback;
+  // Prefer a local project venv; fall back to system python
+  const isWin = process.platform === 'win32';
+  const localVenv = isWin
+    ? path.join(__dirname, 'stt', 'venv', 'Scripts', 'python.exe')
+    : path.join(__dirname, 'stt', 'venv', 'bin', 'python3');
+  const fallback = isWin ? 'python' : 'python3';
+  const pythonBin = fs.existsSync(localVenv) ? localVenv : fallback;
 
-    const { stdout, stderr } = await execFileAsync(pythonBin, [scriptPath, tmpFile], {
-      timeout: 120000,
-    });
-
+  // transcribe.py stdout: line 1 = detected_language, line 2+ = transcript
+  async function runTranscribe(langArg) {
+    const args = langArg
+      ? [scriptPath, tmpFile, '--language', langArg]
+      : [scriptPath, tmpFile];
+    const { stdout, stderr } = await execFileAsync(pythonBin, args, { timeout: 120000 });
     if (stderr) console.log('[STT] stderr:', stderr.trim());
+    const lines = stdout.split('\n');
+    const detectedLang = lines[0].trim();
+    const transcript = lines.slice(1).join('\n').trim();
+    return { detectedLang, transcript };
+  }
 
-    const transcript = stdout.trim();
+  try {
+    let { detectedLang, transcript } = await runTranscribe(null);
+    console.log(`[STT] Auto-detected language: ${detectedLang}`);
+
+    // Indonesian is a frequent false-positive for Malaysian/Singaporean-accented
+    // English. Re-run forced to English so Whisper uses the right phoneme model.
+    if (detectedLang === 'id') {
+      console.log('[STT] Detected Indonesian — retrying forced English');
+      ({ transcript } = await runTranscribe('en'));
+    }
+
     return transcript || null;
   } catch (err) {
     console.error('[STT] Transcription failed:', err.message);
