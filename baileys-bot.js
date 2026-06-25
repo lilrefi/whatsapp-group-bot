@@ -10,7 +10,7 @@ const os = require('os');
 const { randomBytes } = require('crypto');
 const { execFile } = require('child_process');
 const { promisify } = require('util');
-const { handleGroupMessage, getPendingSessions, adminConfirm, adminCancel, adminUpdateItems } = require('./groupOrderHandler');
+const { handleGroupMessage, getPendingSessions, adminConfirm, adminCancel } = require('./groupOrderHandler');
 
 const execFileAsync = promisify(execFile);
 
@@ -293,6 +293,5 @@ module.exports = {
   getBaileysGroups,
   getPendingSessions,
   adminConfirmGroup,
-  adminCancelGroup,
-  adminUpdateItems
+  adminCancelGroup
 };

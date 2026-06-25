@@ -344,23 +344,9 @@ async function adminCancel(sock, groupId) {
   return { success: true };
 }
 
-function adminUpdateItems(groupId, items) {
-  const session = groupSessions.get(groupId);
-  if (!session) return { success: false, error: 'No active order for this group' };
-  session.items = items.map(i => ({
-    product_id: i.product_id,
-    product: { name: i.name, unit_size: i.unit_size || null },
-    quantity: i.quantity,
-    flagged: i.flagged || false
-  }));
-  groupSessions.set(groupId, session);
-  return { success: true };
-}
-
 module.exports = {
   handleGroupMessage,
   getPendingSessions,
   adminConfirm,
-  adminCancel,
-  adminUpdateItems
+  adminCancel
 };
