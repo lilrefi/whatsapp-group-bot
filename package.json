@@ -23,6 +23,7 @@
   "author": "Refi Daffa",
   "license": "MIT",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.106.0",
     "@hapi/boom": "^10.0.1",
     "@vercel/blob": "^2.4.0",
     "@whiskeysockets/baileys": "^6.7.18",

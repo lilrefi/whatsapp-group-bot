@@ -26,7 +26,7 @@ npm run migrate-attachments # Adds order_attachments table (photo/voice-note/tex
 | `BOT_API_KEY` | Shared secret — must match the value set in db_revamp (Next.js dashboard). All API requests must include `x-api-key: <BOT_API_KEY>` header. |
 | `BOT_API_PORT` | Port for the REST API server (default: 3001) |
 | `PORT` | Port for any legacy health-check Express app (default: 3000, currently unused) |
-| `ORDER_BUFFER_MINUTES` | Minutes before auto-placing unconfirmed order (default: 10, timer currently disabled) |
+| `ANTHROPIC_API_KEY` | Anthropic API key — used by Claude Haiku 4.5 to OCR order text from images sent in WhatsApp groups. |
 
 ## Architecture
 

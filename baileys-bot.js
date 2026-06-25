@@ -2,6 +2,7 @@ require('dotenv').config();
 const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, downloadMediaMessage } = require('@whiskeysockets/baileys');
 const { Boom } = require('@hapi/boom');
 const { put } = require('@vercel/blob');
+const Anthropic = require('@anthropic-ai/sdk');
 const pino = require('pino');
 const qrcode = require('qrcode-terminal');
 const path = require('path');
@@ -13,6 +14,7 @@ const { promisify } = require('util');
 const { handleGroupMessage, getPendingSessions, adminConfirm, adminCancel } = require('./groupOrderHandler');
 
 const execFileAsync = promisify(execFile);
+const anthropic = new Anthropic(); // reads ANTHROPIC_API_KEY from env
 
 let sock = null;
 let isReady = false;
@@ -27,6 +29,44 @@ async function uploadAttachmentToBlob(buffer, groupId, ext, contentType) {
     return url;
   } catch (err) {
     console.error('❌ Blob upload failed:', err.message);
+    return null;
+  }
+}
+
+// ─── Image OCR (Claude Haiku) ────────────────────────────────────────────────
+
+const OCR_SUPPORTED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+async function ocrImage(imageBuffer, mimeType) {
+  // WhatsApp occasionally sends 'image/jpg' which the API doesn't accept
+  const normalizedType = mimeType === 'image/jpg' ? 'image/jpeg' : mimeType;
+  if (!OCR_SUPPORTED_TYPES.includes(normalizedType)) {
+    console.warn(`[OCR] Unsupported type ${mimeType} — skipping`);
+    return null;
+  }
+  try {
+    const response = await anthropic.messages.create({
+      model: 'claude-haiku-4-5',
+      max_tokens: 512,
+      messages: [{
+        role: 'user',
+        content: [
+          {
+            type: 'image',
+            source: { type: 'base64', media_type: normalizedType, data: imageBuffer.toString('base64') }
+          },
+          {
+            type: 'text',
+            text: 'Extract any food or product order text from this image. Return only the order items exactly as written, nothing else. If no order is visible, return nothing.'
+          }
+        ]
+      }]
+    });
+    const text = response.content[0]?.text?.trim();
+    console.log(`[OCR] Extracted: "${text?.substring(0, 80) || '(empty)'}"`);
+    return text || null;
+  } catch (err) {
+    console.error('[OCR] Failed:', err.message);
     return null;
   }
 }
@@ -221,13 +261,20 @@ async function connectBaileys() {
 
         const contentType = imageMsg.mimetype || 'image/jpeg';
         const ext = contentType.split('/')[1] || 'jpg';
-        const imageUrl = await uploadAttachmentToBlob(imgBuffer, remoteJid, ext, contentType);
         const caption = (imageMsg.caption || '').trim();
-        const imageAttachment = { type: 'image', url: imageUrl, text: caption || null, transcript: null, timestamp: messageTimestamp };
 
-        console.log(`📷 Image uploaded${caption ? ` | caption: ${caption.substring(0, 80)}` : ' | no caption'}`);
+        const [imageUrl, ocrText] = await Promise.all([
+          uploadAttachmentToBlob(imgBuffer, remoteJid, ext, contentType),
+          ocrImage(imgBuffer, contentType),
+        ]);
 
-        handleGroupMessage(sock, remoteJid, senderPhone, caption, imageAttachment)
+        // OCR result is the primary order text; caption is the fallback
+        const orderText = ocrText || caption;
+        const imageAttachment = { type: 'image', url: imageUrl, text: caption || null, transcript: ocrText || null, timestamp: messageTimestamp };
+
+        console.log(`📷 Image uploaded${caption ? ` | caption: ${caption.substring(0, 80)}` : ' | no caption'}${ocrText ? ` | OCR: ${ocrText.substring(0, 80)}` : ''}`);
+
+        handleGroupMessage(sock, remoteJid, senderPhone, orderText, imageAttachment)
           .catch(e => console.error('❌ handleGroupMessage error (from image):', e.message));
 
         continue;
