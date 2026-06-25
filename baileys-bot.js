@@ -14,7 +14,7 @@ const { promisify } = require('util');
 const { handleGroupMessage, getPendingSessions, adminConfirm, adminCancel } = require('./groupOrderHandler');
 
 const execFileAsync = promisify(execFile);
-const anthropic = new Anthropic(); // reads ANTHROPIC_API_KEY from env
+const anthropic = process.env.ANTHROPIC_API_KEY ? new Anthropic() : null;
 
 let sock = null;
 let isReady = false;
@@ -38,6 +38,7 @@ async function uploadAttachmentToBlob(buffer, groupId, ext, contentType) {
 const OCR_SUPPORTED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
 async function ocrImage(imageBuffer, mimeType) {
+  if (!anthropic) return null; // ANTHROPIC_API_KEY not set — skip gracefully
   // WhatsApp occasionally sends 'image/jpg' which the API doesn't accept
   const normalizedType = mimeType === 'image/jpg' ? 'image/jpeg' : mimeType;
   if (!OCR_SUPPORTED_TYPES.includes(normalizedType)) {
