@@ -467,6 +467,7 @@ module.exports = {
   updateProductZh,
   getCustomerByCode,
   upsertOrderHistory,
+  getCustomerOrderHistory,
   close
 };
 
@@ -495,4 +496,19 @@ async function upsertOrderHistory(customerId, sku, description, unit, qty) {
       SET times_ordered = mgmt_customer_order_history.times_ordered + 1,
           total_qty     = mgmt_customer_order_history.total_qty + $5
   `, [customerId, sku, description || null, unit || null, qty]);
+}
+
+/**
+ * Get order history for a customer by their customer_code (e.g. "3000/006").
+ * Returns rows shaped as { item_code, times_ordered } ordered by most-ordered first.
+ */
+async function getCustomerOrderHistory(customerCode) {
+  const result = await pool.query(`
+    SELECT h.item_code, h.times_ordered
+    FROM mgmt_customer_order_history h
+    JOIN customers c ON c.id = h.customer_id
+    WHERE c.customer_code = $1
+    ORDER BY h.times_ordered DESC
+  `, [customerCode]);
+  return result.rows;
 }

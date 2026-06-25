@@ -1,10 +1,24 @@
 const fs = require('fs');
 const path = require('path');
+const db = require('./database');
 
 const PROFILES_DIR = path.join(__dirname, 'customer_profiles');
 
-function loadProfile(customerCode) {
-  const padded = customerCode.toString().padStart(3, '0');
+// Query live DB history first; fall back to legacy JSON export if no rows found.
+async function loadProfile(customerCode) {
+  try {
+    const rows = await db.getCustomerOrderHistory(customerCode);
+    if (rows.length > 0) {
+      return { order_history: rows };
+    }
+  } catch (err) {
+    console.warn(`[profile] DB history lookup failed for ${customerCode}:`, err.message);
+  }
+
+  // Legacy fallback: static JSON files exported from PSOFT.
+  // customer_code may be "3000/006" or just "006" — extract numeric part.
+  const parts = customerCode.toString().split('/');
+  const padded = (parts[1] || parts[0]).padStart(3, '0');
   const filepath = path.join(PROFILES_DIR, `3000_${padded}.json`);
   if (!fs.existsSync(filepath)) return null;
   try {

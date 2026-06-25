@@ -90,7 +90,7 @@ async function searchProductsFuzzy(searchTerm) {
 async function processOrderLines(sock, groupId, senderPhone, lines, existingSession, attachment) {
   const groupProfile = await db.getGroupProfile(groupId);
   const profile = (groupProfile && groupProfile.customer_code)
-    ? loadProfile(groupProfile.customer_code)
+    ? await loadProfile(groupProfile.customer_code)
     : null;
 
   const newResolved = [];
