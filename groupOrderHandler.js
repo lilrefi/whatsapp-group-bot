@@ -134,7 +134,7 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
     }
   }
 
-  session.notFound = [...session.notFound, ...newNotFound];
+  session.notFound = [...new Set([...session.notFound, ...newNotFound])];
   session.pendingDisambiguations = [...session.pendingDisambiguations, ...newAmbiguous];
   if (attachment) session.pendingAttachments.push(attachment);
 
