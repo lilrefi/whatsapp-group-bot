@@ -7,7 +7,10 @@ startApiServer();
 
 connectBaileys().catch(err => console.error('❌ Baileys startup error:', err.message));
 
-process.on('SIGTERM', () => {
+function shutdown() {
   db.close();
   process.exit(0);
-});
+}
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
