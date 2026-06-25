@@ -5,10 +5,6 @@ const { loadProfile, pickBestMatch } = require('./profileLookup');
 // groupId → { items, pendingDisambiguations, notFound, pendingAttachments, senderPhone, startedAt, timerId }
 const groupSessions = new Map();
 
-function bufferMs() {
-  return (parseInt(process.env.ORDER_BUFFER_MINUTES) || 10) * 60 * 1000;
-}
-
 // ─── Entry point (called by baileys-bot for every group message) ──────────────
 
 async function handleGroupMessage(sock, groupId, senderPhone, text, attachment = null) {
@@ -44,12 +40,6 @@ async function handleGroupMessage(sock, groupId, senderPhone, text, attachment =
     if (attachment && session) {
       session.pendingAttachments.push(attachment);
       groupSessions.set(groupId, session);
-      // Re-arm the buffer — incoming attachments count as activity, so the
-      // order shouldn't auto-place while the customer is still sending media.
-      if (session.items.length > 0 && session.pendingDisambiguations.length === 0) {
-        clearTimer(groupId);
-        startTimer(sock, groupId, senderPhone);
-      }
     }
     return;
   }
@@ -132,7 +122,7 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
 
   if (newResolved.length === 0 && newAmbiguous.length === 0 && !liveSession && !existingSession) return;
 
-  const session = liveSession || existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone, pendingAttachments: [] };
+  const session = liveSession || existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone, startedAt: Date.now(), pendingAttachments: [] };
 
   // Merge resolved items (replace quantity for duplicates)
   for (const item of newResolved) {
@@ -201,34 +191,17 @@ async function showOrderSummary(sock, groupId, session) {
   // Silent — no reply until staff confirms
 }
 
-// Reached whenever the session settles into a stable state after processing a
-// message: either ask the next disambiguation question, or — once there's
-// nothing left to ask — (re)arm the buffer timer so the order auto-places
-// after ORDER_BUFFER_MINUTES of inactivity.
+// Called whenever the session settles after processing a message.
+// Orders are confirmed exclusively by staff via the dashboard — no auto-timer.
 async function finishOrderProgress(sock, groupId, senderPhone, session) {
   if (session.pendingDisambiguations.length > 0) {
     await askDisambiguation(sock, groupId, session.pendingDisambiguations[0]);
     return;
   }
   await showOrderSummary(sock, groupId, session);
-  if (session.items.length > 0) {
-    clearTimer(groupId);
-    startTimer(sock, groupId, senderPhone);
-  }
 }
 
-// ─── Buffer timer ─────────────────────────────────────────────────────────────
-
-function startTimer(sock, groupId, senderPhone) {
-  const session = groupSessions.get(groupId);
-  if (!session) return;
-  session.startedAt = Date.now();
-  session.timerId = setTimeout(
-    () => finalizeOrder(sock, groupId, senderPhone, 'auto_placed'),
-    bufferMs()
-  );
-  groupSessions.set(groupId, session);
-}
+// ─── Timer cleanup (no-op kept for safety in case old sessions have a timerId) ─
 
 function clearTimer(groupId) {
   const session = groupSessions.get(groupId);
@@ -336,7 +309,6 @@ function getPendingSessions() {
     groupId,
     senderPhone: session.senderPhone,
     startedAt: session.startedAt || null,
-    bufferMs: bufferMs(),
     awaitingDisambiguation: session.pendingDisambiguations.length > 0,
     items: session.items.map(i => ({
       product_id: i.product_id,
