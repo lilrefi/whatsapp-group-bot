@@ -242,7 +242,12 @@ function clearTimer(groupId) {
 
 async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, overrideSummary) {
   const session = groupSessions.get(groupId);
-  if (!session || session.items.length === 0) {
+  if (!session) {
+    return;
+  }
+  // Allow confirming a session that has no bot-matched items as long as the
+  // dashboard is supplying override items (staff manually corrected all-notFound).
+  if (session.items.length === 0 && (!overrideItems || overrideItems.length === 0)) {
     groupSessions.delete(groupId);
     return;
   }
