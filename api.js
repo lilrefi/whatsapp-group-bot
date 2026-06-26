@@ -50,6 +50,7 @@ function startApiServer() {
           items: s.items.map(i => ({
             product_id: i.product_id || null,
             name: i.name,
+            sku: i.sku || null,
             qty: i.quantity,
             unit: i.unit_size || null,
             unitPrice: null,

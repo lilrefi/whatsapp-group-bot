@@ -326,6 +326,7 @@ function getPendingSessions() {
     items: session.items.map(i => ({
       product_id: i.product_id,
       name: i.product.name,
+      sku: i.product.sku || null,
       unit_size: i.product.unit_size || null,
       quantity: i.quantity,
       flagged: i.flagged
