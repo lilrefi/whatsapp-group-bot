@@ -187,18 +187,30 @@ async function handleDisambiguationReply(sock, groupId, senderPhone, num) {
 
 // ─── Summary display ──────────────────────────────────────────────────────────
 
+const ORDER_AUTO_CONFIRM_MS = 48 * 60 * 60 * 1000; // 48 hours
+
 async function showOrderSummary(sock, groupId, session) {
-  // Silent — no reply until staff confirms
+  // Silent — no reply until staff confirms or 48 h timer fires
 }
 
 // Called whenever the session settles after processing a message.
-// Orders are confirmed exclusively by staff via the dashboard — no auto-timer.
+// Resets the 48-hour auto-confirm window on every interaction.
 async function finishOrderProgress(sock, groupId, senderPhone, session) {
+  clearTimer(groupId); // reset window on every interaction
+
   if (session.pendingDisambiguations.length > 0) {
     await askDisambiguation(sock, groupId, session.pendingDisambiguations[0]);
     return;
   }
   await showOrderSummary(sock, groupId, session);
+
+  // Auto-confirm 48 h after the last order message if staff hasn't acted.
+  if (session.items.length > 0) {
+    session.timerId = setTimeout(() => {
+      finalizeOrder(sock, groupId, senderPhone, 'confirmed');
+    }, ORDER_AUTO_CONFIRM_MS);
+    groupSessions.set(groupId, session);
+  }
 }
 
 // ─── Timer cleanup (no-op kept for safety in case old sessions have a timerId) ─
