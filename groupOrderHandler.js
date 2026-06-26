@@ -228,20 +228,21 @@ async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, 
   groupSessions.delete(groupId);
 
   try {
-    // ── Resolve customer by RESTAURANT (group_id → customer_code) ──
-    // This ensures orders from the same group always link to the same
-    // restaurant customer, regardless of which person sent the message.
+    // ── Resolve customer by group ownership ──
+    // Primary: customer_groups table (group_id → customer_id). This is populated
+    // by the dashboard when a group is registered to a business.
+    // Legacy fallback: group_profiles → customer_code → customers.customer_code.
+    // NEVER fall back to sender phone — senderPhone can be a Baileys @lid
+    // identifier (e.g. 118914826662020@lid), not a real phone number.
     const gp = await db.getGroupProfile(groupId);
-    let customer = null;
+    let customer = await db.getCustomerByGroupId(groupId);
 
-    if (gp && gp.customer_code) {
+    if (!customer && gp && gp.customer_code) {
       customer = await db.getCustomerByCode(gp.customer_code);
     }
 
-    // Fallback: find or create by sender phone
     if (!customer) {
-      customer = await db.getCustomerByPhone(senderPhone);
-      if (!customer) customer = await db.createCustomer(senderPhone);
+      console.warn(`⚠️  No customer found for group ${groupId} — order will be saved with customer_id = null`);
     }
 
     // If the dashboard sent edited items, map them to the shape createGroupOrder expects.
@@ -256,7 +257,7 @@ async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, 
         }))
       : session.items;
 
-    const { order } = await db.createGroupOrder(customer.id, groupId, itemsToSave, status, session.pendingAttachments || []);
+    const { order } = await db.createGroupOrder(customer?.id || null, groupId, itemsToSave, status, session.pendingAttachments || []);
 
     let msg;
     if (overrideSummary) {
@@ -277,9 +278,9 @@ async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, 
 
     // ── Update customer order history ──
     // Increment times_ordered + total_qty for each matched product.
-    // Skipped for override items (no product_id/sku available from dashboard).
+    // Skipped when no customer was resolved, or for override items (no product_id/sku).
     for (const item of session.items) {
-      if (!item.product_id || !item.product) continue;
+      if (!customer || !item.product_id || !item.product) continue;
       const sku = item.product.sku;
       if (!sku) continue;
       try {
@@ -295,7 +296,7 @@ async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, 
       }
     }
 
-    console.log(`✅ Order #${order.id} [${status}] for group ${groupId} → customer ${customer.id}`);
+    console.log(`✅ Order #${order.id} [${status}] for group ${groupId} → customer ${customer?.id || 'null'}`);
   } catch (err) {
     console.error('❌ Error finalizing order:', err.message);
     await sock.sendMessage(groupId, { text: '❌ Error saving order. Please contact admin.' });

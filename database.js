@@ -466,6 +466,7 @@ module.exports = {
   addItemToOrder,
   updateProductZh,
   getCustomerByCode,
+  getCustomerByGroupId,
   upsertOrderHistory,
   getCustomerOrderHistory,
   close
@@ -496,6 +497,21 @@ async function upsertOrderHistory(customerId, sku, description, unit, qty) {
       SET times_ordered = mgmt_customer_order_history.times_ordered + 1,
           total_qty     = mgmt_customer_order_history.total_qty + $5
   `, [customerId, sku, description || null, unit || null, qty]);
+}
+
+/**
+ * Look up the customer that owns a WhatsApp group via customer_groups.
+ * This is the canonical attribution path for group orders.
+ */
+async function getCustomerByGroupId(groupId) {
+  const result = await pool.query(
+    `SELECT c.* FROM customers c
+     JOIN customer_groups cg ON cg.customer_id = c.id
+     WHERE cg.group_id = $1 AND cg.is_active = true
+     LIMIT 1`,
+    [groupId]
+  );
+  return result.rows[0] || null;
 }
 
 /**
