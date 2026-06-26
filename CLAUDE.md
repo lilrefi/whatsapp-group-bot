@@ -179,5 +179,4 @@ Deletes the group_profile. GroupId must be URL-encoded if it contains special ch
 - **orderId not returned on confirm**: `finalizeOrder()` in groupOrderHandler.js does not bubble the DB order ID back to `adminConfirm`. The confirm API returns `orderId: null` for now.
 - **unitPrice always null**: product price is not stored in the in-memory session, only name/qty/unit. The db_revamp should look up prices from its own product catalog if needed.
 - **Customer attribution**: orders are linked to the business by querying `customer_groups` (group_id → customer_id). Falls back to `group_profiles → customer_code`. Sender phone is never used — it can be a Baileys `@lid` identifier, not a real phone number.
-- **Debug logging in createGroupOrder**: `database.js` still has `console.log` lines for the product_id name-lookup fallback. Remove once confirmed stable in production.
 - **SKU badge in dashboard**: db_revamp must display `item.sku` (not `item.unit`) for the PSOFT item code badge. The bot exposes both fields.
