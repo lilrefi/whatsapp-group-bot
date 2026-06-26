@@ -335,10 +335,18 @@ async function createGroupOrder(customerId, groupId, items, status = 'confirmed'
 
       // If product_id wasn't round-tripped from the dashboard, look it up by name.
       if (!productId && item.product && item.product.name) {
+        const nameArg = item.product.name;
+        console.log(`[createGroupOrder] product_id missing for "${nameArg}" — running name lookup`);
         const pr = await client.query(
-          `SELECT id FROM products WHERE (name = $1 OR chinese_name = $1 OR name_zh = $1) AND is_active = true LIMIT 1`,
-          [item.product.name]
+          `SELECT id FROM products
+           WHERE (TRIM(name) ILIKE TRIM($1)
+               OR TRIM(chinese_name) ILIKE TRIM($1)
+               OR TRIM(name_zh) ILIKE TRIM($1))
+             AND is_active = true
+           LIMIT 1`,
+          [nameArg]
         );
+        console.log(`[createGroupOrder] lookup "${nameArg}" → ${pr.rows.length > 0 ? `id=${pr.rows[0].id}` : 'no match'}`);
         if (pr.rows.length > 0) productId = pr.rows[0].id;
       }
 
