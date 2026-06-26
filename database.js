@@ -331,10 +331,21 @@ async function createGroupOrder(customerId, groupId, items, status = 'confirmed'
     );
     const order = orderResult.rows[0];
     for (const item of items) {
+      let productId = item.product_id || null;
+
+      // If product_id wasn't round-tripped from the dashboard, look it up by name.
+      if (!productId && item.product && item.product.name) {
+        const pr = await client.query(
+          `SELECT id FROM products WHERE (name = $1 OR chinese_name = $1 OR name_zh = $1) AND is_active = true LIMIT 1`,
+          [item.product.name]
+        );
+        if (pr.rows.length > 0) productId = pr.rows[0].id;
+      }
+
       await client.query(
         `INSERT INTO order_items (order_id, product_id, quantity, product_name, unit_size, flagged, confidence_note, created_at)
          VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())`,
-        [order.id, item.product_id, item.quantity, item.product.name,
+        [order.id, productId, item.quantity, item.product.name,
          item.product.unit_size || null, item.flagged || false, item.confidence_note || null]
       );
     }

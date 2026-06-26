@@ -48,6 +48,7 @@ function startApiServer() {
           createdAt: s.startedAt ? new Date(s.startedAt).toISOString() : null,
           awaitingDisambiguation: s.awaitingDisambiguation,
           items: s.items.map(i => ({
+            product_id: i.product_id || null,
             name: i.name,
             qty: i.quantity,
             unit: i.unit_size || null,

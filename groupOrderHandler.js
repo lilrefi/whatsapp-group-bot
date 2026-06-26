@@ -261,7 +261,7 @@ async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, 
     // product_id/sku will be null so history update is skipped for these.
     const itemsToSave = overrideItems
       ? overrideItems.map(i => ({
-          product_id: null,
+          product_id: i.product_id || null,
           quantity: i.qty,
           flagged: i.flagged || false,
           confidence_note: i.confidence_note || null,
