@@ -98,13 +98,14 @@ Returns all in-memory pending sessions.
       "createdAt": "2026-06-01T10:00:00.000Z",
       "awaitingDisambiguation": false,
       "items": [
-        { "name": "Soya Sauce", "qty": 5, "unit": "750ML", "unitPrice": null, "flagged": false }
+        { "product_id": 235, "name": "Soya Sauce", "sku": "M512", "qty": 5, "unit": "750ML", "unitPrice": null, "flagged": false }
       ],
       "notFound": []
     }
   ]
 }
 ```
+Note: `product_id` and `sku` must be round-tripped back from the dashboard in `overrideItems` on confirm, otherwise the bot falls back to a name-based lookup (ILIKE) to resolve `product_id` at save time.
 
 ### POST /api/confirm-order
 Body: `{ "groupId": "120363..." }`
@@ -159,6 +160,7 @@ Deletes the group_profile. GroupId must be URL-encoded if it contains special ch
 - One active session per group at a time
 - New order messages while session is active → items MERGED (quantities replaced for duplicate products)
 - Session cleared on confirm / cancel / server restart
+- **48-hour auto-confirm**: if staff hasn't acted, the session auto-confirms 48 h after the last order message. Timer resets on each new message or disambiguation reply.
 
 ## Database schema
 
@@ -176,3 +178,6 @@ Deletes the group_profile. GroupId must be URL-encoded if it contains special ch
 - **Unlinked groups ignored**: bot returns early if `group_profiles` has no entry for the group — personal groups are safe.
 - **orderId not returned on confirm**: `finalizeOrder()` in groupOrderHandler.js does not bubble the DB order ID back to `adminConfirm`. The confirm API returns `orderId: null` for now.
 - **unitPrice always null**: product price is not stored in the in-memory session, only name/qty/unit. The db_revamp should look up prices from its own product catalog if needed.
+- **Customer attribution**: orders are linked to the business by querying `customer_groups` (group_id → customer_id). Falls back to `group_profiles → customer_code`. Sender phone is never used — it can be a Baileys `@lid` identifier, not a real phone number.
+- **Debug logging in createGroupOrder**: `database.js` still has `console.log` lines for the product_id name-lookup fallback. Remove once confirmed stable in production.
+- **SKU badge in dashboard**: db_revamp must display `item.sku` (not `item.unit`) for the PSOFT item code badge. The bot exposes both fields.
