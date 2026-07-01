@@ -174,6 +174,21 @@ async function connectBaileys() {
     }
   });
 
+  sock.ev.on('groups.upsert', (newGroups) => {
+    for (const g of newGroups) {
+      groupCache[g.id] = g;
+      console.log(`📋 New group joined: ${g.subject} → ${g.id}`);
+    }
+  });
+
+  sock.ev.on('groups.update', (updates) => {
+    for (const update of updates) {
+      if (groupCache[update.id]) {
+        groupCache[update.id] = { ...groupCache[update.id], ...update };
+      }
+    }
+  });
+
   sock.ev.on('messages.upsert', async ({ messages }) => {
     for (const msg of messages) {
       const remoteJid = msg.key.remoteJid;
