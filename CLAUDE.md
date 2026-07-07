@@ -141,18 +141,34 @@ Deletes the group_profile. GroupId must be URL-encoded if it contains special ch
 { "success": true }
 ```
 
-## Order flow (group-only, text-only)
+## Order flow
 
-1. Staff types order in restaurant WhatsApp group (e.g. "5 chicken, 3 fish cake")
+Supports text, image (OCR), and voice note input:
+
+1. Staff sends order in restaurant WhatsApp group (text, photo, or voice note)
 2. Baileys receives → `groupOrderHandler.handleGroupMessage()` fires
 3. Group must be linked in `group_profiles` — unlinked groups are silently ignored
-4. `parseOrderLines()` splits into lines → `searchProductsFuzzy()` per line
-5. Smart match: `pickBestMatch()` uses customer profile JSON if available
-6. If ambiguous (multiple matches, no history) → numbered list disambiguation in group
-7. Session stored silently — bot does not reply
-8. db_revamp dashboard shows the pending order
-9. Staff confirms → order saved to DB + WhatsApp confirmation sent to group
-10. Staff cancels → session cleared + "❌ Order cancelled by admin." sent
+4. Voice notes → transcribed by `stt/transcribe.py` (faster-whisper); images → OCR'd by Claude Haiku 4.5
+5. `parseOrderLines()` splits into lines → `searchProductsFuzzy()` per line
+6. Smart match: `pickBestMatch()` uses customer profile JSON if available
+7. If ambiguous (multiple matches, no history) → auto-picks first candidate, sets `flagged: true`
+8. Items from voice or image → always `flagged: true` with `confidence_note` indicating source
+9. Session stored silently — bot does not reply
+10. db_revamp dashboard shows the pending order (flagged items highlighted for staff review)
+11. Staff confirms → order saved to DB + WhatsApp confirmation sent to group
+12. Staff cancels → session cleared + "❌ Order cancelled by admin." sent
+
+### Item flagging logic
+
+| Source | Match | `flagged` | `confidence_note` |
+|---|---|---|---|
+| Text | 1 match | `false` | `null` |
+| Text | multi, history match | `false` | `null` |
+| Text | multi, no history | `true` | `auto-picked (N candidates, no order history)` |
+| Voice | any match | `true` | `from voice transcription` |
+| Voice | multi, no history | `true` | `auto-picked (N candidates, no order history); from voice transcription` |
+| Image OCR | any match | `true` | `from image OCR` |
+| Image OCR | multi, no history | `true` | `auto-picked (N candidates, no order history); from image OCR` |
 
 ## Session management
 
@@ -180,3 +196,5 @@ Deletes the group_profile. GroupId must be URL-encoded if it contains special ch
 - **unitPrice always null**: product price is not stored in the in-memory session, only name/qty/unit. The db_revamp should look up prices from its own product catalog if needed.
 - **Customer attribution**: orders are linked to the business by querying `customer_groups` (group_id → customer_id). Falls back to `group_profiles → customer_code`. Sender phone is never used — it can be a Baileys `@lid` identifier, not a real phone number.
 - **SKU badge in dashboard**: db_revamp must display `item.sku` (not `item.unit`) for the PSOFT item code badge. The bot exposes both fields.
+- **New groups not appearing**: `groupCache` is populated at connection time and kept live via `groups.upsert` / `groups.update` events. If a group still doesn't appear after joining, restart the bot to force a full re-fetch.
+- **groupCache only in memory**: `GET /api/baileys-groups` reflects what Baileys has seen since last connect. It is not persisted to DB.
