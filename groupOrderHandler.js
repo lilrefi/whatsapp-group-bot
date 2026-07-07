@@ -88,6 +88,8 @@ async function searchProductsFuzzy(searchTerm) {
 // ─── Core matching logic ──────────────────────────────────────────────────────
 
 async function processOrderLines(sock, groupId, senderPhone, lines, existingSession, attachment) {
+  const isFromVoice = attachment?.type === 'audio';
+
   const groupProfile = await db.getGroupProfile(groupId);
   const profile = (groupProfile && groupProfile.customer_code)
     ? await loadProfile(groupProfile.customer_code)
@@ -102,15 +104,16 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
     if (results.length === 0) {
       newNotFound.push(line.rawSegment);
     } else if (results.length === 1) {
-      newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, flagged: false });
+      newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, flagged: isFromVoice, confidence_note: isFromVoice ? 'from voice transcription' : null });
     } else {
       const best = pickBestMatch(results, profile);
       if (best) {
-        newResolved.push({ product_id: best.id, product: best, quantity: line.quantity, flagged: false });
+        newResolved.push({ product_id: best.id, product: best, quantity: line.quantity, flagged: isFromVoice, confidence_note: isFromVoice ? 'from voice transcription' : null });
       } else {
-        // No history match — auto-pick the first candidate and flag so the
-        // dashboard can highlight it for staff review.
-        newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, flagged: true, confidence_note: `auto-picked (${results.length} candidates, no order history)` });
+        const note = isFromVoice
+          ? `auto-picked (${results.length} candidates, no order history); from voice transcription`
+          : `auto-picked (${results.length} candidates, no order history)`;
+        newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, flagged: true, confidence_note: note });
       }
     }
   }
