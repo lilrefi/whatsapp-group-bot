@@ -41,7 +41,8 @@ async function handleGroupMessage(sock, groupId, senderPhone, text, attachment =
   const isOrderLike = isMediaAttachment
     ? text.trim().length >= 2
     : /\d/.test(text) && text.replace(/\d/g, '').trim().length >= 2;
-  const lines = isOrderLike ? parseOrderLines(text) : [];
+  const textToParse = isMediaAttachment ? normalizeChineseNumerals(text) : text;
+  const lines = isOrderLike ? parseOrderLines(textToParse) : [];
 
   if (lines.length === 0) {
     if (attachment && session) {
@@ -52,6 +53,32 @@ async function handleGroupMessage(sock, groupId, senderPhone, text, attachment =
   }
 
   await processOrderLines(sock, groupId, senderPhone, lines, session, attachment);
+}
+
+// ─── Chinese numeral normalisation ───────────────────────────────────────────
+// Converts CJK quantity+measure expressions to ASCII digits so parseOrderLines
+// can extract them.  e.g. "一个葱油" → "1 葱油", "十二箱蘑菇" → "12 蘑菇"
+
+const ZH_NUM_MAP = { '零':0,'一':1,'二':2,'两':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9 };
+
+function normalizeChineseNumerals(text) {
+  return text
+    // X十Y + optional measure → X*10+Y (e.g. 二十一箱 → 21 )
+    .replace(/([一二两三四五六七八九])十([一二三四五六七八九])[个只箱包瓶袋盒罐条件块]?/g,
+      (_, a, b) => `${ZH_NUM_MAP[a] * 10 + ZH_NUM_MAP[b]} `)
+    // X十 + optional measure → X0 (e.g. 三十 → 30 )
+    .replace(/([一二两三四五六七八九])十[个只箱包瓶袋盒罐条件块]?/g,
+      (_, a) => `${ZH_NUM_MAP[a] * 10} `)
+    // 十Y + optional measure → 10+Y (e.g. 十二 → 12 )
+    .replace(/十([一二三四五六七八九])[个只箱包瓶袋盒罐条件块]?/g,
+      (_, b) => `${10 + ZH_NUM_MAP[b]} `)
+    // 十 + optional measure → 10
+    .replace(/十[个只箱包瓶袋盒罐条件块]?/g, '10 ')
+    // Single digit + measure word → digit (e.g. 一个 → 1 , 三箱 → 3 , 酱青两箱 → 酱青2 )
+    // NOTE: bare digits without a measure word (e.g. "葱油一") are left as-is
+    // to avoid corrupting product names that contain Chinese numerals (e.g. 七味粉).
+    .replace(/([一二两三四五六七八九])[个只箱包瓶袋盒罐条件块]/g,
+      (_, a) => `${ZH_NUM_MAP[a]} `);
 }
 
 // ─── Order line parsing ───────────────────────────────────────────────────────
@@ -134,7 +161,7 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
   // merge into it rather than overwriting it with a stale snapshot.
   const liveSession = groupSessions.get(groupId);
 
-  if (newResolved.length === 0 && newAmbiguous.length === 0 && !liveSession && !existingSession) return;
+  if (newResolved.length === 0 && newAmbiguous.length === 0 && newNotFound.length === 0 && !liveSession && !existingSession) return;
 
   const session = liveSession || existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone, startedAt: Date.now(), pendingAttachments: [] };
 
