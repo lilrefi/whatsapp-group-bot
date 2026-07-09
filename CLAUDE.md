@@ -100,12 +100,18 @@ Returns all in-memory pending sessions.
       "items": [
         { "product_id": 235, "name": "Soya Sauce", "sku": "M512", "qty": 5, "unit": "750ML", "unitPrice": null, "flagged": false }
       ],
-      "notFound": []
+      "notFound": ["葱油"],
+      "rawAttachments": [
+        { "type": "audio", "url": "https://...", "transcript": "一个葱油", "language": "zh", "text": null, "timestamp": "2026-07-09T..." }
+      ]
     }
   ]
 }
 ```
-Note: `product_id` and `sku` must be round-tripped back from the dashboard in `overrideItems` on confirm, otherwise the bot falls back to a name-based lookup (ILIKE) to resolve `product_id` at save time.
+Notes:
+- `product_id` and `sku` must be round-tripped back from the dashboard in `overrideItems` on confirm, otherwise the bot falls back to a name-based lookup (ILIKE) to resolve `product_id` at save time.
+- `rawAttachments[].language` is the STT-detected language code (`"zh"`, `"en"`, `"yue"`, etc.) — only populated for audio attachments. db_revamp can display this as "Audio (zh)" on the order card.
+- Sessions with zero matched items but non-empty `notFound` are still surfaced so staff can see and manually handle unmatched orders.
 
 ### POST /api/confirm-order
 Body: `{ "groupId": "120363..." }`
@@ -148,15 +154,16 @@ Supports text, image (OCR), and voice note input:
 1. Staff sends order in restaurant WhatsApp group (text, photo, or voice note)
 2. Baileys receives → `groupOrderHandler.handleGroupMessage()` fires
 3. Group must be linked in `group_profiles` — unlinked groups are silently ignored
-4. Voice notes → transcribed by `stt/transcribe.py` (faster-whisper); images → OCR'd by Claude Haiku 4.5
-5. `parseOrderLines()` splits into lines → `searchProductsFuzzy()` per line
-6. Smart match: `pickBestMatch()` uses customer profile JSON if available
-7. If ambiguous (multiple matches, no history) → auto-picks first candidate, sets `flagged: true`
-8. Items from voice or image → always `flagged: true` with `confidence_note` indicating source
-9. Session stored silently — bot does not reply
-10. db_revamp dashboard shows the pending order (flagged items highlighted for staff review)
-11. Staff confirms → order saved to DB + WhatsApp confirmation sent to group
-12. Staff cancels → session cleared + "❌ Order cancelled by admin." sent
+4. Voice notes → transcribed by `stt/transcribe.py` (faster-whisper); images → OCR'd by Claude Haiku 4.5. Detected language stored on attachment.
+5. For audio/image: `normalizeChineseNumerals()` converts CJK qty+measure to ASCII before parsing (e.g. `一个葱油` → `1 葱油`, `酱青两箱` → `酱青2`). Long CJK segments without commas are also space-split into individual items.
+6. `parseOrderLines()` splits into lines → `searchProductsFuzzy()` per line
+7. Smart match: `pickBestMatch()` uses customer profile JSON if available
+8. If ambiguous (multiple matches, no history) → auto-picks first candidate, sets `flagged: true`
+9. Items from voice or image → always `flagged: true` with `confidence_note` indicating source
+10. Session stored silently — bot does not reply. Sessions with zero matched items but unmatched terms in `notFound` are still kept so staff can see them.
+11. db_revamp dashboard shows the pending order (flagged items highlighted for staff review)
+12. Staff confirms → order saved to DB + WhatsApp confirmation sent to group
+13. Staff cancels → session cleared + "❌ Order cancelled by admin." sent
 
 ### Item flagging logic
 
@@ -198,3 +205,7 @@ Supports text, image (OCR), and voice note input:
 - **SKU badge in dashboard**: db_revamp must display `item.sku` (not `item.unit`) for the PSOFT item code badge. The bot exposes both fields.
 - **New groups not appearing**: `groupCache` is populated at connection time and kept live via `groups.upsert` / `groups.update` events. If a group still doesn't appear after joining, restart the bot to force a full re-fetch.
 - **groupCache only in memory**: `GET /api/baileys-groups` reflects what Baileys has seen since last connect. It is not persisted to DB.
+- **STT Windows encoding**: `stt/transcribe.py` forces `sys.stdout` to UTF-8 via `io.TextIOWrapper` at startup. Without this, Chinese/CJK transcripts crash on Windows (cp1252 console encoding). `baileys-bot.js` also passes `encoding: 'utf8'` to `execFileAsync`.
+- **Chinese numeral parsing**: `normalizeChineseNumerals()` only converts numerals paired with a measure word (个/箱/包/瓶 etc.). Bare numerals without a measure word (e.g. `葱油一`) are left as-is and the quantity defaults to 1. This avoids corrupting product names that contain Chinese numerals (e.g. 七味粉).
+- **CJK space-splitting**: `parseOrderLines` splits long CJK segments by spaces (threshold: >3 CJK chars). Whisper rarely inserts commas in Chinese speech — each space-delimited token is treated as a separate order item. English segments are unaffected.
+- **STT language not shown in dashboard**: the detected language (`zh`/`en`/`yue`) is now in `rawAttachments[].language` — db_revamp needs to render it (e.g. "Audio (zh)") on the order card.
