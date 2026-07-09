@@ -110,10 +110,10 @@ async function transcribeAudio(audioBuffer, ext = 'ogg') {
     const detectedLang = lines[0].trim();
     const transcript = lines.slice(1).join('\n').trim();
     console.log(`[STT] Detected language: ${detectedLang}`);
-    return transcript || null;
+    return { transcript: transcript || null, language: detectedLang || null };
   } catch (err) {
     console.error('[STT] Transcription failed:', err.message);
-    return null;
+    return { transcript: null, language: null };
   } finally {
     try { fs.unlinkSync(tmpFile); } catch (_) {}
   }
@@ -228,12 +228,13 @@ async function connectBaileys() {
           continue;
         }
 
-        const [transcript, audioUrl] = await Promise.all([
+        const [sttResult, audioUrl] = await Promise.all([
           transcribeAudio(buffer, 'ogg'),
           uploadAttachmentToBlob(buffer, remoteJid, 'ogg', 'audio/ogg'),
         ]);
 
-        const audioAttachment = { type: 'audio', url: audioUrl, text: null, transcript, timestamp: messageTimestamp };
+        const { transcript, language: detectedLang } = sttResult;
+        const audioAttachment = { type: 'audio', url: audioUrl, text: null, transcript, language: detectedLang, timestamp: messageTimestamp };
 
         if (!transcript) {
           console.log('[STT] No transcript produced — passing along audio attachment only');

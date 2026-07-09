@@ -86,7 +86,18 @@ function normalizeChineseNumerals(text) {
 function parseOrderLines(text) {
   const NOISE = /\b(i want|please|can i have|give me|order|just)\b/gi;
   const UNITS = /\b(pcs|pieces|unit|units|pack|packs|box|boxes)\b/gi;
-  const segments = text.split(/[\n,]|\s+and\s+/i).map(s => s.trim()).filter(Boolean);
+  const rawSegments = text.split(/[\n,]|\s+and\s+/i).map(s => s.trim()).filter(Boolean);
+  // Whisper rarely inserts commas in Chinese speech — a long CJK segment with
+  // spaces is almost certainly multiple items. Split further by whitespace.
+  const segments = [];
+  for (const seg of rawSegments) {
+    const cjkCount = (seg.match(/[一-鿿]/g) || []).length;
+    if (cjkCount > 3 && seg.includes(' ')) {
+      segments.push(...seg.split(/\s+/).filter(Boolean));
+    } else {
+      segments.push(seg);
+    }
+  }
   const results = [];
   for (const segment of segments) {
     const cleaned = segment
@@ -378,6 +389,7 @@ function getPendingSessions() {
       url: a.url || null,
       text: a.text || null,
       transcript: a.transcript || null,
+      language: a.language || null,
       timestamp: a.timestamp ? a.timestamp.toISOString() : null,
     }))
   }));
