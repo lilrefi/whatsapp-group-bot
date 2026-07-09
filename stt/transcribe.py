@@ -3,8 +3,12 @@
 
 import sys
 import os
+import io
 import argparse
 from faster_whisper import WhisperModel
+
+# Force UTF-8 stdout so Chinese/CJK transcripts don't crash on Windows cp1252
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 # Languages expected in this context (Singapore/Malaysia food ordering).
 # Hokkien has no Whisper code — the zh retry below handles it partially by

@@ -103,6 +103,7 @@ async function transcribeAudio(audioBuffer, ext = 'ogg') {
     // stdout line 1 = final detected language, line 2+ = transcript.
     const { stdout, stderr } = await execFileAsync(pythonBin, [scriptPath, tmpFile], {
       timeout: 180000, // extra headroom for zh/en retries within the same process
+      encoding: 'utf8',
     });
     if (stderr) console.log('[STT] stderr:', stderr.trim());
     const lines = stdout.split('\n');
