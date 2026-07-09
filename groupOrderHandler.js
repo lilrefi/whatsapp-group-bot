@@ -33,7 +33,14 @@ async function handleGroupMessage(sock, groupId, senderPhone, text, attachment =
   // being built, still capture the attachment (e.g. a photo sent without a
   // caption, or a voice note that didn't transcribe into order text) so it
   // ends up linked to the eventual order.
-  const isOrderLike = /\d/.test(text) && text.replace(/\d/g, '').trim().length >= 2;
+  //
+  // For voice/image we skip the ASCII-digit requirement: Chinese orders use
+  // numerals like 一/二/十二 that \d won't match, and we already paid for
+  // transcription/OCR so it's worth attempting a parse on any non-trivial text.
+  const isMediaAttachment = attachment?.type === 'audio' || attachment?.type === 'image';
+  const isOrderLike = isMediaAttachment
+    ? text.trim().length >= 2
+    : /\d/.test(text) && text.replace(/\d/g, '').trim().length >= 2;
   const lines = isOrderLike ? parseOrderLines(text) : [];
 
   if (lines.length === 0) {
