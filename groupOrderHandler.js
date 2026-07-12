@@ -152,14 +152,35 @@ function parseOrderLines(text) {
 }
 
 async function searchProductsFuzzy(searchTerm) {
+  // 1. Full-term substring match (handles exact names and Chinese names)
   let results = await db.searchProducts(searchTerm);
   if (results.length > 0) return results;
-  const words = searchTerm.split(' ').filter(w => w.length >= 3);
-  for (const word of words) {
-    results = await db.searchProducts(word);
-    if (results.length > 0) return results;
+
+  const words = searchTerm.split(/\s+/).filter(w => w.length >= 3);
+  if (words.length === 0) return [];
+
+  // 2. Single keyword — search directly (e.g. "妈蜜", "marmite")
+  if (words.length === 1) return db.searchProducts(words[0]);
+
+  // 3. Multi-word: run all word searches in parallel and score each product by
+  //    how many query words it matches. Require ≥2 matching words to avoid
+  //    false positives from common adjectives ("salted", "fried", "sweet")
+  //    matching completely unrelated products.
+  const wordResultSets = await Promise.all(words.map(w => db.searchProducts(w)));
+  const scoreMap = new Map(); // product.id → { product, score }
+  for (const wordResults of wordResultSets) {
+    for (const product of wordResults) {
+      const entry = scoreMap.get(product.id) || { product, score: 0 };
+      entry.score += 1;
+      scoreMap.set(product.id, entry);
+    }
   }
-  return [];
+
+  const candidates = [...scoreMap.values()].filter(e => e.score >= 2);
+  if (candidates.length === 0) return []; // no product matched ≥2 words → notFound is more correct than a wrong match
+
+  const maxScore = Math.max(...candidates.map(e => e.score));
+  return candidates.filter(e => e.score === maxScore).map(e => e.product);
 }
 
 // ─── Core matching logic ──────────────────────────────────────────────────────
