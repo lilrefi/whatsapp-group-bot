@@ -11,7 +11,7 @@ const os = require('os');
 const { randomBytes } = require('crypto');
 const { execFile } = require('child_process');
 const { promisify } = require('util');
-const { handleGroupMessage, getPendingSessions, adminConfirm, adminCancel } = require('./groupOrderHandler');
+const { handleGroupMessage, getPendingSessions, updateSessionItems, adminConfirm, adminCancel } = require('./groupOrderHandler');
 
 const execFileAsync = promisify(execFile);
 const anthropic = process.env.ANTHROPIC_API_KEY ? new Anthropic() : null;
@@ -357,6 +357,7 @@ module.exports = {
   isBaileysReady,
   getBaileysGroups,
   getPendingSessions,
+  updateSessionItems,
   adminConfirmGroup,
   adminCancelGroup
 };

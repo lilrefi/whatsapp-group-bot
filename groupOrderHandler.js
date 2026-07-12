@@ -466,6 +466,21 @@ function getPendingSessions() {
   }));
 }
 
+function updateSessionItems(groupId, items) {
+  const session = groupSessions.get(groupId);
+  if (!session) return false;
+  // Replace items in-place, keeping all other session fields (notFound, attachments, etc.)
+  session.items = items.map(i => ({
+    product_id: i.product_id || null,
+    quantity: i.qty,
+    flagged: i.flagged || false,
+    confidence_note: i.confidence_note || null,
+    product: { name: i.name, unit_size: i.unit || null, sku: i.sku || null }
+  }));
+  groupSessions.set(groupId, session);
+  return true;
+}
+
 async function adminConfirm(sock, groupId, overrideItems, summary) {
   const session = groupSessions.get(groupId);
   if (!session) return { success: false, error: 'No active order for this group' };
@@ -485,6 +500,7 @@ async function adminCancel(sock, groupId) {
 module.exports = {
   handleGroupMessage,
   getPendingSessions,
+  updateSessionItems,
   adminConfirm,
   adminCancel
 };

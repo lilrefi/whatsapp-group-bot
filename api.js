@@ -4,6 +4,7 @@ const {
   isBaileysReady,
   getBaileysGroups,
   getPendingSessions,
+  updateSessionItems,
   adminConfirmGroup,
   adminCancelGroup,
   postToGroup
@@ -61,6 +62,23 @@ function startApiServer() {
         };
       }));
       res.json({ orders });
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  });
+
+  // PATCH /api/pending-orders/:groupId — sync staff edits back to the bot session
+  // so the next poll reflects what the dashboard actually has (prevents deleted items
+  // from reappearing as "new item from follow-up message").
+  // Body: { items: [...same shape as overrideItems on confirm...] }
+  app.patch('/api/pending-orders/:groupId', auth, (req, res) => {
+    try {
+      const groupId = decodeURIComponent(req.params.groupId);
+      const { items } = req.body;
+      if (!items || !Array.isArray(items)) return res.status(400).json({ error: 'items array required' });
+      const updated = updateSessionItems(groupId, items);
+      if (!updated) return res.status(404).json({ error: 'No active session for this group' });
+      res.json({ success: true });
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
