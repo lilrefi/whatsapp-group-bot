@@ -55,6 +55,38 @@ async function handleGroupMessage(sock, groupId, senderPhone, text, attachment =
   await processOrderLines(sock, groupId, senderPhone, lines, session, attachment);
 }
 
+// ─── Correction / noise detection ────────────────────────────────────────────
+// Instead of maintaining a list of correction trigger phrases (which breaks on
+// every new phrasing), we check whether the DB-search term looks like a product
+// name or just noise.  If zero products match AND every word in the search term
+// is short (< 4 chars) or a known non-product filler word, it's a quantity
+// correction on the last session item — not a notFound entry.
+//
+// This is language-agnostic: "3 only", "3 la", "make it 3", "3x instead",
+// "change to 4", "改成3个" (after numeral normalisation → "改成3") all resolve
+// correctly without adding new trigger words.
+
+const FILLER_WORDS = new Set([
+  // correction verbs / phrases (appear after digit stripping)
+  'make', 'change', 'update', 'edit', 'amend', 'correction',
+  // pronouns / determiners
+  'that', 'it', 'those', 'them', 'this',
+  // adverbs / discourse markers
+  'instead', 'only', 'actually', 'just', 'please', 'pls',
+  'ok', 'okay', 'no', 'nope', 'sorry',
+  // Malaysian / Singaporean fillers
+  'la', 'lah', 'ah', 'eh',
+  // prepositions (in correction context)
+  'to', 'from', 'for', 'of',
+]);
+
+function isNoiseSearchTerm(term) {
+  const words = term.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return true;
+  // Every word must be either short (< 4 chars) or a known filler
+  return words.every(w => w.length < 4 || FILLER_WORDS.has(w));
+}
+
 // ─── Chinese numeral normalisation ───────────────────────────────────────────
 // Converts CJK quantity+measure expressions to ASCII digits so parseOrderLines
 // can extract them.  e.g. "一个葱油" → "1 葱油", "十二箱蘑菇" → "12 蘑菇"
@@ -144,11 +176,18 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
   const newResolved = [];
   const newAmbiguous = [];
   const newNotFound = [];
+  const newCorrections = []; // qty-only updates for the last session item
 
   for (const line of lines) {
     const results = await searchProductsFuzzy(line.searchTerm);
     if (results.length === 0) {
-      newNotFound.push(line.rawSegment);
+      // If the search term is pure noise (no product-name-like word), treat this
+      // as a quantity correction rather than a missing product.
+      if (isNoiseSearchTerm(line.searchTerm)) {
+        newCorrections.push({ qty: line.quantity });
+      } else {
+        newNotFound.push(line.rawSegment);
+      }
     } else if (results.length === 1) {
       const lowConf = isFromVoice || isFromImage;
       const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? 'from image OCR' : null;
@@ -172,9 +211,20 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
   // merge into it rather than overwriting it with a stale snapshot.
   const liveSession = groupSessions.get(groupId);
 
-  if (newResolved.length === 0 && newAmbiguous.length === 0 && newNotFound.length === 0 && !liveSession && !existingSession) return;
+  // Early-return if there's nothing to do.
+  // Corrections without an active session are also dropped (nothing to correct).
+  if (newResolved.length === 0 && newNotFound.length === 0 &&
+      (newCorrections.length === 0 || (!liveSession && !existingSession))) return;
 
   const session = liveSession || existingSession || { items: [], pendingDisambiguations: [], notFound: [], senderPhone, startedAt: Date.now(), pendingAttachments: [] };
+
+  // Apply quantity corrections to the last item in the session
+  for (const corr of newCorrections) {
+    if (session.items.length > 0) {
+      session.items[session.items.length - 1].quantity = corr.qty;
+    }
+    // If no items yet, silently drop (e.g. "3 only" sent with no active order)
+  }
 
   // Merge resolved items (replace quantity for duplicates)
   for (const item of newResolved) {
