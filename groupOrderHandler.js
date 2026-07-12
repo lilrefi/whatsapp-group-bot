@@ -116,7 +116,7 @@ function normalizeChineseNumerals(text) {
 // ─── Order line parsing ───────────────────────────────────────────────────────
 
 function parseOrderLines(text) {
-  const NOISE = /\b(i want|please|can i have|give me|order|just)\b/gi;
+  const NOISE = /\b(i want|please|can i have|give me|order|just|add|more|another|also)\b/gi;
   const UNITS = /\b(pcs|pieces|unit|units|pack|packs|box|boxes)\b/gi;
   const rawSegments = text.split(/[\n,]|\s+and\s+/i).map(s => s.trim()).filter(Boolean);
   // Whisper rarely inserts commas in Chinese speech — a long CJK segment with
@@ -132,6 +132,10 @@ function parseOrderLines(text) {
   }
   const results = [];
   for (const segment of segments) {
+    // Detect additive intent BEFORE stripping — "add 2 X" / "2 more X" / "another X"
+    // means increment existing qty rather than replace it.
+    const additive = /^\s*(add|another)\b/i.test(segment) || /\bmore\b/i.test(segment);
+
     const cleaned = segment
       .replace(NOISE, ' ')
       .replace(/\bx\s*(\d+)\b/gi, ' $1 ')
@@ -145,7 +149,7 @@ function parseOrderLines(text) {
       .replace(/\s+/g, ' ')
       .trim();
     if (searchTerm.length >= 2) {
-      results.push({ rawSegment: segment, quantity, searchTerm });
+      results.push({ rawSegment: segment, quantity, searchTerm, additive });
     }
   }
   return results;
@@ -212,17 +216,17 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
     } else if (results.length === 1) {
       const lowConf = isFromVoice || isFromImage;
       const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? 'from image OCR' : null;
-      newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, flagged: lowConf, confidence_note: sourceNote });
+      newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: sourceNote });
     } else {
       const best = pickBestMatch(results, profile);
       const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? 'from image OCR' : null;
       if (best) {
         const lowConf = isFromVoice || isFromImage;
-        newResolved.push({ product_id: best.id, product: best, quantity: line.quantity, flagged: lowConf, confidence_note: sourceNote });
+        newResolved.push({ product_id: best.id, product: best, quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: sourceNote });
       } else {
         const base = `auto-picked (${results.length} candidates, no order history)`;
         const note = sourceNote ? `${base}; ${sourceNote}` : base;
-        newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, flagged: true, confidence_note: note });
+        newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, additive: line.additive, flagged: true, confidence_note: note });
       }
     }
   }
@@ -247,11 +251,15 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
     // If no items yet, silently drop (e.g. "3 only" sent with no active order)
   }
 
-  // Merge resolved items (replace quantity for duplicates)
+  // Merge resolved items into session.
+  // Plain reorder ("2 X") replaces the existing qty.
+  // Additive messages ("add 2 X", "2 more X", "another X") increment it.
   for (const item of newResolved) {
     const idx = session.items.findIndex(i => i.product_id === item.product_id);
     if (idx >= 0) {
-      session.items[idx].quantity = item.quantity;
+      session.items[idx].quantity = item.additive
+        ? session.items[idx].quantity + item.quantity
+        : item.quantity;
     } else {
       session.items.push(item);
     }
