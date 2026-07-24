@@ -211,7 +211,14 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
       if (isNoiseSearchTerm(line.searchTerm)) {
         newCorrections.push({ qty: line.quantity });
       } else {
-        newNotFound.push(line.rawSegment);
+        newResolved.push({
+          product_id: null,
+          product: { name: '', unit_size: null, sku: null },
+          verbatim: line.rawSegment,
+          quantity: line.quantity,
+          flagged: true,
+          confidence_note: 'Not found in catalog'
+        });
       }
     } else if (results.length === 1) {
       const lowConf = isFromVoice || isFromImage;
@@ -255,7 +262,10 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
   // Plain reorder ("2 X") replaces the existing qty.
   // Additive messages ("add 2 X", "2 more X", "another X") increment it.
   for (const item of newResolved) {
-    const idx = session.items.findIndex(i => i.product_id === item.product_id);
+    // Unmatched items have product_id === null — never merge them (each is a distinct unknown)
+    const idx = item.product_id !== null
+      ? session.items.findIndex(i => i.product_id === item.product_id)
+      : -1;
     if (idx >= 0) {
       session.items[idx].quantity = item.additive
         ? session.items[idx].quantity + item.quantity
@@ -460,7 +470,9 @@ function getPendingSessions() {
       sku: i.product.sku || null,
       unit_size: i.product.unit_size || null,
       quantity: i.quantity,
-      flagged: i.flagged
+      flagged: i.flagged,
+      confidence_note: i.confidence_note || null,
+      verbatim: i.verbatim || null
     })),
     notFound: session.notFound,
     rawAttachments: (session.pendingAttachments || []).map(a => ({
@@ -483,6 +495,7 @@ function updateSessionItems(groupId, items) {
     quantity: i.qty,
     flagged: i.flagged || false,
     confidence_note: i.confidence_note || null,
+    verbatim: i.verbatim || null,
     product: { name: i.name, unit_size: i.unit || null, sku: i.sku || null }
   }));
   groupSessions.set(groupId, session);
