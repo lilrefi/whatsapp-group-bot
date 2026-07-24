@@ -324,10 +324,12 @@ async function createGroupOrder(customerId, groupId, items, status = 'confirmed'
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
+    const custRow = await client.query('SELECT delivery_group_id FROM customers WHERE id = $1', [customerId]);
+    const deliveryGroupId = custRow.rows[0]?.delivery_group_id ?? null;
     const orderResult = await client.query(
-      `INSERT INTO orders (customer_id, status, group_id, created_at, updated_at)
-       VALUES ($1, $2, $3, NOW(), NOW()) RETURNING *`,
-      [customerId, status, groupId]
+      `INSERT INTO orders (customer_id, status, group_id, delivery_group_id, created_at, updated_at)
+       VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING *`,
+      [customerId, status, groupId, deliveryGroupId]
     );
     const order = orderResult.rows[0];
     for (const item of items) {
