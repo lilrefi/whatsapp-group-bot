@@ -72,7 +72,11 @@ async function ocrImage(imageBuffer, mimeType) {
       // testing. Haiku is unreliable for this (missed ~9/20 marks on one test
       // image, including a wrong quantity) — do not downgrade to Haiku.
       model: 'claude-sonnet-5',
-      max_tokens: 1500,
+      // 1500 was too tight for busy marked-catalog orders (many items): thinking
+      // + a long JSON array together hit the cap mid-string, truncating the
+      // response and losing the whole order to a JSON parse failure. Raised
+      // with headroom; see the truncated-response recovery below as a backstop.
+      max_tokens: 4096,
       messages: [{
         role: 'user',
         content: [
@@ -93,14 +97,25 @@ async function ocrImage(imageBuffer, mimeType) {
     const raw = response.content.filter(b => b.type === 'text').map(b => b.text).join('').trim();
     if (!raw) return null;
 
+    // The model may wrap the JSON in a code fence despite instructions — strip it.
+    const jsonText = raw.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '').trim();
     let parsed;
     try {
-      // The model may wrap the JSON in a code fence despite instructions — strip it.
-      const jsonText = raw.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '').trim();
       parsed = JSON.parse(jsonText);
     } catch (err) {
-      console.error('[OCR] Failed to parse JSON response:', err.message, '| raw:', raw.substring(0, 200));
-      return null;
+      // Response was cut off mid-array (hit max_tokens on a large order) — salvage
+      // whichever complete {...} objects came before the cutoff rather than
+      // dropping the entire order. A truncated last item is better than none.
+      const recovered = [];
+      for (const m of jsonText.match(/\{[^{}]*\}/g) || []) {
+        try { recovered.push(JSON.parse(m)); } catch (_) { /* skip the broken tail object */ }
+      }
+      if (recovered.length === 0) {
+        console.error('[OCR] Failed to parse JSON response:', err.message, '| raw:', raw.substring(0, 200));
+        return null;
+      }
+      console.warn(`[OCR] Response was truncated (likely hit max_tokens) — recovered ${recovered.length} item(s) before the cutoff`);
+      parsed = recovered;
     }
     if (!Array.isArray(parsed) || parsed.length === 0) {
       console.log('[OCR] No order items found');
