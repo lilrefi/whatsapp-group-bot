@@ -116,12 +116,17 @@ Notes:
 - `confidence_note` on image-OCR items may now include a mark-confidence detail, e.g. `"from image OCR (mark confidence: low)"` — db_revamp should surface this text somewhere visible (tooltip/badge) so staff can prioritize reviewing low-confidence marks first.
 
 ### POST /api/confirm-order
-Body: `{ "groupId": "120363..." }`
+Body: `{ "groupId": "120363...", "overrideItems": [...], "summary": "..." }`
 Confirms the pending order: saves to DB, sends WhatsApp confirmation to group.
 ```json
 { "success": true, "orderId": null }
 ```
 Note: `orderId` is currently null — finalizeOrder does not surface the DB ID back through the call chain.
+
+**`summary` is optional and changes whether a WhatsApp message is sent (2026-07-31):**
+- `summary` provided → that exact text is sent to the group (+ overview group if linked).
+- `summary` omitted/null → **no WhatsApp message is sent at all.** This supports a two-step dashboard flow: staff clicks "Send to Group" (dashboard calls `POST /api/send-message` directly with the summary text), then clicks "Confirm" (dashboard calls `confirm-order` with no `summary` — the message was already sent, so the bot only saves to DB).
+- This only applies to admin-confirms via this endpoint. The 48-hour auto-confirm timer (no staff action) always sends its own auto-generated summary regardless, since nothing else has messaged the group in that case.
 
 ### POST /api/cancel-order
 Body: `{ "groupId": "120363..." }`

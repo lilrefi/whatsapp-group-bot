@@ -406,7 +406,7 @@ function clearTimer(groupId) {
 
 // ─── Finalize (write to DB + notify group) ────────────────────────────────────
 
-async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, overrideSummary) {
+async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, overrideSummary, skipMessageIfNoSummary = false) {
   const session = groupSessions.get(groupId);
   if (!session) {
     return;
@@ -452,21 +452,29 @@ async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, 
 
     const { order } = await db.createGroupOrder(customer?.id || null, groupId, itemsToSave, status, session.pendingAttachments || []);
 
-    let msg;
-    if (overrideSummary) {
-      msg = overrideSummary;
-    } else {
-      const label = status === 'confirmed' ? '✅ Order confirmed by staff!' : '✅ Order placed!';
-      msg = `${label}\n\n*Items:*\n`;
-      session.items.forEach((item, i) => {
-        msg += `${i + 1}. ${item.product.name}${item.product.unit_size ? ` (${item.product.unit_size})` : ''} ×${item.quantity}\n`;
-      });
-    }
+    // skipMessageIfNoSummary: the dashboard's confirm flow now sends the
+    // WhatsApp summary itself via POST /api/send-message *before* calling
+    // confirm-order, so when it confirms with no summary, the message has
+    // already gone out — sending another here would duplicate it. The
+    // 48-hour auto-confirm timer never sets this flag, since nobody else
+    // has sent anything in that case and the bot must announce it.
+    if (overrideSummary || !skipMessageIfNoSummary) {
+      let msg;
+      if (overrideSummary) {
+        msg = overrideSummary;
+      } else {
+        const label = status === 'confirmed' ? '✅ Order confirmed by staff!' : '✅ Order placed!';
+        msg = `${label}\n\n*Items:*\n`;
+        session.items.forEach((item, i) => {
+          msg += `${i + 1}. ${item.product.name}${item.product.unit_size ? ` (${item.product.unit_size})` : ''} ×${item.quantity}\n`;
+        });
+      }
 
-    await sock.sendMessage(groupId, { text: msg });
+      await sock.sendMessage(groupId, { text: msg });
 
-    if (gp && gp.overview_group_id) {
-      await sock.sendMessage(gp.overview_group_id, { text: msg });
+      if (gp && gp.overview_group_id) {
+        await sock.sendMessage(gp.overview_group_id, { text: msg });
+      }
     }
 
     // ── Update customer order history ──
@@ -545,7 +553,10 @@ function updateSessionItems(groupId, items) {
 async function adminConfirm(sock, groupId, overrideItems, summary) {
   const session = groupSessions.get(groupId);
   if (!session) return { success: false, error: 'No active order for this group' };
-  await finalizeOrder(sock, groupId, session.senderPhone || 'admin', 'confirmed', overrideItems, summary);
+  // skipMessageIfNoSummary=true: the dashboard now sends the WhatsApp summary
+  // itself via POST /api/send-message before calling confirm-order, so a
+  // missing summary here means "already sent" — not "please improvise one".
+  await finalizeOrder(sock, groupId, session.senderPhone || 'admin', 'confirmed', overrideItems, summary, true);
   return { success: true };
 }
 
