@@ -11,7 +11,8 @@
     "migrate-code": "node run-sql.js migration_customer_code.sql",
     "migrate-status": "node run-sql.js migration_order_status.sql",
     "migrate-zh": "node run-sql.js migration_name_zh.sql",
-    "migrate-attachments": "node run-sql.js migration_attachments.sql"
+    "migrate-attachments": "node run-sql.js migration_attachments.sql",
+    "migrate-verbatim": "node run-sql.js migration_verbatim.sql"
   },
   "keywords": [
     "whatsapp",

@@ -350,10 +350,10 @@ async function createGroupOrder(customerId, groupId, items, status = 'confirmed'
       }
 
       await client.query(
-        `INSERT INTO order_items (order_id, product_id, quantity, product_name, unit_size, flagged, confidence_note, created_at)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())`,
+        `INSERT INTO order_items (order_id, product_id, quantity, product_name, unit_size, flagged, confidence_note, verbatim, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())`,
         [order.id, productId, item.quantity, item.product.name,
-         item.product.unit_size || null, item.flagged || false, item.confidence_note || null]
+         item.product.unit_size || null, item.flagged || false, item.confidence_note || null, item.verbatim || null]
       );
     }
     for (const att of attachments) {
@@ -390,7 +390,8 @@ async function getStaffOrders(limit = 100) {
              'qty', oi.quantity,
              'unit_size', oi.unit_size,
              'flagged', oi.flagged,
-             'confidence_note', oi.confidence_note
+             'confidence_note', oi.confidence_note,
+             'verbatim', oi.verbatim
            ) ORDER BY oi.id) AS items
     FROM orders o
     JOIN customers c ON c.id = o.customer_id

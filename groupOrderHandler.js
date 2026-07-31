@@ -446,6 +446,7 @@ async function finalizeOrder(sock, groupId, senderPhone, status, overrideItems, 
           quantity: i.qty,
           flagged: i.flagged || false,
           confidence_note: i.confidence_note || null,
+          verbatim: i.verbatim || null,
           product: { name: i.name, unit_size: i.unit || null, sku: null }
         }))
       : session.items;
