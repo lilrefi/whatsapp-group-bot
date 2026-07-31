@@ -196,6 +196,22 @@ async function searchProductsFuzzy(searchTerm) {
 
 // ─── Core matching logic ──────────────────────────────────────────────────────
 
+// Looks up the OCR mark-confidence ("high"/"medium"/"low") for a parsed line by
+// matching its raw text against the "<name> <qty>" segment ocrImage() built the
+// order text from. No match (e.g. a session-merge correction that isn't a fresh
+// OCR line) just means no confidence note is added — never guess by position.
+function findOcrConfidence(attachment, line) {
+  const items = attachment?.ocrItems;
+  if (!items || items.length === 0) return null;
+  const trimmed = line.rawSegment.trim();
+  const match = items.find(i => i.segment === trimmed);
+  return match ? match.confidence : null;
+}
+
+function imageSourceNote(confidence) {
+  return confidence ? `from image OCR (mark confidence: ${confidence})` : 'from image OCR';
+}
+
 async function processOrderLines(sock, groupId, senderPhone, lines, existingSession, attachment) {
   const isFromVoice = attachment?.type === 'audio';
   const isFromImage = attachment?.type === 'image';
@@ -211,6 +227,7 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
   const newCorrections = []; // qty-only updates for the last session item
 
   for (const line of lines) {
+    const ocrConfidence = isFromImage ? findOcrConfidence(attachment, line) : null;
     const results = await searchProductsFuzzy(line.searchTerm);
     if (results.length === 0) {
       // If the search term is pure noise (no product-name-like word), treat this
@@ -224,23 +241,23 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
           verbatim: line.rawSegment,
           quantity: line.quantity,
           flagged: true,
-          confidence_note: 'Not found in catalog'
+          confidence_note: ocrConfidence ? `Not found in catalog; mark confidence: ${ocrConfidence}` : 'Not found in catalog'
         });
       }
     } else if (results.length === 1) {
       const lowConf = isFromVoice || isFromImage;
-      const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? 'from image OCR' : null;
-      newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: sourceNote });
+      const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? imageSourceNote(ocrConfidence) : null;
+      newResolved.push({ product_id: results[0].id, product: results[0], verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: sourceNote });
     } else {
       const best = pickBestMatch(results, profile);
-      const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? 'from image OCR' : null;
+      const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? imageSourceNote(ocrConfidence) : null;
       if (best) {
         const lowConf = isFromVoice || isFromImage;
-        newResolved.push({ product_id: best.id, product: best, quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: sourceNote });
+        newResolved.push({ product_id: best.id, product: best, verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: sourceNote });
       } else {
         const base = `auto-picked (${results.length} candidates, no order history)`;
         const note = sourceNote ? `${base}; ${sourceNote}` : base;
-        newResolved.push({ product_id: results[0].id, product: results[0], quantity: line.quantity, additive: line.additive, flagged: true, confidence_note: note });
+        newResolved.push({ product_id: results[0].id, product: results[0], verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: true, confidence_note: note });
       }
     }
   }

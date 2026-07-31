@@ -66,8 +66,13 @@ async function ocrImage(imageBuffer, mimeType) {
   }
   try {
     const response = await anthropic.messages.create({
-      model: 'claude-haiku-4-5',
-      max_tokens: 512,
+      // Sonnet, not Opus: tested near-identical accuracy to Opus on marked-catalog
+      // order sheets (~15-19 of ~20 marks correctly read) at roughly a third of
+      // the cost, with fewer false-positive marks than Opus in side-by-side
+      // testing. Haiku is unreliable for this (missed ~9/20 marks on one test
+      // image, including a wrong quantity) — do not downgrade to Haiku.
+      model: 'claude-sonnet-5',
+      max_tokens: 1500,
       messages: [{
         role: 'user',
         content: [
@@ -77,16 +82,48 @@ async function ocrImage(imageBuffer, mimeType) {
           },
           {
             type: 'text',
-            text: 'Extract any food or product order text from this image — a customer telling a supplier what they want to buy (e.g. a handwritten or typed list of items and quantities). Return only the order items exactly as written, nothing else.\n\n' +
-              'Do NOT treat a product catalog, price list, or SKU reference sheet as an order — these show many rows with item codes, descriptions, and prices/units as a reference (e.g. columns like "Item No / Description / Qty/Unit" or a numbered list of unrelated products with codes like "AA417", "BA-CMN"), not a specific request for particular quantities. If the image is this kind of reference sheet rather than someone\'s actual order, return nothing.\n\n' +
-              'If no order is visible, return nothing.'
+            text: 'Extract a customer\'s order from this image. It may be a plain handwritten/typed list, OR a pre-printed product catalog/price sheet where the customer has marked which items they want by writing a tick, checkmark, circle, or a number in the blank space next to that row\'s Qty column.\n\n' +
+              'If it is a pre-printed catalog/price-sheet style image (rows with item codes and descriptions, e.g. "AA417 Assam Paste/Tamarind 1kg/pkt"): ONLY extract rows that have a visible handwritten mark next to them. Ignore every row with no mark — do not extract the full list. For each marked row, use the handwritten number if one is written, otherwise 1 for a plain tick/checkmark/circle with no number.\n\n' +
+              'Also rate your confidence that each mark is genuinely there and correctly read, as "high", "medium", or "low". Use "medium" or "low" when a mark is faint, ambiguous, or could be a stray pen mark or print artifact rather than a deliberate mark.\n\n' +
+              'Respond with ONLY a JSON array, no other text, in this exact shape: [{"name": "<item description>", "quantity": <number>, "confidence": "high"|"medium"|"low"}]. If it is a plain handwritten/typed list rather than a catalog, extract it the same way with confidence "high" for each clearly-written item. If no order or marks are visible anywhere, respond with [].'
           }
         ]
       }]
     });
-    const text = response.content[0]?.text?.trim();
-    console.log(`[OCR] Extracted: "${text?.substring(0, 80) || '(empty)'}"`);
-    return text || null;
+    const raw = response.content.filter(b => b.type === 'text').map(b => b.text).join('').trim();
+    if (!raw) return null;
+
+    let parsed;
+    try {
+      // The model may wrap the JSON in a code fence despite instructions — strip it.
+      const jsonText = raw.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '').trim();
+      parsed = JSON.parse(jsonText);
+    } catch (err) {
+      console.error('[OCR] Failed to parse JSON response:', err.message, '| raw:', raw.substring(0, 200));
+      return null;
+    }
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      console.log('[OCR] No order items found');
+      return null;
+    }
+
+    const items = parsed
+      .filter(i => i && typeof i.name === 'string' && i.name.trim())
+      .map(i => {
+        const quantity = Number.isFinite(i.quantity) && i.quantity > 0 ? i.quantity : 1;
+        const name = i.name.trim();
+        return {
+          name,
+          quantity,
+          confidence: ['high', 'medium', 'low'].includes(i.confidence) ? i.confidence : 'medium',
+          segment: `${name} ${quantity}`,
+        };
+      });
+    if (items.length === 0) return null;
+
+    const text = items.map(i => i.segment).join(', ');
+    console.log(`[OCR] Extracted ${items.length} item(s): "${text.substring(0, 120)}"`);
+    return { text, items };
   } catch (err) {
     console.error('[OCR] Failed:', err.message);
     return null;
@@ -306,16 +343,23 @@ async function connectBaileys() {
         const ext = contentType.split('/')[1] || 'jpg';
         const caption = (imageMsg.caption || '').trim();
 
-        const [imageUrl, ocrText] = await Promise.all([
+        const [imageUrl, ocrResult] = await Promise.all([
           uploadAttachmentToBlob(imgBuffer, remoteJid, ext, contentType),
           ocrImage(imgBuffer, contentType),
         ]);
 
         // OCR result is the primary order text; caption is the fallback
-        const orderText = ocrText || caption;
-        const imageAttachment = { type: 'image', url: imageUrl, text: caption || null, transcript: ocrText || null, timestamp: messageTimestamp };
+        const orderText = ocrResult?.text || caption;
+        const imageAttachment = {
+          type: 'image',
+          url: imageUrl,
+          text: caption || null,
+          transcript: ocrResult?.text || null,
+          ocrItems: ocrResult?.items || null,
+          timestamp: messageTimestamp,
+        };
 
-        console.log(`📷 Image uploaded${caption ? ` | caption: ${caption.substring(0, 80)}` : ' | no caption'}${ocrText ? ` | OCR: ${ocrText.substring(0, 80)}` : ''}`);
+        console.log(`📷 Image uploaded${caption ? ` | caption: ${caption.substring(0, 80)}` : ' | no caption'}${ocrResult?.text ? ` | OCR: ${ocrResult.text.substring(0, 80)}` : ''}`);
 
         handleGroupMessage(sock, remoteJid, senderPhone, orderText, imageAttachment)
           .catch(e => console.error('❌ handleGroupMessage error (from image):', e.message));
