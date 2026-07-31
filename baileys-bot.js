@@ -77,7 +77,9 @@ async function ocrImage(imageBuffer, mimeType) {
           },
           {
             type: 'text',
-            text: 'Extract any food or product order text from this image. Return only the order items exactly as written, nothing else. If no order is visible, return nothing.'
+            text: 'Extract any food or product order text from this image — a customer telling a supplier what they want to buy (e.g. a handwritten or typed list of items and quantities). Return only the order items exactly as written, nothing else.\n\n' +
+              'Do NOT treat a product catalog, price list, or SKU reference sheet as an order — these show many rows with item codes, descriptions, and prices/units as a reference (e.g. columns like "Item No / Description / Qty/Unit" or a numbered list of unrelated products with codes like "AA417", "BA-CMN"), not a specific request for particular quantities. If the image is this kind of reference sheet rather than someone\'s actual order, return nothing.\n\n' +
+              'If no order is visible, return nothing.'
           }
         ]
       }]
