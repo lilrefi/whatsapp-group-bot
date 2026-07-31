@@ -20,6 +20,25 @@ let sock = null;
 let isReady = false;
 let groupCache = {};
 
+// ─── Message dedup ───────────────────────────────────────────────────────────
+// Baileys can redeliver the same message via messages.upsert (reconnects,
+// multi-device sync), which would otherwise process an order twice. Track
+// recently-seen message IDs and skip repeats; entries older than 10 minutes
+// are purged so the map doesn't grow unbounded.
+const processedMessageIds = new Map(); // msg.key.id -> seenAt
+const DEDUP_WINDOW_MS = 10 * 60 * 1000;
+
+function alreadyProcessed(msgId) {
+  if (!msgId) return false;
+  const now = Date.now();
+  for (const [id, seenAt] of processedMessageIds) {
+    if (now - seenAt > DEDUP_WINDOW_MS) processedMessageIds.delete(id);
+  }
+  if (processedMessageIds.has(msgId)) return true;
+  processedMessageIds.set(msgId, now);
+  return false;
+}
+
 // ─── Attachment storage (Vercel Blob) ───────────────────────────────────────
 
 async function uploadAttachmentToBlob(buffer, groupId, ext, contentType) {
@@ -196,6 +215,10 @@ async function connectBaileys() {
       const isGroup = remoteJid && remoteJid.endsWith('@g.us');
 
       if (!msg.message || msg.key.fromMe) continue;
+      if (alreadyProcessed(msg.key.id)) {
+        console.log(`⏭️  Skipping duplicate message ${msg.key.id}`);
+        continue;
+      }
 
       const senderPhone = (msg.key.participant || '').replace('@s.whatsapp.net', '');
       const messageTimestamp = msg.messageTimestamp

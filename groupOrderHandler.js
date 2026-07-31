@@ -115,10 +115,16 @@ function normalizeChineseNumerals(text) {
 
 // ─── Order line parsing ───────────────────────────────────────────────────────
 
+// Chinese measure words that follow a quantity (个/箱/包/瓶/桶/袋/盒/罐/条/件/块/只)
+// and CJK punctuation (，。、) — both need stripping from the search term the
+// same way UNITS strips English words like "pcs"/"box", otherwise they stay
+// glued to the product name and break the DB substring match.
+const ZH_MEASURE_AND_PUNCT = /[个只箱包瓶桶袋盒罐条件块，。、]/g;
+
 function parseOrderLines(text) {
   const NOISE = /\b(i want|please|can i have|give me|order|just|add|more|another|also)\b/gi;
   const UNITS = /\b(pcs|pieces|unit|units|pack|packs|box|boxes)\b/gi;
-  const rawSegments = text.split(/[\n,]|\s+and\s+/i).map(s => s.trim()).filter(Boolean);
+  const rawSegments = text.split(/[\n,，、]|\s+and\s+/i).map(s => s.trim()).filter(Boolean);
   // Whisper rarely inserts commas in Chinese speech — a long CJK segment with
   // spaces is almost certainly multiple items. Split further by whitespace.
   const segments = [];
@@ -146,6 +152,7 @@ function parseOrderLines(text) {
     const searchTerm = cleaned
       .replace(/\b\d+\b/, '')
       .replace(UNITS, '')
+      .replace(ZH_MEASURE_AND_PUNCT, '')
       .replace(/\s+/g, ' ')
       .trim();
     if (searchTerm.length >= 2) {

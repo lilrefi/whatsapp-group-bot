@@ -196,6 +196,8 @@ Supports text, image (OCR), and voice note input:
 ## Known issues / decisions
 
 - **Baileys auth**: credentials stored in `baileys-auth/` (gitignored). If deleted, must re-scan QR on next start.
+- **Baileys logout is expected occasionally in production**: WhatsApp can invalidate the session server-side (protocol updates, inactivity, device-limit conflicts). Distinguish a true logout (`DisconnectReason.loggedOut`, requires deleting `baileys-auth/` and re-scanning QR) from a normal reconnect (network drop, auto-recovers). After bumping the `@whiskeysockets/baileys` version, always delete `baileys-auth/` and re-scan — auth credential format can change between versions.
+- **KIV: forwarded voice notes reported as "not working" by a tester (2026-07-30)**: not reproduced. One test forward worked end-to-end; the transcript had duplicated phrases but the user confirmed the source audio itself was genuinely duplicated (not a Whisper repetition hallucination). If this recurs, capture the console log from the exact failing attempt — check whether `🎤 Voice note from...` even prints (if not, the message likely arrived wrapped in `ephemeralMessage`/`viewOnceMessage` rather than a bare `audioMessage`) and note what chat the forward originated from.
 - **In-memory sessions**: server restart clears all active sessions. Users mid-order will need to restart. Replace with Redis for production.
 - **Baileys on Windows terminal**: `printQRInTerminal: true` doesn't render correctly in PowerShell. Uses `qrcode-terminal` package with `qrcode.generate(qr, { small: true })` instead.
 - **Unlinked groups ignored**: bot returns early if `group_profiles` has no entry for the group — personal groups are safe.
