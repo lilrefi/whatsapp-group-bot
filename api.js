@@ -55,7 +55,9 @@ function startApiServer() {
             qty: i.quantity,
             unit: i.unit_size || null,
             unitPrice: null,
-            flagged: i.flagged
+            flagged: i.flagged,
+            verbatim: i.verbatim || null,
+            confidence_note: i.confidence_note || null
           })),
           notFound: s.notFound,
           rawAttachments: s.rawAttachments || []
