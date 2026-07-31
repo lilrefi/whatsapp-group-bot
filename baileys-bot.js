@@ -131,7 +131,13 @@ async function ocrImage(imageBuffer, mimeType) {
           name,
           quantity,
           confidence: ['high', 'medium', 'low'].includes(i.confidence) ? i.confidence : 'medium',
-          segment: `${name} ${quantity}`,
+          // Quantity FIRST, not last: parseOrderLines() takes the first bare
+          // number it finds as the quantity. A trailing "<name> <qty>" segment
+          // gets its quantity hijacked by any standalone number already inside
+          // the product's own description (e.g. "Dark Yellow Colour 258
+          // 450g/tub 1" -> parsed qty 258, not 1). Leading quantity guarantees
+          // it's always the first, correctly-bound number in the segment.
+          segment: `${quantity} ${name}`,
         };
       });
     if (items.length === 0) return null;
