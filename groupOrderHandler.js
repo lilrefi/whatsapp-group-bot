@@ -80,8 +80,24 @@ const FILLER_WORDS = new Set([
   'to', 'from', 'for', 'of',
 ]);
 
+// Chinese correction phrases — kept separate from FILLER_WORDS because CJK
+// terms need exact-match checking, not the <4-char length heuristic below
+// (which would misclassify real 2-4 character product names as noise).
+const CJK_FILLER_WORDS = new Set([
+  '改成', '换成', '改為', '改为', '只要', '而已', '不要',
+]);
+
 function isNoiseSearchTerm(term) {
-  const words = term.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  const trimmed = term.toLowerCase().trim();
+  if (/[一-鿿]/.test(trimmed)) {
+    // CJK product names are naturally short (2-4 characters) — the ASCII
+    // "words under 4 chars = noise" heuristic below would misclassify real
+    // products (e.g. 腐皮, 生抽) as noise. Only treat as noise if the whole
+    // term is a single character or an exact match against a known CJK
+    // correction phrase.
+    return trimmed.length <= 1 || CJK_FILLER_WORDS.has(trimmed);
+  }
+  const words = trimmed.split(/\s+/).filter(Boolean);
   if (words.length === 0) return true;
   // Every word must be either short (< 4 chars) or a known filler
   return words.every(w => w.length < 4 || FILLER_WORDS.has(w));
