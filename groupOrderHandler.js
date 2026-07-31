@@ -178,21 +178,40 @@ function parseOrderLines(text) {
   return results;
 }
 
+// Generic product-type/form words that recur across many unrelated products
+// in this catalog (e.g. every "X Powder" product) — excluded from multi-word
+// scoring so they can't outscore the word that actually distinguishes the
+// product. Same idea as the English UNITS list, but for catalog-specific
+// generic terms rather than order-quantity units.
+const GENERIC_SCORE_WORDS = new Set(['pwd', 'powder']);
+
+// Returns { results, matchConfidence }. matchConfidence is 'high' for an
+// exact full-string substring hit, 'medium' for a fuzzy word-based match
+// (single keyword or multi-word scoring — always a best-effort guess,
+// regardless of source), or null when nothing matched.
 async function searchProductsFuzzy(searchTerm) {
   // 1. Full-term substring match (handles exact names and Chinese names)
   let results = await db.searchProducts(searchTerm);
-  if (results.length > 0) return results;
+  if (results.length > 0) return { results, matchConfidence: 'high' };
 
-  const words = searchTerm.split(/\s+/).filter(w => w.length >= 3);
-  if (words.length === 0) return [];
+  const words = searchTerm.split(/\s+/).filter(w => w.length >= 3 && !GENERIC_SCORE_WORDS.has(w.toLowerCase()));
+  if (words.length === 0) return { results: [], matchConfidence: null };
 
   // 2. Single keyword — search directly (e.g. "妈蜜", "marmite")
-  if (words.length === 1) return db.searchProducts(words[0]);
+  if (words.length === 1) {
+    const r = await db.searchProducts(words[0]);
+    return { results: r, matchConfidence: r.length > 0 ? 'medium' : null };
+  }
 
   // 3. Multi-word: run all word searches in parallel and score each product by
   //    how many query words it matches. Require ≥2 matching words to avoid
   //    false positives from common adjectives ("salted", "fried", "sweet")
-  //    matching completely unrelated products.
+  //    matching completely unrelated products. Bug found 2026-07-31: without
+  //    excluding GENERIC_SCORE_WORDS above, two generic/structural words
+  //    (e.g. a shared brand prefix + "PWD") could sum to the same score as
+  //    the one word that actually distinguishes the product, and silently
+  //    win — e.g. "Baba'S Cumin PWD" matched "Baba'S Meat Curry Pwd" via
+  //    "Baba'S"+"PWD" alone, with zero contribution from "Cumin".
   const wordResultSets = await Promise.all(words.map(w => db.searchProducts(w)));
   const scoreMap = new Map(); // product.id → { product, score }
   for (const wordResults of wordResultSets) {
@@ -204,10 +223,10 @@ async function searchProductsFuzzy(searchTerm) {
   }
 
   const candidates = [...scoreMap.values()].filter(e => e.score >= 2);
-  if (candidates.length === 0) return []; // no product matched ≥2 words → notFound is more correct than a wrong match
+  if (candidates.length === 0) return { results: [], matchConfidence: null }; // no product matched ≥2 words → notFound is more correct than a wrong match
 
   const maxScore = Math.max(...candidates.map(e => e.score));
-  return candidates.filter(e => e.score === maxScore).map(e => e.product);
+  return { results: candidates.filter(e => e.score === maxScore).map(e => e.product), matchConfidence: 'medium' };
 }
 
 // ─── Core matching logic ──────────────────────────────────────────────────────
@@ -244,7 +263,14 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
 
   for (const line of lines) {
     const ocrConfidence = isFromImage ? findOcrConfidence(attachment, line) : null;
-    const results = await searchProductsFuzzy(line.searchTerm);
+    const { results, matchConfidence } = await searchProductsFuzzy(line.searchTerm);
+    // A fuzzy (word-scored, non-exact) product match is a best-effort guess
+    // regardless of source — flag it for staff review the same way voice/image
+    // items already are, so a shaky text-order match doesn't sail through
+    // looking "Matched" with no review prompt. Same standard for all sources.
+    const fuzzyMatch = matchConfidence === 'medium';
+    const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? imageSourceNote(ocrConfidence) : null;
+    const fuzzyNote = fuzzyMatch ? 'product match uncertain — please verify' : null;
     if (results.length === 0) {
       // If the search term is pure noise (no product-name-like word), treat this
       // as a quantity correction rather than a missing product.
@@ -261,18 +287,18 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
         });
       }
     } else if (results.length === 1) {
-      const lowConf = isFromVoice || isFromImage;
-      const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? imageSourceNote(ocrConfidence) : null;
-      newResolved.push({ product_id: results[0].id, product: results[0], verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: sourceNote });
+      const lowConf = isFromVoice || isFromImage || fuzzyMatch;
+      const note = [sourceNote, fuzzyNote].filter(Boolean).join('; ') || null;
+      newResolved.push({ product_id: results[0].id, product: results[0], verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: note });
     } else {
       const best = pickBestMatch(results, profile);
-      const sourceNote = isFromVoice ? 'from voice transcription' : isFromImage ? imageSourceNote(ocrConfidence) : null;
       if (best) {
-        const lowConf = isFromVoice || isFromImage;
-        newResolved.push({ product_id: best.id, product: best, verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: sourceNote });
+        const lowConf = isFromVoice || isFromImage || fuzzyMatch;
+        const note = [sourceNote, fuzzyNote].filter(Boolean).join('; ') || null;
+        newResolved.push({ product_id: best.id, product: best, verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: lowConf, confidence_note: note });
       } else {
         const base = `auto-picked (${results.length} candidates, no order history)`;
-        const note = sourceNote ? `${base}; ${sourceNote}` : base;
+        const note = [base, sourceNote, fuzzyNote].filter(Boolean).join('; ');
         newResolved.push({ product_id: results[0].id, product: results[0], verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: true, confidence_note: note });
       }
     }
