@@ -187,6 +187,9 @@ Supports text, image (OCR), and voice note input:
 | Voice | any | multi, no history | `true` | `auto-picked (N candidates, no order history); from voice transcription` |
 | Image OCR | any | any match | `true` | `from image OCR (mark confidence: <high\|medium\|low>)` (+ `; product match uncertain — please verify` if medium) |
 | Image OCR | any | multi, no history | `true` | `auto-picked (N candidates, no order history); from image OCR (mark confidence: <level>)` |
+| Image OCR | **SKU match** | direct (bypasses fuzzy) | `true` | `from image OCR (SKU: <code>; mark confidence: <level>)` |
+
+**SKU-first matching for catalog-style images (2026-07-31)**: when the sheet has an item-code column (e.g. "Item No"), `ocrImage()` also extracts that code per marked row. `processOrderLines()` tries an exact SKU lookup (`db.getProductBySku()`, whitespace/case-insensitive) *before* falling back to fuzzy name matching — a SKU is a unique identifier, so there's no ambiguity to resolve. Falls through to the normal fuzzy path if there's no SKU, or the printed code isn't in this catalog's `sku` column (confirmed to happen: a customer's printed sheet used `BA-CMN` for Cumin, this catalog stores that product as `BA15` — a data mismatch, not a bug). Text/voice/plain-list orders have no SKU column to read and are unaffected.
 
 Note: "mark confidence" (OCR's self-rated confidence that a handwritten tick/quantity is genuine) and "product match confidence" (whether the catalog search itself is a reliable hit) are two independent dimensions — an item can have a high mark confidence but a medium/uncertain product match, or vice versa. Both surface in `confidence_note`.
 

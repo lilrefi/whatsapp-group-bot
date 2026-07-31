@@ -231,16 +231,15 @@ async function searchProductsFuzzy(searchTerm) {
 
 // ─── Core matching logic ──────────────────────────────────────────────────────
 
-// Looks up the OCR mark-confidence ("high"/"medium"/"low") for a parsed line by
-// matching its raw text against the "<name> <qty>" segment ocrImage() built the
+// Looks up the OCR-extracted item (mark confidence, sku) for a parsed line by
+// matching its raw text against the "<qty> <name>" segment ocrImage() built the
 // order text from. No match (e.g. a session-merge correction that isn't a fresh
-// OCR line) just means no confidence note is added — never guess by position.
-function findOcrConfidence(attachment, line) {
+// OCR line) just means nothing is found — never guess by position.
+function findOcrItem(attachment, line) {
   const items = attachment?.ocrItems;
   if (!items || items.length === 0) return null;
   const trimmed = line.rawSegment.trim();
-  const match = items.find(i => i.segment === trimmed);
-  return match ? match.confidence : null;
+  return items.find(i => i.segment === trimmed) || null;
 }
 
 function imageSourceNote(confidence) {
@@ -262,7 +261,25 @@ async function processOrderLines(sock, groupId, senderPhone, lines, existingSess
   const newCorrections = []; // qty-only updates for the last session item
 
   for (const line of lines) {
-    const ocrConfidence = isFromImage ? findOcrConfidence(attachment, line) : null;
+    const ocrItem = isFromImage ? findOcrItem(attachment, line) : null;
+    const ocrConfidence = ocrItem?.confidence ?? null;
+
+    // SKU-first matching: if OCR read an exact item code (a catalog sheet's
+    // "Item No" column), look it up directly — a SKU is a unique identifier,
+    // so there's no ambiguity to resolve, unlike fuzzy name matching. Falls
+    // through to fuzzy matching if there's no SKU, or the code isn't in this
+    // catalog (the customer's printed sheet can use a different numbering
+    // scheme than this DB for some products — seen in practice: their sheet's
+    // "BA-CMN" for Cumin has no equivalent row in this catalog's sku column).
+    if (ocrItem?.sku) {
+      const skuProduct = await db.getProductBySku(ocrItem.sku);
+      if (skuProduct) {
+        const note = `from image OCR (SKU: ${ocrItem.sku}${ocrConfidence ? `; mark confidence: ${ocrConfidence}` : ''})`;
+        newResolved.push({ product_id: skuProduct.id, product: skuProduct, verbatim: line.rawSegment, quantity: line.quantity, additive: line.additive, flagged: true, confidence_note: note });
+        continue;
+      }
+    }
+
     const { results, matchConfidence } = await searchProductsFuzzy(line.searchTerm);
     // A fuzzy (word-scored, non-exact) product match is a best-effort guess
     // regardless of source — flag it for staff review the same way voice/image

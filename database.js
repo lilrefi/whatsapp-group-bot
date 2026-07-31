@@ -142,6 +142,23 @@ async function searchProducts(searchTerm) {
 }
 
 /**
+ * Exact SKU lookup — used for marked-catalog image orders, where the
+ * customer's own printed sheet shows an "Item No" column that (when it
+ * matches this catalog's sku) unambiguously identifies the product, no
+ * fuzzy name matching required.
+ */
+async function getProductBySku(sku) {
+  if (!sku) return null;
+  // Whitespace-insensitive: OCR may read "BA14 (PKT)" with a space the DB's
+  // stored "BA14(PKT)" doesn't have, depending on print spacing in the photo.
+  const result = await pool.query(
+    `SELECT * FROM products WHERE is_active = true AND REPLACE(sku, ' ', '') ILIKE REPLACE(TRIM($1), ' ', '') LIMIT 1`,
+    [sku]
+  );
+  return result.rows[0] || null;
+}
+
+/**
  * Save or update the group a customer belongs to
  */
 async function saveCustomerGroup(customerId, groupId, groupName = null) {
@@ -465,6 +482,7 @@ module.exports = {
   getProductsByCategory,
   getProductById,
   searchProducts,
+  getProductBySku,
   createOrder,
   updateOrderStatus,
   saveCustomerGroup,

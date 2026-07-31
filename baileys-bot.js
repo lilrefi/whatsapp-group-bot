@@ -89,7 +89,8 @@ async function ocrImage(imageBuffer, mimeType) {
             text: 'Extract a customer\'s order from this image. It may be a plain handwritten/typed list, OR a pre-printed product catalog/price sheet where the customer has marked which items they want by writing a tick, checkmark, circle, or a number in the blank space next to that row\'s Qty column.\n\n' +
               'If it is a pre-printed catalog/price-sheet style image (rows with item codes and descriptions, e.g. "AA417 Assam Paste/Tamarind 1kg/pkt"): ONLY extract rows that have a visible handwritten mark next to them. Ignore every row with no mark — do not extract the full list. For each marked row, use the handwritten number if one is written, otherwise 1 for a plain tick/checkmark/circle with no number.\n\n' +
               'Also rate your confidence that each mark is genuinely there and correctly read, as "high", "medium", or "low". Use "medium" or "low" when a mark is faint, ambiguous, or could be a stray pen mark or print artifact rather than a deliberate mark.\n\n' +
-              'Respond with ONLY a JSON array, no other text, in this exact shape: [{"name": "<item description>", "quantity": <number>, "confidence": "high"|"medium"|"low"}]. If it is a plain handwritten/typed list rather than a catalog, extract it the same way with confidence "high" for each clearly-written item. If no order or marks are visible anywhere, respond with [].'
+              'If the sheet has an item-code column (often labeled "Item No", "S/N", "Code", or similar — e.g. "AA417", "BA-CMN"), also record that exact code as "sku" for each marked row. Copy it exactly as printed, including hyphens/parentheses. Omit "sku" (or use null) if there is no such code column, or for a plain handwritten/typed list.\n\n' +
+              'Respond with ONLY a JSON array, no other text, in this exact shape: [{"name": "<item description>", "sku": "<item code or null>", "quantity": <number>, "confidence": "high"|"medium"|"low"}]. If it is a plain handwritten/typed list rather than a catalog, extract it the same way with confidence "high" for each clearly-written item and sku null. If no order or marks are visible anywhere, respond with [].'
           }
         ]
       }]
@@ -130,6 +131,7 @@ async function ocrImage(imageBuffer, mimeType) {
         return {
           name,
           quantity,
+          sku: typeof i.sku === 'string' && i.sku.trim() ? i.sku.trim() : null,
           confidence: ['high', 'medium', 'low'].includes(i.confidence) ? i.confidence : 'medium',
           // Quantity FIRST, not last: parseOrderLines() takes the first bare
           // number it finds as the quantity. A trailing "<name> <qty>" segment
