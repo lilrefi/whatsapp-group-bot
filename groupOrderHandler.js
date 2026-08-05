@@ -582,14 +582,39 @@ function updateSessionItems(groupId, items) {
   const session = groupSessions.get(groupId);
   if (!session) return false;
   // Replace items in-place, keeping all other session fields (notFound, attachments, etc.)
-  session.items = items.map(i => ({
-    product_id: i.product_id || null,
-    quantity: i.qty,
-    flagged: i.flagged || false,
-    confidence_note: i.confidence_note || null,
-    verbatim: i.verbatim || null,
-    product: { name: i.name, unit_size: i.unit || null, sku: i.sku || null }
-  }));
+  // The dashboard's PATCH payload doesn't necessarily round-trip every field (staff edits
+  // one thing — qty, product — and it's easy for a client to omit fields it isn't touching)
+  // — if a field is missing, fall back to the previous session item's value instead of
+  // wiping it. Match by product_id where possible (survives reordering); fall back to
+  // index for unmatched/null-product items (e.g. "Not found in catalog" rows), which is
+  // best-effort but avoids silently losing data the bot originally parsed correctly.
+  //
+  // product_id is treated differently from verbatim: staff can legitimately set it to
+  // an explicit null (unassigning a product via the dropdown), so only a genuinely
+  // *absent* field (undefined — the key isn't in the payload at all) falls back to the
+  // previous value; an explicit null is respected as-is. verbatim is never staff-edited,
+  // so there's no legitimate reason for a client to send it as null on purpose — an
+  // explicit null there is treated the same as missing.
+  const prevItems = session.items;
+  session.items = items.map((i, idx) => {
+    const productId = i.product_id !== undefined ? i.product_id : (prevItems[idx]?.product_id ?? null);
+
+    let verbatim = i.verbatim;
+    if (verbatim === undefined || verbatim === null) {
+      const prevMatch = i.product_id != null
+        ? prevItems.find(p => p.product_id === i.product_id)
+        : prevItems[idx];
+      verbatim = prevMatch?.verbatim || null;
+    }
+    return {
+      product_id: productId,
+      quantity: i.qty,
+      flagged: i.flagged || false,
+      confidence_note: i.confidence_note || null,
+      verbatim,
+      product: { name: i.name, unit_size: i.unit || null, sku: i.sku || null }
+    };
+  });
   groupSessions.set(groupId, session);
   return true;
 }
