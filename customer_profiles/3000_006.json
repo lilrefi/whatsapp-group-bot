@@ -1,0 +1,20 @@
+{
+  "customer_code": "3000/006",
+  "customer_name": ">321 LA BAO TIAN HOTPOT BBQ",
+  "order_history": [
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 21.0
+    },
+    {
+      "item_code": "BN05",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 9,
+      "total_qty": 13.0
+    }
+  ]
+}

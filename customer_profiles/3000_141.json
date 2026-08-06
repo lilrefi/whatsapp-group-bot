@@ -1,0 +1,125 @@
+{
+  "customer_code": "3000/141",
+  "customer_name": "FOODGLE HUB PTE LTD (451)",
+  "order_history": [
+    {
+      "item_code": "CARN-CAN",
+      "description": "CARNATION MILK (THAI) 405GM 三花淡奶精(泰)/罐",
+      "unit": "CAN",
+      "times_ordered": 5,
+      "total_qty": 57.0
+    },
+    {
+      "item_code": "MWBLC-PKT",
+      "description": "SEAFOOD BELACHAN PASTE  1X1KG  海鲜峇拉煎酱/包",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 60.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 40.0
+    },
+    {
+      "item_code": "MWXO/包",
+      "description": "SEAFOOD XO PASTE  1X1KG  海鲜XO酱料",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 13.0
+    },
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "N68",
+      "description": "10KG/CTN/箱 HONG KONG NOODLE 香港面",
+      "unit": "CTN",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "MWCFP-PKT",
+      "description": "(MW) CURRY FISH PASTE 1X1KG  鱼咖喱料/包",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 40.0
+    },
+    {
+      "item_code": "M521",
+      "description": "HUA TIAO CHIEW(GT CHEF)  640ML/BOT  花雕酒(大厨)/瓶",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 17.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "C08",
+      "description": "GREEN CHILLI W/VINEGAR 调味青椒包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "CA43(CAN)",
+      "description": "PORK LEG W/MUSHROOMS  397G/CAN  香菇猪脚腿(罐)",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "CA46(CAN)",
+      "description": "HIGHWAY PORK LUNCHEON MEAT 397GM  猪午餐肉(罐)",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "M512",
+      "description": "ROCK SUGAR  冰糖(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "MCMLS-410",
+      "description": "4 STAR P/LIGHT SOY SAUCE  3.6KG/BOT  4星优质原生抽/桶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "N67",
+      "description": "3KGPKT/包 BEE HOON 米粉(干)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "PLT-TIN",
+      "description": "PLANTA  牛油",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

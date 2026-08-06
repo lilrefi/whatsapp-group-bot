@@ -1,0 +1,62 @@
+{
+  "customer_code": "3000/036",
+  "customer_name": ">MADAM SING NEE SOON CAMP_HO WAN SHEE",
+  "order_history": [
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 70.0
+    },
+    {
+      "item_code": "OIL-5L",
+      "description": "5 LITER-COOKING OIL -食油",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 28.0
+    },
+    {
+      "item_code": "PLT-TIN",
+      "description": "PLANTA  牛油",
+      "unit": "TIN",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "CA46(CAN)",
+      "description": "HIGHWAY PORK LUNCHEON MEAT 397GM  猪午餐肉(罐)",
+      "unit": "CAN",
+      "times_ordered": 2,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "R8",
+      "description": "",
+      "unit": "BAG",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "C02",
+      "description": "THAILAND SWEET CHILLI SAUCE 5KG/BOT 泰式甜辣椒酱",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "PBC-TUB",
+      "description": "SKIPPY PEANUT BUTTER CREAMY  1X1KG  花生酱(桶)",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

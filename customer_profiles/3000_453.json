@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/453",
+  "customer_name": "#ENG SOON HENG TRADING PTE LTD",
+  "order_history": [
+    {
+      "item_code": "MWXO/包",
+      "description": "SEAFOOD XO PASTE  1X1KG  海鲜XO酱料",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 210.0
+    }
+  ]
+}

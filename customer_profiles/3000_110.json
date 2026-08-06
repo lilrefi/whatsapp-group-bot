@@ -1,0 +1,209 @@
+{
+  "customer_code": "3000/110",
+  "customer_name": "(BP)HONG PIN MIXED VEG RICE 宏品菜飯",
+  "order_history": [
+    {
+      "item_code": "R204",
+      "description": "ROYAL UMBRELLA RICE(PREMIUM) 安培娜泰国香米(袋) 25KG",
+      "unit": "BAG",
+      "times_ordered": 35,
+      "total_qty": 108.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 32,
+      "total_qty": 89.0
+    },
+    {
+      "item_code": "FL14",
+      "description": "POTATO STARCH    2KG  风车粉",
+      "unit": "PKT",
+      "times_ordered": 31,
+      "total_qty": 38.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 31,
+      "total_qty": 295.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 31,
+      "total_qty": 144.0
+    },
+    {
+      "item_code": "TMPF/包",
+      "description": "TEMPURA FLOUR  1KG/PKT  炸脆粉",
+      "unit": "PKT",
+      "times_ordered": 31,
+      "total_qty": 61.0
+    },
+    {
+      "item_code": "XI606",
+      "description": "BREAD CRUMB (WHITE)  1KG/PKT  面包糠(白)",
+      "unit": "PKT",
+      "times_ordered": 31,
+      "total_qty": 110.0
+    },
+    {
+      "item_code": "M59(PKT)",
+      "description": "VE-SIN MSG   1KG/PKT  味精/包",
+      "unit": "PKT",
+      "times_ordered": 28,
+      "total_qty": 34.0
+    },
+    {
+      "item_code": "MCMLS-410",
+      "description": "4 STAR P/LIGHT SOY SAUCE  3.6KG/BOT  4星优质原生抽/桶",
+      "unit": "BOT",
+      "times_ordered": 28,
+      "total_qty": 48.0
+    },
+    {
+      "item_code": "DSS01(PKT)",
+      "description": "SHRIMP SKIN  1X500G  虾苗/扣",
+      "unit": "PKT",
+      "times_ordered": 26,
+      "total_qty": 26.0
+    },
+    {
+      "item_code": "M521",
+      "description": "HUA TIAO CHIEW(GT CHEF)  640ML/BOT  花雕酒(大厨)/瓶",
+      "unit": "BOT",
+      "times_ordered": 25,
+      "total_qty": 51.0
+    },
+    {
+      "item_code": "PV29",
+      "description": "CHU ZHEN FISH GRAVY  750GM  厨珍壹等鱼露",
+      "unit": "BOT",
+      "times_ordered": 20,
+      "total_qty": 26.0
+    },
+    {
+      "item_code": "M532",
+      "description": "SALT  盐(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 17,
+      "total_qty": 17.0
+    },
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 17,
+      "total_qty": 17.0
+    },
+    {
+      "item_code": "OYS-SH",
+      "description": "SH OYSTER SAUCE 5L/BOT 蚝油",
+      "unit": "BOT",
+      "times_ordered": 16,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 11,
+      "total_qty": 132.0
+    },
+    {
+      "item_code": "CA46(CAN)",
+      "description": "HIGHWAY PORK LUNCHEON MEAT 397GM  猪午餐肉(罐)",
+      "unit": "CAN",
+      "times_ordered": 10,
+      "total_qty": 216.0
+    },
+    {
+      "item_code": "AA418",
+      "description": "SMALL-RED BEANCURD /LAM JOO  250GM/BOT 南乳(红)",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 13.0
+    },
+    {
+      "item_code": "BF01(PKT)",
+      "description": "BLACK FUNGUS(SMALL) 1KG/PKT   小云耳",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "C01(PKT)",
+      "description": "CINNAMON SKIN  桂皮(包) 250GM",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "DF802(PKT)",
+      "description": "STAR ANISEED 八角 250GM/PKT",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "N41",
+      "description": "VERMICELLI  250G/PKT  冬粉/包",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 81.0
+    },
+    {
+      "item_code": "S713",
+      "description": "MAGGI TOMATO SAUCE 美极蕃茄酱 3.3KG/TIN",
+      "unit": "TIN",
+      "times_ordered": 5,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "RYML",
+      "description": "RUI YUAN MALA SPICY SPICES  1X750G  瑞远麻辣拌料",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "C07",
+      "description": "DRIED CHILLI 1KG/PKT 辣椒干(包)",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "M514-PKT(包)",
+      "description": "BLACK PEPPER(COARSE)  500G (粗)黑胡椒",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "MALT-CAN",
+      "description": "MALTOSE 麦芽糖/罐 500G/BOT",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OIL 18",
+      "description": "",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    }
+  ]
+}

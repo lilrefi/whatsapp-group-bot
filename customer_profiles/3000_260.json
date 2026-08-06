@@ -1,0 +1,104 @@
+{
+  "customer_code": "3000/260",
+  "customer_name": "(494)XIAO OU RESTAURANT",
+  "order_history": [
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 80.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 9,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 8,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "L003(GREEN CAP)",
+      "description": "LIGHT SOYA SAUCE(GREEN)-生抽(青盖) 5L",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "L005",
+      "description": "LIGHT SAUCE  (WHITE CAP) 5L/BOT 生抽(桶)",
+      "unit": "BOT",
+      "times_ordered": 7,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "S719",
+      "description": "PLUM PASTE 酸梅膏 6KG/BOT",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "FL07(CAN)",
+      "description": "450G/罐 ROYAL BAKING POWDER  发粉",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "FZ8",
+      "description": "炸芋头圈(佛钵)=DEEP FRIED YAM RING 250GM",
+      "unit": "PCS",
+      "times_ordered": 1,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "M510",
+      "description": "WHITE VINEGAR 白醋(桶) 5L/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "MAYO-TUB",
+      "description": "MAYONNAISE  3L/TUB  美乃滋酱/桶",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PV11",
+      "description": "2KG/TUB/罐 SALTED PLUM 咸水梅",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

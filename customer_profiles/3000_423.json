@@ -1,0 +1,27 @@
+{
+  "customer_code": "3000/423",
+  "customer_name": "^FISH SOUP (APOSB BIZHUB) 盧家鱼汤",
+  "order_history": [
+    {
+      "item_code": "N43",
+      "description": "CHAI KEE PO CHAI MEE(CTN)/箱  220GX30/CTN",
+      "unit": "CTN",
+      "times_ordered": 19,
+      "total_qty": 23.0
+    },
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 12,
+      "total_qty": 120.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

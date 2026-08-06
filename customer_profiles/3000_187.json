@@ -1,0 +1,62 @@
+{
+  "customer_code": "3000/187",
+  "customer_name": "^(105)NEE SOON FISH HEAD MEE HOON 義顺粥.魚湯.麵",
+  "order_history": [
+    {
+      "item_code": "DG-512",
+      "description": "BELACHAN CHILLI(DIPPING)  1X1KG  峇拉煎辣椒(外用)",
+      "unit": "PKT",
+      "times_ordered": 19,
+      "total_qty": 203.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 17,
+      "total_qty": 175.0
+    },
+    {
+      "item_code": "PV7(PKT)",
+      "description": "KNORR CHICKEN FLAVORED SEASONING/袋 1KG",
+      "unit": "BAG",
+      "times_ordered": 15,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "M532",
+      "description": "SALT  盐(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "WMPS-05",
+      "description": "WINDMILL POTATO STARCH   5KG 风车超级生粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "PV29",
+      "description": "CHU ZHEN FISH GRAVY  750GM  厨珍壹等鱼露",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 36.0
+    },
+    {
+      "item_code": "TMPF/包",
+      "description": "TEMPURA FLOUR  1KG/PKT  炸脆粉",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

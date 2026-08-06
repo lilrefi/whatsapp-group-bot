@@ -1,0 +1,111 @@
+{
+  "customer_code": "3000/331",
+  "customer_name": ">498-YOU LE TIAN SEAFOOD PTE LTD",
+  "order_history": [
+    {
+      "item_code": "HTW-GAL",
+      "description": "GAL--HUA TIAO WINE(GREAT CHEF) 3.75LT  花雕酒(大厨)",
+      "unit": "BOT",
+      "times_ordered": 14,
+      "total_qty": 35.0
+    },
+    {
+      "item_code": "N74",
+      "description": "1KG/PKT/包 KL TAI LOK MEE 吉隆坡大碌麵",
+      "unit": "PKT",
+      "times_ordered": 12,
+      "total_qty": 60.0
+    },
+    {
+      "item_code": "N60F",
+      "description": "EE MIAN(FINE)  6KG/CTN  伊面(幼)",
+      "unit": "CTN",
+      "times_ordered": 11,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "DF803(PKT)",
+      "description": "1KG/包 CANDLENUT-BUAH KERAS 峇角力肉",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "AA413",
+      "description": "MARMITE YEAST EXTRACT 410GM 妈蜜发酵精华/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "BK-SRFL",
+      "description": "BLUE KEY S/RAISING FLOUR  1KG/BOX 自发面粉/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "C03",
+      "description": "THAILAND SWEET CHILLI SAUCE 980G/BOT 泰式甜辣椒(瓶)",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "CARN-CAN",
+      "description": "CARNATION MILK (THAI) 405GM 三花淡奶精(泰)/罐",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "MALT-CAN",
+      "description": "MALTOSE 麦芽糖/罐 500G/BOT",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "MAYO-TUB",
+      "description": "MAYONNAISE  3L/TUB  美乃滋酱/桶",
+      "unit": "TUB",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "PV18(BOT)",
+      "description": "MAGGI SEASONING (800ML)美极鲜味汁",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "SQLM-BOT",
+      "description": "SUNQUICK LEMON  1X840ML  浓缩柠檬汁",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "customer_code": "3000/017",
+  "customer_name": ">17 YONG TAU FOO (WOODLANDS)",
+  "order_history": [
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 36,
+      "total_qty": 36.0
+    },
+    {
+      "item_code": "IBSP-PKT",
+      "description": "BIG IKAN BILIS(SOUP)大江鱼(包)熬汤 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 28,
+      "total_qty": 187.0
+    },
+    {
+      "item_code": "FRON-PKT",
+      "description": "FRIED ONION 1KG/PKT/包  炸小葱 (BAWANG GORENG)",
+      "unit": "PKT",
+      "times_ordered": 27,
+      "total_qty": 71.0
+    },
+    {
+      "item_code": "M512",
+      "description": "ROCK SUGAR  冰糖(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 25,
+      "total_qty": 51.0
+    },
+    {
+      "item_code": "BN40-片",
+      "description": "片/PCS-咸豆皮-SALTED BEAN CURD SKIN",
+      "unit": "SHEET",
+      "times_ordered": 24,
+      "total_qty": 320.0
+    },
+    {
+      "item_code": "M59(PKT)",
+      "description": "VE-SIN MSG   1KG/PKT  味精/包",
+      "unit": "PKT",
+      "times_ordered": 20,
+      "total_qty": 50.0
+    },
+    {
+      "item_code": "CARN-CAN",
+      "description": "CARNATION MILK (THAI) 405GM 三花淡奶精(泰)/罐",
+      "unit": "CAN",
+      "times_ordered": 17,
+      "total_qty": 101.0
+    },
+    {
+      "item_code": "PV14",
+      "description": "YELLOW SOYA BEAN 1KG/PKT  黄豆(包)",
+      "unit": "PKT",
+      "times_ordered": 17,
+      "total_qty": 45.0
+    },
+    {
+      "item_code": "M532",
+      "description": "SALT  盐(包) 3KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 16,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 15,
+      "total_qty": 66.0
+    },
+    {
+      "item_code": "BN03",
+      "description": "炸切腐竹(方）SQUARE-FRIED BEAN CURD SHEET 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 13,
+      "total_qty": 17.0
+    },
+    {
+      "item_code": "R204",
+      "description": "ROYAL UMBRELLA RICE(PREMIUM) 安培娜泰国香米(袋) 25KG",
+      "unit": "BAG",
+      "times_ordered": 12,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "FL500",
+      "description": "500G/PKT/包 BEST TAPIOCA STARCH  金飞人大茨粉",
+      "unit": "PKT",
+      "times_ordered": 10,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "BN08",
+      "description": "#########10片/包#咸豆皮-SALTED BEAN CURD SKIN",
+      "unit": "SET",
+      "times_ordered": 9,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "DS02(PKT)",
+      "description": "PEARL SHRIMP  1X1KG  珍珠虾米",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "DSS01(PKT)",
+      "description": "SHRIMP SKIN  1X500G  虾苗/扣",
+      "unit": "PKT",
+      "times_ordered": 9,
+      "total_qty": 27.0
+    },
+    {
+      "item_code": "FL06(PKT)",
+      "description": "600G/包 RICE FLOUR  粘米粉",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "FL400",
+      "description": "400G/PKT/包 CORN STARCH 玉米淀粉",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "PV22",
+      "description": "SODIUM BICARBONATE 100G BOT",
+      "unit": "CAN",
+      "times_ordered": 5,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "DF803(PKT)",
+      "description": "1KG/包 CANDLENUT-BUAH KERAS 峇角力肉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "FL03(PKT)",
+      "description": "PLAIN FLOUR  1KG/PKT  面粉",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "M527(BOT)",
+      "description": "GW BLACK VINEGAR 长城黑浙醋/瓶 635ML/BOT",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "CA52(CAN)",
+      "description": "MACKEREL IN TOMATO SUACE 1X425G  马鲛鱼(罐)",
+      "unit": "CAN",
+      "times_ordered": 3,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "M513",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "N90",
+      "description": "CUT BEAN VERMICELLI-5KG/CTN/箱-冬粉",
+      "unit": "CTN",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "YS11",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "C22",
+      "description": "YELLOW CAP- GRIND SOYA BEANS-620G/BOT 黄盖磨豉",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "CA46(CAN)",
+      "description": "HIGHWAY PORK LUNCHEON MEAT 397GM  猪午餐肉(罐)",
+      "unit": "CAN",
+      "times_ordered": 2,
+      "total_qty": 30.0
+    },
+    {
+      "item_code": "FL07(CAN)",
+      "description": "450G/罐 ROYAL BAKING POWDER  发粉",
+      "unit": "CAN",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "FSHRS-BOT",
+      "description": "227G/罐 SHRIMP SAUCE(SHIP) 幼滑虾酱",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "LKK1(BOT)",
+      "description": "FINE SHRIMP SAUCE(LEE KUM KEE)  227G/BOT  虾酱(罐)",
+      "unit": "BOT",
+      "times_ordered": 2,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "SW-PC",
+      "description": "SEAWEED/DRIED LAVER    1X50G   紫菜(片)",
+      "unit": "PC",
+      "times_ordered": 2,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "AA400",
+      "description": "WHITE BEANCURD PRESERVED 300G/BOT 大石腐乳(罐)",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "AA417",
+      "description": "ASSAM PASTE/TAMARIND  1KG/PKT  亚叁膏/包",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "BBFC-CAN",
+      "description": "FRIED DACE W SALTED B/BN  1X184G  豆豉鲮鱼罐头",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "BPT-PKT",
+      "description": "ROCK SUGAR SLAB/PC   1X400G  冰片糖",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "CA55(CAN)",
+      "description": "",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "CEFC-CAN",
+      "description": "(F/CREAM)CARNATION EVAP  1X390G  咖喱鱼头全脂淡奶",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "FL08(BAG)",
+      "description": "300G/袋 CUSTARD POWDER  蛋黄粉",
+      "unit": "BAG",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OIL 83",
+      "description": "SH SEASAME OIL (WHITE CAP) 蔴油(白盖) 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OYS-SH",
+      "description": "SH OYSTER SAUCE 5L/BOT 蚝油",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "QQ16",
+      "description": "SPECIAL DARK SAUCE(RED)  5KG/BOT  红加晒",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

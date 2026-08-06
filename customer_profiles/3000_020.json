@@ -1,0 +1,76 @@
+{
+  "customer_code": "3000/020",
+  "customer_name": "SIN HOI SAN EATING HOUSE(187)",
+  "order_history": [
+    {
+      "item_code": "FZ-606",
+      "description": "PRAWN ROLL  虾枣 1KG",
+      "unit": "PKT",
+      "times_ordered": 25,
+      "total_qty": 136.0
+    },
+    {
+      "item_code": "N68",
+      "description": "10KG/CTN/箱 HONG KONG NOODLE 香港面",
+      "unit": "CTN",
+      "times_ordered": 18,
+      "total_qty": 20.0
+    },
+    {
+      "item_code": "OIL 83",
+      "description": "SH SEASAME OIL (WHITE CAP) 蔴油(白盖) 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 15,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "FZ8",
+      "description": "炸芋头圈(佛钵)=DEEP FRIED YAM RING 250GM",
+      "unit": "PCS",
+      "times_ordered": 9,
+      "total_qty": 54.0
+    },
+    {
+      "item_code": "DS01(PKT)",
+      "description": "MEDIUM SIZE SHRIMP  1X1KG   虾米(中)",
+      "unit": "PKT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "YM600",
+      "description": "YAM PASTE WITH GINKO NUT 600GM",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "DG-508",
+      "description": "ASSAM CHILLI SAUCE   1X1KG  亚参辣酱",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 5.0
+    },
+    {
+      "item_code": "MAG-BOT",
+      "description": "MAGGI CONC.CHICKEN STOCK  1.2KG/BOT  美极鲜汤/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "YM4",
+      "description": "",
+      "unit": "CUP",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

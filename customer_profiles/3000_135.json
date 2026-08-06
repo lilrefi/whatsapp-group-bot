@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/135",
+  "customer_name": "SINCERE WHOLESALE PTE LTD",
+  "order_history": [
+    {
+      "item_code": "N63",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 16,
+      "total_qty": 213.0
+    }
+  ]
+}

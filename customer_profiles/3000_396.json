@@ -1,0 +1,41 @@
+{
+  "customer_code": "3000/396",
+  "customer_name": "<164_XIN LIN ZI CHAR 新霖煮炒",
+  "order_history": [
+    {
+      "item_code": "N84",
+      "description": "THICK NOODLE (YELLOW)1KG 大粗麺",
+      "unit": "PKT",
+      "times_ordered": 19,
+      "total_qty": 991.0
+    },
+    {
+      "item_code": "MWCFP-PKT",
+      "description": "(MW) CURRY FISH PASTE 1X1KG  鱼咖喱料/包",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 65.0
+    },
+    {
+      "item_code": "MWBLC-PKT",
+      "description": "SEAFOOD BELACHAN PASTE  1X1KG  海鲜峇拉煎酱/包",
+      "unit": "PKT",
+      "times_ordered": 2,
+      "total_qty": 30.0
+    },
+    {
+      "item_code": "IBM-02",
+      "description": "A4 DRIED IKAN BILIS MEAT 1X1KG 江鱼(肉)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 12.0
+    }
+  ]
+}

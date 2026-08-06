@@ -1,0 +1,111 @@
+{
+  "customer_code": "3000/320",
+  "customer_name": "JUB JUB MOOKATA(810CCK)",
+  "order_history": [
+    {
+      "item_code": "L003(GREEN CAP)",
+      "description": "LIGHT SOYA SAUCE(GREEN)-生抽(青盖) 5L",
+      "unit": "BOT",
+      "times_ordered": 11,
+      "total_qty": 11.0
+    },
+    {
+      "item_code": "LKK5(BOT)",
+      "description": "TIPAROS FISH SAUCE  700CC/BOT  鱼味露(瓶)",
+      "unit": "BOT",
+      "times_ordered": 10,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "N64",
+      "description": "MAMA TOM YUM NOODLE  10SX18X55G",
+      "unit": "CTN",
+      "times_ordered": 10,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "C02",
+      "description": "THAILAND SWEET CHILLI SAUCE 5KG/BOT 泰式甜辣椒酱",
+      "unit": "BOT",
+      "times_ordered": 8,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "OIL-5L",
+      "description": "5 LITER-COOKING OIL -食油",
+      "unit": "BOT",
+      "times_ordered": 8,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 7,
+      "total_qty": 14.0
+    },
+    {
+      "item_code": "DGG-PKT",
+      "description": "1KG/包 DRIED GARLIC GRANULES  干蒜米(粒)",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "FL07(CAN)",
+      "description": "450G/罐 ROYAL BAKING POWDER  发粉",
+      "unit": "CAN",
+      "times_ordered": 6,
+      "total_qty": 9.0
+    },
+    {
+      "item_code": "M527(BOT)",
+      "description": "GW BLACK VINEGAR 长城黑浙醋/瓶 635ML/BOT",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "OIL 83",
+      "description": "SH SEASAME OIL (WHITE CAP) 蔴油(白盖) 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 4,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "C19",
+      "description": "SCW MALA SPICY CHILLI   1X5L  麻辣辣椒酱",
+      "unit": "BOT",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "N41",
+      "description": "VERMICELLI  250G/PKT  冬粉/包",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 60.0
+    },
+    {
+      "item_code": "AA403",
+      "description": "THAI LIME JUICE   1LT/BOT  酸柑水/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "M18",
+      "description": "AJINOMOTO(AJINEX)味精 1KG/PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "W002",
+      "description": "",
+      "unit": "CTN",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    }
+  ]
+}

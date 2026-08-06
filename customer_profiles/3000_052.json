@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/052",
+  "customer_name": ">(805)5 STAR CORNER WESTERN FOOD 西餐",
+  "order_history": [
+    {
+      "item_code": "FL04",
+      "description": "1KG/PKT/包 FRY CHICKEN FLOUR 炸鸡粉",
+      "unit": "PKT",
+      "times_ordered": 8,
+      "total_qty": 45.0
+    }
+  ]
+}

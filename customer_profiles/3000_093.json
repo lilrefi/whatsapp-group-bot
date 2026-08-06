@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/093",
+  "customer_name": "XIN FU JI SEAFOOD 新福記海鲜 90698931",
+  "order_history": [
+    {
+      "item_code": "FFS-PKT",
+      "description": "",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 8.0
+    }
+  ]
+}

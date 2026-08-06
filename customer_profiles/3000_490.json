@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/490",
+  "customer_name": "(20)EUNICE CHIN #06-08",
+  "order_history": [
+    {
+      "item_code": "R204",
+      "description": "ROYAL UMBRELLA RICE(PREMIUM) 安培娜泰国香米(袋) 25KG",
+      "unit": "BAG",
+      "times_ordered": 3,
+      "total_qty": 3.0
+    }
+  ]
+}

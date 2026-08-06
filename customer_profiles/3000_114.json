@@ -1,0 +1,55 @@
+{
+  "customer_code": "3000/114",
+  "customer_name": ">BLK 586 CHINESE FOOD STALL( NEE SOON CAMP)",
+  "order_history": [
+    {
+      "item_code": "R204",
+      "description": "ROYAL UMBRELLA RICE(PREMIUM) 安培娜泰国香米(袋) 25KG",
+      "unit": "BAG",
+      "times_ordered": 17,
+      "total_qty": 24.0
+    },
+    {
+      "item_code": "OIL 28",
+      "description": "DAISY VEGETABLE OIL 15KG",
+      "unit": "TIN",
+      "times_ordered": 12,
+      "total_qty": 18.0
+    },
+    {
+      "item_code": "N67",
+      "description": "3KGPKT/包 BEE HOON 米粉(干)",
+      "unit": "PKT",
+      "times_ordered": 6,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "KA-L",
+      "description": "KARA COCONUT MILK(L) 1L/PKT/包  大椰浆",
+      "unit": "PKT",
+      "times_ordered": 5,
+      "total_qty": 10.0
+    },
+    {
+      "item_code": "PV7(PKT)",
+      "description": "KNORR CHICKEN FLAVORED SEASONING/袋 1KG",
+      "unit": "BAG",
+      "times_ordered": 4,
+      "total_qty": 16.0
+    },
+    {
+      "item_code": "TA203",
+      "description": "",
+      "unit": "BAG",
+      "times_ordered": 2,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "CA46(CAN)",
+      "description": "HIGHWAY PORK LUNCHEON MEAT 397GM  猪午餐肉(罐)",
+      "unit": "CAN",
+      "times_ordered": 1,
+      "total_qty": 10.0
+    }
+  ]
+}

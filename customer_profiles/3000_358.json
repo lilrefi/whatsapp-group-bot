@@ -1,0 +1,13 @@
+{
+  "customer_code": "3000/358",
+  "customer_name": "#NEWTON FC (AG)",
+  "order_history": [
+    {
+      "item_code": "Z100(PKT)",
+      "description": "SALTED FISH BITS  1X1KG 咸鱼(粒)/包",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 30.0
+    }
+  ]
+}

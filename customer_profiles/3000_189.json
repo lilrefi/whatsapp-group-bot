@@ -1,0 +1,76 @@
+{
+  "customer_code": "3000/189",
+  "customer_name": ">116_JI DE SHI SEAFOOD",
+  "order_history": [
+    {
+      "item_code": "N84",
+      "description": "THICK NOODLE (YELLOW)1KG 大粗麺",
+      "unit": "PKT",
+      "times_ordered": 3,
+      "total_qty": 15.0
+    },
+    {
+      "item_code": "M515",
+      "description": "400GM- WHITE PEPPER MIX PWD 白胡椒粉(包)",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 2.0
+    },
+    {
+      "item_code": "M521",
+      "description": "HUA TIAO CHIEW(GT CHEF)  640ML/BOT  花雕酒(大厨)/瓶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 6.0
+    },
+    {
+      "item_code": "M534",
+      "description": ":1KG SUGAR  白糖/包-PKT",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "M59(PKT)",
+      "description": "VE-SIN MSG   1KG/PKT  味精/包",
+      "unit": "PKT",
+      "times_ordered": 1,
+      "total_qty": 8.0
+    },
+    {
+      "item_code": "MCMLS-410",
+      "description": "4 STAR P/LIGHT SOY SAUCE  3.6KG/BOT  4星优质原生抽/桶",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    },
+    {
+      "item_code": "OIL 83",
+      "description": "SH SEASAME OIL (WHITE CAP) 蔴油(白盖) 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 1.0
+    },
+    {
+      "item_code": "OYS23",
+      "description": "OYSTER SAUCE (WHITE CAP) 蚝油 5LT/BOT",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 4.0
+    },
+    {
+      "item_code": "PV10",
+      "description": "BOX- TABLE SALT  500G  盒盐/盒",
+      "unit": "BOX",
+      "times_ordered": 1,
+      "total_qty": 12.0
+    },
+    {
+      "item_code": "QQ18",
+      "description": "香老抽(红)/RED FRAGRANT DARK SOYA SAUCE 5KG",
+      "unit": "BOT",
+      "times_ordered": 1,
+      "total_qty": 3.0
+    }
+  ]
+}
