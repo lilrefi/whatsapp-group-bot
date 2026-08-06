@@ -20,6 +20,15 @@ let sock = null;
 let isReady = false;
 let groupCache = {};
 
+// ─── Order-taking hiatus ───────────────────────────────────────────────────────
+// Set ORDER_TAKING_ENABLED=false in .env to stop parsing incoming group
+// messages into orders entirely (no transcription, no OCR, no sessions) while
+// keeping everything else running — Baileys connection, group_profiles links,
+// and outbound sends via postToGroup()/POST /api/send-message (used for
+// scheduled/manual messages from db_revamp) are all unaffected. Manual,
+// open-ended re-enable: flip the env var back and restart. See CLAUDE.md.
+const ORDER_TAKING_ENABLED = process.env.ORDER_TAKING_ENABLED !== 'false';
+
 // ─── Message dedup ───────────────────────────────────────────────────────────
 // Baileys can redeliver the same message via messages.upsert (reconnects,
 // multi-device sync), which would otherwise process an order twice. Track
@@ -88,6 +97,7 @@ async function ocrImage(imageBuffer, mimeType) {
             type: 'text',
             text: 'Extract a customer\'s order from this image. It may be a plain handwritten/typed list, OR a pre-printed product catalog/price sheet where the customer has marked which items they want by writing a tick, checkmark, circle, or a number in the blank space next to that row\'s Qty column.\n\n' +
               'If it is a pre-printed catalog/price-sheet style image (rows with item codes and descriptions, e.g. "AA417 Assam Paste/Tamarind 1kg/pkt"): ONLY extract rows that have a visible handwritten mark next to them. Ignore every row with no mark — do not extract the full list. For each marked row, use the handwritten number if one is written, otherwise 1 for a plain tick/checkmark/circle with no number.\n\n' +
+              'Some handwritten orders use a two-line-per-item format: a product name on its own line, followed immediately by a separate line containing only a quantity and unit (e.g. "1LITER/支", "600G/斤") with no product name of its own. Treat a quantity-only line like this as belonging to the product name line directly above it — merge them into a single order item (name from the first line, quantity/unit from the second), not two separate items.\n\n' +
               'Also rate your confidence that each mark is genuinely there and correctly read, as "high", "medium", or "low". Use "medium" or "low" when a mark is faint, ambiguous, or could be a stray pen mark or print artifact rather than a deliberate mark.\n\n' +
               'If the sheet has an item-code column (often labeled "Item No", "S/N", "Code", or similar — e.g. "AA417", "BA-CMN"), also record that exact code as "sku" for each marked row. Copy it exactly as printed, including hyphens/parentheses. Omit "sku" (or use null) if there is no such code column, or for a plain handwritten/typed list.\n\n' +
               'Respond with ONLY a JSON array, no other text, in this exact shape: [{"name": "<item description>", "sku": "<item code or null>", "quantity": <number>, "confidence": "high"|"medium"|"low"}]. If it is a plain handwritten/typed list rather than a catalog, extract it the same way with confidence "high" for each clearly-written item and sku null. If no order or marks are visible anywhere, respond with [].'
@@ -281,6 +291,7 @@ async function connectBaileys() {
         console.log(`⏭️  Skipping duplicate message ${msg.key.id}`);
         continue;
       }
+      if (!ORDER_TAKING_ENABLED) continue; // order-taking on hiatus — see ORDER_TAKING_ENABLED above
 
       const senderPhone = (msg.key.participant || '').replace('@s.whatsapp.net', '');
       const messageTimestamp = msg.messageTimestamp
